@@ -14,6 +14,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           plg_branch: trunk
-          build_package: false
           build_prereleases: true
           ssh_key: ${{ secrets.DEPLOY_KEY }}
+          composer_dir: src/usr/local/php/unraid-tailscale-utils/

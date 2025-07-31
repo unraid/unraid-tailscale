@@ -1,0 +1,34 @@
+{
+  "INCLUDE_INTERFACE": {
+    "default": "1",
+    "description": "Adds tailscale interface to Unraid services"
+  },
+  "USAGE": {
+    "default": "1",
+    "description": "Allow collection of usage data"
+  },
+  "ACCEPT_DNS": {
+    "default": "0",
+    "description": "Use MagicDNS"
+  },
+  "ACCEPT_ROUTES": {
+    "default": "0",
+    "description": "Use routes from the tailnet"
+  },
+  "SYSCTL_IP_FORWARD": {
+    "default": "1",
+    "description": "Enable IP forwarding in sysctl"
+  },
+  "ENABLE_TAILSCALE": {
+    "default": "1",
+    "description": "Tailscale enabled"
+  },
+  "WG_PORT": {
+    "default": "0",
+    "description": "Port for Wireguard connections"
+  },
+  "TAILDROP_DIR": {
+    "default": "",
+    "description": "Destination for Taildrop files"
+  }
+}

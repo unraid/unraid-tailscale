@@ -3,14 +3,36 @@ name: Commit Quality
 on:
   push:
     branches:
-      - trunk
+      - main
   pull_request:
 
 jobs:
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP-CS-Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --diff --dry-run
+
+  phpstan:
+    name: PHPStan Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: php-actions/composer@v6
+        with:
+          working_dir: "src/usr/local/php/unraid-tailscale-utils"
+      - run: "vendor/bin/phpstan"
+
   commitlint:
+    name: Commitlint
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -19,7 +41,7 @@ jobs:
           npm install -g commitlint
           npm install -g "@commitlint/config-conventional"
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 

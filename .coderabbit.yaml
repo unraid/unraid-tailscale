@@ -1,0 +1,16 @@
+language: en-US
+early_access: true
+enable_free_tier: true
+reviews:
+  profile: chill
+  poem: false
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+  tools:
+    phpstan:
+      enabled: false
+      level: default
+

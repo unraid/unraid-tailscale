@@ -35,9 +35,9 @@ For older releases, see https://github.com/{{ env['GITHUB_REPOSITORY'] }}/releas
 <SHA256>{{ tailscaleSHA256 }}</SHA256>
 </FILE>
 
-<FILE Name="/boot/config/plugins/{{ name }}/unraid-tailscale-utils-{{ packageVersion }}-noarch-1.txz">
-<URL>https://github.com/unraid/unraid-tailscale-utils/releases/download/{{ packageVersion }}/unraid-tailscale-utils-{{ packageVersion }}-noarch-1.txz</URL>
-<SHA256>{{ packageSHA256 }}</SHA256>
+<FILE Name="/boot/config/plugins/{{ name }}/{{ package_name }}-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz">
+<URL>https://github.com/{{ env['GITHUB_REPOSITORY'] }}/releases/download/{{ env['PLUGIN_VERSION'] }}/{{ package_name }}-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz</URL>
+<SHA256>{{ env['PLUGIN_CHECKSUM'] }}</SHA256>
 </FILE>
 
 <!--
@@ -50,7 +50,7 @@ if [ -d "{{ pluginDirectory }}" ]; then
     rm -rf {{ pluginDirectory }}
 fi
 
-upgradepkg --install-new --reinstall {{ configDirectory }}/unraid-tailscale-utils-{{ packageVersion }}-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/{{ name }}/{{ package_name }}-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz
 
 mkdir -p {{ pluginDirectory }}/bin
 tar xzf {{ configDirectory }}/{{ tailscaleVersion }}.tgz --strip-components 1 -C {{ pluginDirectory }}/bin
@@ -86,9 +86,7 @@ sed -i "s/Tailscale\*\*/Tailscale ({{ branch.capitalize() }})**/" {{ pluginDirec
 tailscale completion bash > /etc/bash_completion.d/tailscale
 
 # cleanup old versions
-rm -f /boot/config/plugins/{{ name }}/tailscale-utils-*.txz
-rm -f $(ls /boot/config/plugins/{{ name }}/unraid-tailscale-utils-*.txz 2>/dev/null | grep -v '{{ packageVersion }}')
-rm -f $(ls /boot/config/plugins/{{ name }}/unraid-plugin-diagnostics-*.txz 2>/dev/null)
+rm -f $(ls /boot/config/plugins/{{ name }}/{{ package_name }}-*.txz 2>/dev/null | grep -v '{{ env['PLUGIN_VERSION'] }}')
 rm -f $(ls /boot/config/plugins/{{ name }}/*.tgz 2>/dev/null | grep -v '{{ tailscaleVersion }}')
 
 # check to see if the state file has been backed up to Unraid Connect

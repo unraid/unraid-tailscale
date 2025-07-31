@@ -1,0 +1,76 @@
+{
+    "title": "Tailscale",
+    "filters": [
+        "s/\\.[^\\.]*\\.myunraid\\.net/\\.hash\\.myunraid\\.net/g",
+        "s/\\.[^\\.]*\\.ts\\.net/\\.magicdns\\.ts\\.net/g"
+    ],
+    "commands": [
+        {
+            "command": "tailscale status",
+            "file": "tailscale-status.txt",
+            "filters": [
+                "s/^(\\S*[ ]*\\S*[ ]*\\S)\\S*/\\1zzz/g",
+                "s/^(\\S*[ ]*\\S)\\S*/\\1zzz/g",
+                "s/  */ /g"
+            ]
+        },
+        {
+            "command": "tailscale debug prefs | jq 'del(.Config)'",
+            "file": "tailscale-debug-prefs.txt"
+        },
+        {
+            "command": "tailscale lock status",
+            "file": "tailscale-lock-status.txt"
+        },
+        {
+            "command": "ls -Rl /usr/local/emhttp/plugins/tailscale/",
+            "file": "plugin-files.txt"
+        },
+        {
+            "command": "ls -l /boot/config/plugins/tailscale/",
+            "file": "config-files.txt"
+        },
+        {
+            "command": "iptables -L -n -v",
+            "file": "iptables.txt"
+        },
+        {
+            "command": "ip link",
+            "file": "ip-link.txt"
+        },
+        {
+            "command": "ip address",
+            "file": "ip-address.txt"
+        },
+        {
+            "command": "docker network inspect host",
+            "file": "docker-network-host.txt"
+        },
+        {
+            "command": "ip rule",
+            "file": "ip-rule.txt"
+        },
+        {
+            "command": "ip route list table 52",
+            "file": "ip-route-tailscale.txt"
+        },
+        {
+            "command": "ip route list table all",
+            "file": "ip-route-all.txt"
+        },
+        {
+            "command": "netstat -4nl",
+            "file": "ipv4-listening.txt"
+        }
+    ],
+    "files": [
+        "/boot/config/plugins/tailscale/tailscale.cfg",
+        "/etc/resolv.conf",
+        "/etc/ssh/sshd_config",
+        "/etc/nginx/conf.d/servers.conf",
+        "/etc/samba/smb-names.conf",
+        "/var/log/tailscale*"
+    ],
+    "system_diagnostics": true,
+    "upload": "https://plugin-diagnostics.edacerton.win/"
+}

@@ -1,0 +1,9 @@
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+
+preserve_hierarchy: true
+
+files:
+  - source: /src/usr/local/emhttp/plugins/tailscale/locales/en_US.json
+    dest: /unraid-tailscale-utils/en_US.json
+    translation: /src/usr/local/emhttp/plugins/tailscale/locales/%locale_with_underscore%.json

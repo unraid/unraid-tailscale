@@ -1,0 +1,15 @@
+.tablesorter .filtered {
+    display: none;
+}
+.tablesorter-filter.disabled {
+  display: none;
+}
+.fileTree {
+    width: 300px;
+    max-height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: absolute;
+    z-index: 100;
+    display: none
+}

@@ -1,0 +1,46 @@
+#!/bin/sh
+# /etc/rc.d/rc.tailscaled - start/stop the tailscaled daemon
+
+. /usr/local/emhttp/plugins/tailscale/log.sh
+
+if [ -f /usr/local/emhttp/plugins/tailscale/custom-params.sh ]; then
+    . /usr/local/emhttp/plugins/tailscale/custom-params.sh
+else
+    TAILSCALE_CUSTOM_PARAMS=""
+fi
+
+start_tailscaled() {
+  if ! /usr/bin/pgrep --ns $$ --euid root -f "^/usr/local/sbin/tailscaled" 1> /dev/null 2> /dev/null ; then
+    TAILSCALE_START_CMD="/usr/local/sbin/tailscaled -statedir /boot/config/plugins/tailscale/state -tun tailscale1 $TAILSCALE_CUSTOM_PARAMS"
+    log "Starting tailscaled: $TAILSCALE_START_CMD"
+    mkdir -p /boot/config/plugins/tailscale/state
+    $TAILSCALE_START_CMD 2>&1 | grep -vF "monitor: [unexpected]" >> /var/log/tailscale.log &
+    nohup /usr/local/emhttp/plugins/tailscale/tailscale-watcher.php 1>/dev/null 2>&1 &
+  fi
+}
+
+stop_tailscaled() {
+  log "Stopping tailscaled."
+  killall --ns $$ --wait tailscale-watcher.php 2> /dev/null
+  killall --ns $$ --wait tailscaled 2> /dev/null
+}
+
+restart_tailscaled() {
+  stop_tailscaled
+  sleep 1
+  start_tailscaled
+}
+
+case "$1" in
+'start')
+  start_tailscaled
+  ;;
+'stop')
+  stop_tailscaled
+  ;;
+'restart')
+  restart_tailscaled
+  ;;
+*)
+  echo "usage $0 start|stop|restart"
+esac
