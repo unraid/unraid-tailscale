@@ -24,7 +24,7 @@ use EDACerton\PluginUtils\Translator;
 $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
 require_once "{$docroot}/plugins/tailscale/include/common.php";
 
-if (! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
+if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PLUGIN_NAME')) {
     throw new \RuntimeException("Common file not loaded.");
 }
 
@@ -32,7 +32,7 @@ $tr = $tr ?? new Translator(PLUGIN_ROOT);
 
 $tailscaleConfig = $tailscaleConfig ?? new Config();
 
-if (! $tailscaleConfig->Enable) {
+if ( ! $tailscaleConfig->Enable) {
     echo($tr->tr("tailscale_disabled"));
     return;
 }
