@@ -1,0 +1,8 @@
+{
+    "files": [
+        "/var/log/tailscale.log",
+        "/var/log/tailscale.log.*",
+        "/var/log/tailscale-utils.log",
+        "/var/log/tailscale-utils.log.*"
+    ]
+}
