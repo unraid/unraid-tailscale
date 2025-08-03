@@ -13,3 +13,7 @@
     z-index: 100;
     display: none
 }
+
+li.select2-results__option {
+    color: black;
+}
