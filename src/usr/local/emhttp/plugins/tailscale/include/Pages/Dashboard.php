@@ -43,10 +43,20 @@ if ($tailscaleConfig->Enable) {
 
 echo <<<EOT
     <tbody title="Tailscale">
-    <tr><td>
-    <img style="margin-right: 8px; width: 32px; height: 32px" src="/plugins/tailscale/tailscale.png" alt="Tailscale"><div class='section'>Tailscale<br><span id='tailscale-temp'></span><br></div>
-    <a href="/Settings/Tailscale" title="_(Settings)_"><i class="fa fa-fw fa-cog control"></i></a>
-    </td></tr>
+    <tr>
+        <td>
+            <span class='tile-header'>
+                <span class='tile-header-left'>
+                    <img style="margin-right: 8px; width: 32px; height: 32px" src="/plugins/tailscale/tailscale.png" alt="Tailscale">
+                    Tailscale
+                </span>
+                <span class='tile-header-right'>
+                    <span class='tile-header-right-controls'><a href="/Settings/Tailscale" title="_(Settings)_"><i class="fa fa-fw fa-cog control"></i></a></span>
+                </span>
+            </span>
+        </td>
+    </tr>
+            
     {$tailscale_dashboard}
     </tbody>
     EOT;
