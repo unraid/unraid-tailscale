@@ -105,10 +105,14 @@ class System
         }
 
         // Check if serveConfig has an AllowFunnel property. If this exists, but Config->AllowFunnel is false, reset the config.
-        $config = new Config();
-        if (isset($serveConfig->AllowFunnel) && $config->AllowFunnel === false) {
-            Utils::logwrap("Tailscale funnel is enabled, but config does not allow it, resetting serve config");
-            $localAPI->resetServeConfig();
+        // This should only be done if the Unraid version is 7.2 or later, as earlier versions do not display the config setting.
+        $vars = parse_ini_file('/usr/local/emhttp/state/var.ini');
+        if (version_compare($vars['version'] ?? "", '7.2', '>=')) {
+            $config = new Config();
+            if (isset($serveConfig->AllowFunnel) && $config->AllowFunnel === false) {
+                Utils::logwrap("Tailscale funnel is enabled, but config does not allow it, resetting serve config");
+                $localAPI->resetServeConfig();
+            }
         }
     }
 
