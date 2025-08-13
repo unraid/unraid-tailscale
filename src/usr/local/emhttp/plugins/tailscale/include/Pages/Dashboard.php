@@ -41,6 +41,10 @@ if ($tailscaleConfig->Enable) {
     $tailscale_dashboard .= Utils::printDash($tr->tr("info.ip"), implode("<br><span class='w26'>&nbsp;</span>", $tailscaleDashInfo->TailscaleIPs));
 }
 
+$isResponsiveWebgui = version_compare(parse_ini_file('/etc/unraid-version')['version'] ?? "", '7.2', '>=');
+$cardTitleStart     = $isResponsiveWebgui ? "<h3 class='tile-header-main'>" : "";
+$cardTitleEnd       = $isResponsiveWebgui ? "</h3>" : "<br>";
+
 echo <<<EOT
     <tbody title="Tailscale">
     <tr>
@@ -48,7 +52,9 @@ echo <<<EOT
             <span class='tile-header'>
                 <span class='tile-header-left'>
                     <img style="margin-right: 8px; width: 32px; height: 32px" src="/plugins/tailscale/tailscale.png" alt="Tailscale">
-                    Tailscale
+                    <div class='section'>
+                        {$cardTitleStart} Tailscale {$cardTitleEnd}
+                    </div>
                 </span>
                 <span class='tile-header-right'>
                     <span class='tile-header-right-controls'><a href="/Settings/Tailscale" title="_(Settings)_"><i class="fa fa-fw fa-cog control"></i></a></span>
