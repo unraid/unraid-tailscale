@@ -23,14 +23,9 @@ class Utils extends \EDACerton\PluginUtils\Utils
 {
     public function setPHPDebug(): void
     {
-        $version = parse_ini_file('/var/local/emhttp/plugins/tailscale/tailscale.ini');
+        $debug = file_exists("/boot/config/plugins/tailscale/debug");
 
-        if ( ! $version) {
-            $this->logmsg("Could not retrieve system data, skipping debug check.");
-            return;
-        }
-
-        if ((($version['BRANCH'] ?? "") == "trunk") && ! defined("PLUGIN_DEBUG")) {
+        if ($debug && ! defined("PLUGIN_DEBUG")) {
             error_reporting(E_ALL);
             define("PLUGIN_DEBUG", true);
         }
