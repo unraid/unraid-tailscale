@@ -42,8 +42,8 @@ $tailscaleInfo = $tailscaleInfo ?? new Info($tr);
 <link type="text/css" rel="stylesheet" href="/plugins/tailscale/style.css">
 <script src="/webGui/javascript/jquery.tablesorter.widgets.js"></script>
 
-<script src="/plugins/tailscale/vendor/select2/select2.min.js"></script>
-<link href="/plugins/tailscale/vendor/select2/select2.min.css" rel="stylesheet" />
+<script src="/plugins/tailscale/lib/select2/select2.min.js"></script>
+<link href="/plugins/tailscale/lib/select2/select2.min.css" rel="stylesheet" />
 
 <style>
 .select2-container{
