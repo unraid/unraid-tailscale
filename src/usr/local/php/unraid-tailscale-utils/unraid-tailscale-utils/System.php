@@ -123,6 +123,10 @@ class System
 
             Utils::runwrap(self::RESTART_COMMAND);
         }
+
+        if (file_exists('/etc/rc.d/rc.tsidp')) {
+            Utils::runwrap('/etc/rc.d/rc.tsidp restart');
+        }
     }
 
     public static function enableIPForwarding(Config $config): void
