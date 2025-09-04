@@ -19,14 +19,14 @@ jobs:
           composer_dir: src/usr/local/php/unraid-tailscale-utils/
 
       - name: Actions for Discord (Release)
-        uses: Ilshidur/action-discord@0.4.0
+        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
         env:
           DISCORD_WEBHOOK: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
         with:
           args: |
-            🚀 **Tailscale Release ${{ inputs.version }}**
+            🚀 **Tailscale Release ${{ github.event.release.name }}**
 
-            View Release: https://github.com/${{ github.repository }}/releases/tag/${{ inputs.version }}
+            View Release: ${{ github.event.release.html_url }}
 
             **Changelog:**
 
@@ -34,14 +34,14 @@ jobs:
         if: github.event.release.prerelease == false
 
       - name: Actions for Discord (Preview)
-        uses: Ilshidur/action-discord@0.4.0
+        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
         env:
           DISCORD_WEBHOOK: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
         with:
           args: |
-            🚀 **Tailscale Preview ${{ inputs.version }}**
+            🚀 **Tailscale Preview ${{ github.event.release.name }}**
 
-            View Release: https://github.com/${{ github.repository }}/releases/tag/${{ inputs.version }}
+            View Release: ${{ github.event.release.html_url }}
 
             **Changelog:**
 
