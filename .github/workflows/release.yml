@@ -47,9 +47,11 @@ jobs:
           webhookUrl: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
           username: Tailscale Bot
           avatarUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/heads/trunk/logo.png
-          text: 🚀 **Tailscale ${{ github.event.release.prerelease && 'Preview' || 'Release' }} : ${{ github.event.release.name }}**
+          text: |
+            🚀 **Tailscale ${{ github.event.release.prerelease && 'Preview' || 'Release' }} : ${{ github.event.release.name }}**
           severity: info # only to make sure the embed is added
           color: '#00ff00'
           title: Changelog
           description: ${{ github.event.release.body }}
-          footer: View Release: ${{ github.event.release.html_url }}
+          footer: |
+            View Release: ${{ github.event.release.html_url }}
