@@ -1,3 +1,5 @@
+name: Release
+
 on:
   release:
     types:
@@ -11,6 +13,7 @@ jobs:
       contents: write
     steps:
       - uses: dkaser/unraid-plugin-release-action@v1
+        id: release_action
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           plg_branch: trunk
@@ -21,25 +24,21 @@ jobs:
       # Print out the commit SHA
       - name: Print commit SHA
         run: echo "Commit SHA ${{ steps.release_action.outputs.commit_long_sha }}"
-
-      # Update preview tag using API
+        
+      # Update preview tag using git
       - name: Update preview tag
         run: |
-          curl -X PATCH \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            -d '{"tag_name": "preview", "target_commitish": "${{ steps.release_action.outputs.commit_short_sha }}"}' \
-            https://api.github.com/repos/${{ github.repository }}/git/refs/tags/preview
+          cd ${{ github.workspace }}/main
+          git tag -f preview ${{ steps.release_action.outputs.commit_long_sha }}
+          git push origin preview --force
 
       # Update main tag if not a prerelease
       - name: Update main tag
         if: github.event.release.prerelease == false
         run: |
-          curl -X PATCH \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            -d '{"tag_name": "main", "target_commitish": "${{ steps.release_action.outputs.commit_short_sha }}"}' \
-            https://api.github.com/repos/${{ github.repository }}/git/refs/tags/main
+          cd ${{ github.workspace }}/main
+          git tag -f main ${{ steps.release_action.outputs.commit_long_sha }}
+          git push origin main --force
 
       - name: Notify Discord
         uses: rjstone/discord-webhook-notify@v2
