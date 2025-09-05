@@ -18,32 +18,38 @@ jobs:
           ssh_key: ${{ secrets.DEPLOY_KEY }}
           composer_dir: src/usr/local/php/unraid-tailscale-utils/
 
-      - name: Actions for Discord (Release)
-        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
-        with:
-          args: |
-            🚀 **Tailscale Release ${{ github.event.release.name }}**
+      # Print out the commit SHA
+      - name: Print commit SHA
+        run: echo "Commit SHA ${{ steps.release_action.outputs.commit_long_sha }}"
 
-            View Release: ${{ github.event.release.html_url }}
+      # Update preview tag using API
+      - name: Update preview tag
+        run: |
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{"tag_name": "preview", "target_commitish": "${{ steps.release_action.outputs.commit_short_sha }}"}' \
+            https://api.github.com/repos/${{ github.repository }}/git/refs/tags/preview
 
-            **Changelog:**
-
-            ${{ github.event.release.body }}
+      # Update main tag if not a prerelease
+      - name: Update main tag
         if: github.event.release.prerelease == false
+        run: |
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{"tag_name": "main", "target_commitish": "${{ steps.release_action.outputs.commit_short_sha }}"}' \
+            https://api.github.com/repos/${{ github.repository }}/git/refs/tags/main
 
-      - name: Actions for Discord (Preview)
-        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
+      - name: Notify Discord
+        uses: rjstone/discord-webhook-notify@v2
         with:
-          args: |
-            🚀 **Tailscale Preview ${{ github.event.release.name }}**
-
-            View Release: ${{ github.event.release.html_url }}
-
-            **Changelog:**
-
-            ${{ github.event.release.body }}
-        if: github.event.release.prerelease == true
+          webhookUrl: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
+          username: Tailscale Bot
+          avatarUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/heads/trunk/logo.png
+          text: 🚀 **Tailscale ${{ github.event.release.prerelease && 'Preview' || 'Release' }} : ${{ github.event.release.name }}**
+          severity: info # only to make sure the embed is added
+          color: '#00ff00'
+          title: Changelog
+          description: ${{ github.event.release.body }}
+          footer: View Release: ${{ github.event.release.html_url }}
