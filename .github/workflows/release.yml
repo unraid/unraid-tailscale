@@ -45,16 +45,19 @@ jobs:
         with:
           webhookUrl: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
           username: Tailscale Bot
-          avatarUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/heads/trunk/logo.png
-          thumbnailUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/heads/trunk/logo.png
+          avatarUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/trunk/logo.png
+          thumbnailUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/trunk/logo.png
           severity: info
           color: '#00ff00'
           title: New Update Available
           description: |
             ## :loudspeaker: Tailscale Plugin Update : ${{ github.event.release.name }}
+
+            ### :wrench: Changes
+
+            ${{ github.event.release.body }}
           fields: |
             [
-              {"name": ":wrench: Changes", "value": ${{ toJson(github.event.release.body) }} },
               {"name": "Channel", "value": ${{ toJson(github.event.release.prerelease && ':test_tube: Preview' || 'Release') }}, "inline": true},
               {"name": ":label: Tag", "value": ${{ toJson(github.event.release.tag_name) }}, "inline": true},
               {"name": ":link: Release Link", "value": ${{ toJson(github.event.release.html_url) }} }
