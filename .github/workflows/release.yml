@@ -41,16 +41,21 @@ jobs:
           git push origin main --force
 
       - name: Notify Discord
-        uses: rjstone/discord-webhook-notify@v2
+        uses: dkaser/discord-webhook-notify@b6c7898af81ecc4e788b1c26743aa1d43aa469ae
         with:
           webhookUrl: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
           username: Tailscale Bot
           avatarUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/heads/trunk/logo.png
-          text: |
-            🚀 **Tailscale ${{ github.event.release.prerelease && 'Preview' || 'Release' }} : ${{ github.event.release.name }}**
-          severity: info # only to make sure the embed is added
+          thumbnailUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/heads/trunk/logo.png
+          severity: info
           color: '#00ff00'
-          title: Changelog
-          description: ${{ github.event.release.body }}
-          footer: |
-            View Release: ${{ github.event.release.html_url }}
+          title: New Update Available
+          description: |
+            ## :loudspeaker: Tailscale Plugin Update : ${{ github.event.release.name }}
+          fields: |
+            [
+              {"name": ":wrench: Changes", "value": ${{ toJson(github.event.release.body) }} },
+              {"name": "Channel", "value": ${{ toJson(github.event.release.prerelease && ':test_tube: Preview' || 'Release') }}, "inline": true},
+              {"name": ":label: Tag", "value": ${{ toJson(github.event.release.tag_name) }}, "inline": true},
+              {"name": ":link: Release Link", "value": ${{ toJson(github.event.release.html_url) }} }
+            ]
