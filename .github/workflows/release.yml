@@ -24,7 +24,7 @@ jobs:
       # Print out the commit SHA
       - name: Print commit SHA
         run: echo "Commit SHA ${{ steps.release_action.outputs.commit_long_sha }}"
-        
+
       # Update preview tag using git
       - name: Update preview tag
         run: |
@@ -48,12 +48,10 @@ jobs:
           avatarUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/trunk/logo.png
           thumbnailUrl: https://raw.githubusercontent.com/unraid/unraid-tailscale/trunk/logo.png
           severity: info
-          color: '#00ff00'
+          color: "#00ff00"
           title: New Update Available
           description: |
             ## :loudspeaker: Tailscale Plugin Update : ${{ github.event.release.name }}
-
-            ### :wrench: Changes
 
             ${{ github.event.release.body }}
           fields: |

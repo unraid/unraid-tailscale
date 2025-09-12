@@ -1,0 +1,29 @@
+name: Release Drafter
+
+on:
+  push:
+    branches:
+      - trunk
+
+permissions:
+  contents: read
+
+jobs:
+  update_release_draft:
+    permissions:
+      contents: write
+      pull-requests: read
+    runs-on: ubuntu-latest
+    steps:
+      # Calculate version string in format YYYY.MM.DD.HHMM
+      - name: Set version string
+        id: set_version
+        run: echo "version=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_ENV
+
+      - uses: release-drafter/release-drafter@v6
+        with:
+          version: ${{ env.version }}
+          name: ${{ env.version }}
+          tag: ${{ env.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
