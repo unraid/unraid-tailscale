@@ -18,7 +18,7 @@ jobs:
       # Calculate version string in format YYYY.MM.DD.HHMM
       - name: Set version string
         id: set_version
-        run: echo "version=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_ENV
+        run: TZ=UTC date +'%Y.%m.%d.%H%M' | xargs -I{} echo "version={}" >> $GITHUB_ENV
 
       - uses: release-drafter/release-drafter@v6
         with:
