@@ -17,3 +17,9 @@ template: |
 prerelease: "true"
 include-pre-releases: "true"
 latest: "false"
+exclude-labels:
+  - "docs"
+  - "test"
+  - "ci"
+  - "perf"
+  - "refactor"
