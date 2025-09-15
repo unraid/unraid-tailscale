@@ -41,7 +41,7 @@ jobs:
           git push origin main --force
 
       - name: Notify Discord
-        uses: dkaser/discord-webhook-notify@bf12ca7b525444f8d11914b591a4a6c3394cadc6
+        uses: dkaser/discord-webhook-notify@tailscale
         with:
           webhookUrl: ${{ secrets.TAILSCALE_DISCORD_WEBHOOK }}
           username: Tailscale Bot
