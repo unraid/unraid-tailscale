@@ -29,6 +29,7 @@ class Config
     public bool $AllowDNS;
     public bool $AllowRoutes;
     public bool $AllowFunnel;
+    public bool $AddPeersToHosts;
 
     public int $WgPort;
     public string $TaildropDir;
@@ -52,6 +53,7 @@ class Config
         $this->AllowDNS         = boolval($saved_config["ACCEPT_DNS"] ?? "0");
         $this->AllowRoutes      = boolval($saved_config["ACCEPT_ROUTES"] ?? "0");
         $this->AllowFunnel      = boolval($saved_config["ALLOW_FUNNEL"] ?? "0");
+        $this->AddPeersToHosts  = boolval($saved_config["ADD_PEERS_TO_HOSTS"] ?? "0");
 
         $this->WgPort = intval($saved_config["WG_PORT"] ?? "0");
 

@@ -71,6 +71,9 @@ class Watcher
                     $utils->run_task('Tailscale\System::applyTailscaleConfig', array($this->config));
                     $utils->run_task('Tailscale\System::applyGRO');
                     $utils->run_task('Tailscale\System::restartSystemServices', array($this->config));
+                    if ($this->config->AddPeersToHosts) {
+                        $utils->run_task('Tailscale\System::addToHostFile', array($status));
+                    }
                 }
 
                 $utils->run_task('Tailscale\System::checkWebgui', array($this->config, $tailscale_ipv4));

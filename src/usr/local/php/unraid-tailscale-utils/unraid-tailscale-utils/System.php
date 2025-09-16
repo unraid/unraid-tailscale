@@ -26,10 +26,47 @@ enum NotificationType: string
     case ALERT   = 'alert';
 }
 
-class System
+class System extends \EDACerton\PluginUtils\System
 {
     public const RESTART_COMMAND = "/usr/local/emhttp/webGui/scripts/reload_services";
     public const NOTIFY_COMMAND  = "/usr/local/emhttp/webGui/scripts/notify";
+
+    public static function addToHostFile(\stdClass $status): void
+    {
+        // Add self to /etc/hosts
+        if (isset($status->Self->DNSName) && isset($status->Self->TailscaleIPs) && is_array($status->Self->TailscaleIPs)) {
+            foreach ($status->Self->TailscaleIPs as $ip) {
+                if (is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                    Utils::logwrap("Adding self {$status->Self->DNSName} with IP {$ip} to hosts file");
+                    self::updateHostsFile(rtrim($status->Self->DNSName, '.'), $ip);
+                }
+            }
+        } else {
+            Utils::logwrap("Self DNSName or TailscaleIPs not found, skipping self addition to hosts file.");
+        }
+
+        // Add all peers to /etc/hosts, except those with the tag 'tag:mullvad-exit-node'
+        if (isset($status->Peer) && is_object($status->Peer)) {
+            foreach ((array)$status->Peer as $k => $peer) {
+                if ( ! ($peer instanceof \stdClass)) {
+                    continue;
+                }
+                if (isset($peer->Tags) && is_array($peer->Tags) && in_array('tag:mullvad-exit-node', $peer->Tags, true)) {
+                    continue;
+                }
+                if (isset($peer->DNSName) && isset($peer->TailscaleIPs) && is_array($peer->TailscaleIPs)) {
+                    foreach ($peer->TailscaleIPs as $ip) {
+                        if (is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                            Utils::logwrap("Adding peer {$peer->DNSName} with IP {$ip} to hosts file");
+                            self::updateHostsFile(rtrim($peer->DNSName, '.'), $ip);
+                        }
+                    }
+                }
+            }
+        } else {
+            Utils::logwrap("No peers found to add to hosts file.");
+        }
+    }
 
     public static function fixLocalSubnetRoutes(): void
     {

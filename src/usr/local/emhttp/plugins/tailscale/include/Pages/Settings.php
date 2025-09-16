@@ -102,6 +102,19 @@ if ($tailscaleConfig->Enable) {
 </dl>
 <blockquote class='inline_help'><?= $tr->tr("settings.context.taildrop"); ?></blockquote>
 
+<dl>
+    <dt><?= $tr->tr("settings.hosts"); ?></dt>
+    <dd>
+        <select name='ADD_PEERS_TO_HOSTS' id='ADD_PEERS_TO_HOSTS' size='1' class='narrow'>
+            <?= Utils::make_option( ! $tailscaleConfig->AddPeersToHosts, '0', $tr->tr("no"));?>
+            <?= Utils::make_option($tailscaleConfig->AddPeersToHosts, '1', $tr->tr("yes"));?>
+        </select>
+    </dd>
+</dl>
+<blockquote class='inline_help'>
+    <?= $tr->tr("settings.context.hosts"); ?>
+</blockquote>
+
 <div class="advanced">
     <h3><?= $tr->tr("settings.services"); ?></h3>
 
