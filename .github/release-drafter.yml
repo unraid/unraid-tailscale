@@ -23,3 +23,6 @@ exclude-labels:
   - "ci"
   - "perf"
   - "refactor"
+replacers:
+  - search: '/^(feat|fix|chore|refactor)(\(.+\))?: /'
+    replace: ""
