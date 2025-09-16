@@ -7,7 +7,9 @@ reviews:
   pre_merge_checks:
     docstrings:
       mode: off
+  finishing_touches:
+    docstrings:
+      enabled: false
   tools:
     phpstan:
       enabled: false
-      level: default
