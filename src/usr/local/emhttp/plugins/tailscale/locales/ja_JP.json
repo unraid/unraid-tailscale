@@ -47,6 +47,7 @@
         "diagnostics": "プラグイン診断情報",
         "reauthenticate": "再認証",
         "funnel": "Tailscale Funnel を許可",
+        "hosts": "/etc/hosts にピアを追加する (Add Peers)",
         "context": {
             "unraid_listen": "Unraidサービス（SSH、WebGUI、SMBなど）がTailscaleアドレスでリッスンするように設定します。",
             "ip_forward": "net.ipv4.ip_forwardおよびnet.ipv6.conf.all.forwardingをsysctlで1に設定します。この変更は有効化時にすぐに適用されます。",
@@ -59,7 +60,8 @@
             "diagnostics": "診断情報をダウンロードします（完了までに時間がかかる場合があります）",
             "save": "設定を適用するとTailscaleが再起動します",
             "reauthenticate": "Tailscaleの再認証を強制します。認証が完了するまでTailscaleは切断されます。",
-            "funnel": "WebGUI から Tailscale Funnel を有効化できます。無効にすると、Tailscale Funnel は無効になります。"
+            "funnel": "WebGUI から Tailscale Funnel を有効化できます。無効にすると、Tailscale Funnel は無効になります。",
+            "hosts": "Tailscale のピアを名前解決のために /etc/hosts に追加します。これは、サーバーで Tailscale DNS を有効にすると発生する可能性のある複雑さを避けつつ、Tailnet の DNS 名を使用したい場合に便利です。"
         }
     },
     "info": {
@@ -98,7 +100,7 @@
         "lock": "tailnetでロックが有効ですが、このノードは署名されていません。tailnetと通信できません。",
         "funnel": "Unraid WebGUI で Tailscale Funnel を有効にすると、サーバーがインターネットに公開され、認可されていないアクセスや攻撃のリスクが大幅に増加します。この機能は、セキュリティへの影響を十分に理解している場合のみ有効にしてください。リモートアクセスの推奨/安全な方法は、Funnel を有効にせず、WebGUI にアクセスする予定の端末すべてに Tailscale をインストールすることです。",
         "subnet": "Unraid サーバーで Tailscale サブネットの許可を有効にすると、特定のネットワーク構成においてローカルネットワーク接続が障害される可能性があります。Unraid サーバーをサブネットルーターや出口ノードとして機能させるためにルートの許可は必要ありません。他の端末から通知されたリモートサブネットに Unraid サーバーが接続する必要がある場合のみ、このオプションを有効にしてください。",
-        "dns": "サーバー上で Tailscale MagicDNS を有効にすると、Docker コンテナ内で名前解決が妨げられ、アプリケーションの接続に問題が発生する可能性があります。他の端末から MagicDNS 名（例: \"unraid.tailnet.ts.net\"）を使って Unraid サーバーへアクセスする場合、サーバー上で MagicDNS を有効にする必要はありません。",
+        "dns": "サーバー上で Tailscale MagicDNS を有効にすると、Docker コンテナ内で名前解決が妨げられ、アプリケーションの接続に問題が発生する可能性があります。他の端末から MagicDNS 名（例: \"unraid.tailnet.ts.net\"）を使って Unraid サーバーへアクセスする場合、サーバー上で MagicDNS を有効にする必要はありません。「/etc/hosts にピアを追加する (Add Peers)」を有効にする方が安全な選択肢であり、サーバー上で Tailscale 名を使用できます。",
         "caution": "十分に注意して進め、この変更の影響を理解したうえで続行してください。",
         "more_info": "詳細はこちら:"
     },

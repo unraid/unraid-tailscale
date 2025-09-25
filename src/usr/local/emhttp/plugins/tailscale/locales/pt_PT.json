@@ -47,6 +47,7 @@
         "diagnostics": "Diagnóstico do Plugin",
         "reauthenticate": "Reautenticar",
         "funnel": "Permitir Funnel do Tailscale",
+        "hosts": "Adicionar peers ao /etc/hosts",
         "context": {
             "unraid_listen": "Configura serviços do Unraid (SSH, WebGUI, SMB, etc.) para ouvir nos endereços do Tailscale.",
             "ip_forward": "Define net.ipv4.ip_forward e net.ipv6.conf.all.forwarding como 1 no sysctl. Essa alteração ocorre imediatamente ao ser ativada.",
@@ -59,7 +60,8 @@
             "diagnostics": "Baixar diagnósticos (isso pode demorar um pouco para concluir)",
             "save": "O Tailscale será reiniciado quando as alterações forem aplicadas",
             "reauthenticate": "Força uma reautenticação do Tailscale. Isso desconectará o Tailscale até que a autenticação seja concluída.",
-            "funnel": "Permite que o Funnel do Tailscale seja ativado através da WebGUI. Se desativado, o Funnel do Tailscale será desativado."
+            "funnel": "Permite que o Funnel do Tailscale seja ativado através da WebGUI. Se desativado, o Funnel do Tailscale será desativado.",
+            "hosts": "Adiciona peers do Tailscale ao /etc/hosts para resolução de nomes. Isto é útil se você quiser usar nomes DNS do Tailnet, sem as possíveis complicações de habilitar o DNS do Tailscale no servidor."
         }
     },
     "info": {
@@ -98,7 +100,7 @@
         "lock": "O tailnet está com bloqueio ativado, mas este nó não foi assinado. Ele não poderá se comunicar com o tailnet.",
         "funnel": "Ativar o Funnel do Tailscale para o WebGUI do Unraid expõe seu servidor à Internet, aumentando significativamente o risco de acesso não autorizado e potenciais ataques. Este recurso só deve ser ativado se você compreender totalmente o impacto na segurança. A abordagem recomendada/segura para acesso remoto é instalar o Tailscale nos dispositivos que você pretende usar para acessar o WebGUI, em vez de ativar o Funnel.",
         "subnet": "Aceitar sub-redes do Tailscale no seu servidor Unraid pode interromper a conectividade da rede local em certas configurações de rede. Aceitar rotas não é necessário para que seu Unraid funcione como roteador de sub-rede ou nó de saída. Ative esta opção apenas se seu Unraid precisar se conectar a sub-redes remotas anunciadas por outros dispositivos.",
-        "dns": "Ativar o MagicDNS do Tailscale no seu servidor pode causar interrupções na resolução de nomes dentro de containers Docker, causando possivelmente problemas de conectividade para aplicações. O MagicDNS não precisa estar ativado no servidor para que você acesse seu Unraid usando nomes MagicDNS (exemplo: 'unraid.tailnet.ts.net') de outros dispositivos.",
+        "dns": "Ativar o MagicDNS do Tailscale no seu servidor pode causar interrupções na resolução de nomes dentro de containers Docker, causando possivelmente problemas de conectividade para aplicações. O MagicDNS não precisa estar ativado no servidor para que você acesse seu Unraid usando nomes MagicDNS (exemplo: 'unraid.tailnet.ts.net') de outros dispositivos. Ativar \"Adicionar peers ao /etc/hosts\" é uma alternativa mais segura, pois permite que nomes do Tailscale sejam usados no servidor.",
         "caution": "Prossiga com cautela e certifique-se de entender as implicações desta alteração antes de continuar.",
         "more_info": "Para mais informações:"
     },

@@ -47,6 +47,7 @@
         "diagnostics": "插件诊断",
         "reauthenticate": "重新认证",
         "funnel": "允许 Tailscale Funnel",
+        "hosts": "将对等端添加到 /etc/hosts 文件中。",
         "context": {
             "unraid_listen": "将Unraid服务（如SSH、WebGUI、SMB等）配置为Tailscale监听地址",
             "ip_forward": "在 sysctl 中将 net.ipv4.ip_forward 和 net.ipv6.conf.all.forwarding 设置为 1。启用后，此更改会立即发生。",
@@ -59,7 +60,8 @@
             "diagnostics": "下载诊断记录（这可能需要一些时间才能完成）",
             "save": "应用更改时，Tailscale 将重新启动",
             "reauthenticate": "强制进行 Tailscale 重新认证。这将在认证完成之前断开 Tailscale 的连接。",
-            "funnel": "允许通过 WebGUI 启用 Tailscale Funnel。如果禁用，Tailscale Funnel 将被禁用。"
+            "funnel": "允许通过 WebGUI 启用 Tailscale Funnel。如果禁用，Tailscale Funnel 将被禁用。",
+            "hosts": "将 Tailscale 对等端添加到 /etc/hosts 用于名称解析。如果您希望在不启用服务器上的 Tailscale DNS 的情况下使用 Tailnet DNS 名称，这将非常有用。"
         }
     },
     "info": {
@@ -98,7 +100,7 @@
         "lock": "尾网（tailnet）已启用锁定，但该节点尚未签名。 它将无法与尾网通信。",
         "funnel": "为 Unraid WebGUI 启用 Tailscale Funnel 会使您的服务器暴露在 Internet 上，极大增加未经授权访问和潜在攻击的风险。只有在您充分理解安全影响的情况下才应启用此功能。建议和安全的远程访问方式是，在您计划用于访问 WebGUI 的设备上安装 Tailscale，而不是启用 Funnel。",
         "subnet": "在您的 Unraid 服务器上接受 Tailscale 子网会在某些网络配置下破坏本地网络连接。作为子网路由器或出口节点，您的 Unraid 服务器并不需要接受路由。只有当您的 Unraid 服务器需要连接其他设备所发布的远程子网时，才应启用该选项。",
-        "dns": "在服务器上启用 Tailscale MagicDNS 可能会干扰 Docker 容器中的名称解析，可能导致应用程序连通性问题。您无需在服务器上启用 MagicDNS，也能从其他设备使用 MagicDNS 名称（如 'unraid.tailnet.ts.net'）访问您的 Unraid 服务器。",
+        "dns": "在服务器上启用 Tailscale MagicDNS 可能会干扰 Docker 容器中的名称解析，可能导致应用程序连通性问题。您无需在服务器上启用 MagicDNS，也能从其他设备使用 MagicDNS 名称（如 'unraid.tailnet.ts.net'）访问您的 Unraid 服务器。启用“将对等端添加到 /etc/hosts”是一种更安全的替代方案，可以让服务器上使用 Tailscale 名称。",
         "caution": "请谨慎操作，并确保在继续前已了解此更改的影响。",
         "more_info": "详细信息："
     },

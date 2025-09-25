@@ -47,6 +47,7 @@
         "diagnostics": "Plugin-diagnostikk",
         "reauthenticate": "Reautentiser",
         "funnel": "Tillat Tailscale Funnel",
+        "hosts": "Legg til Peers i /etc/hosts",
         "context": {
             "unraid_listen": "Konfigurerer Unraid-tjenester (SSH, WebGUI, SMB, osv.) til å lytte på Tailscale-adresser.",
             "ip_forward": "Setter net.ipv4.ip_forward og net.ipv6.conf.all.forwarding til 1 i sysctl. Denne endringen skjer umiddelbart når den aktiveres.",
@@ -59,7 +60,8 @@
             "diagnostics": "Last ned diagnostikk (dette kan ta litt tid å fullføre)",
             "save": "Tailscale vil bli startet på nytt når endringer brukes",
             "reauthenticate": "Tving Tailscale-reauthentisering. Dette vil koble fra Tailscale til autentisering er fullført.",
-            "funnel": "Tillater at Tailscale Funnel kan aktiveres via WebGUI. Hvis deaktivert, vil Tailscale Funnel være deaktivert."
+            "funnel": "Tillater at Tailscale Funnel kan aktiveres via WebGUI. Hvis deaktivert, vil Tailscale Funnel være deaktivert.",
+            "hosts": "Legger til Tailscale-peers i /etc/hosts for navneoppløsning. Dette er nyttig hvis du vil kunne bruke Tailnet DNS-navn uten de potensielle komplikasjonene ved å aktivere Tailscale DNS på serveren."
         }
     },
     "info": {
@@ -98,7 +100,7 @@
         "lock": "Tailnettet har lås aktivert, men denne noden er ikke signert. Den vil ikke kunne kommunisere med tailnettet.",
         "funnel": "Hvis du aktiverer Tailscale Funnel for Unraid WebGUI, eksponeres serveren din mot internett, noe som øker risikoen for uautorisert tilgang og potensielle angrep betydelig. Denne funksjonen bør kun aktiveres hvis du fullt ut forstår sikkerhetskonsekvensene. Den anbefalte/sikre metoden for ekstern tilgang er å installere Tailscale på enhetene du bruker til å få tilgang til WebGUI i stedet for å aktivere Funnel.",
         "subnet": "Å godta Tailscale-subnett på Unraid-serveren din kan forstyrre lokal nettverkstilkobling i visse nettverkskonfigurasjoner. Å godta ruter er ikke nødvendig for at Unraid-serveren din skal fungere som en subnettruter eller exit node. Aktiver kun dette alternativet hvis Unraid-serveren din må koble til eksterne subnett annonsert av andre enheter.",
-        "dns": "Å aktivere Tailscale MagicDNS på serveren din kan forstyrre navneoppløsning inne i Docker-containere, noe som potensielt kan føre til tilkoblingsproblemer for applikasjoner. MagicDNS trenger ikke å være aktivert på serveren for at du skal kunne få tilgang til Unraid-serveren ved å bruke MagicDNS-navn (for eksempel \"unraid.tailnet.ts.net\") fra andre enheter.",
+        "dns": "Å aktivere Tailscale MagicDNS på serveren din kan forstyrre navneoppløsning inne i Docker-containere, noe som potensielt kan føre til tilkoblingsproblemer for applikasjoner. MagicDNS trenger ikke å være aktivert på serveren for at du skal kunne få tilgang til Unraid-serveren ved å bruke MagicDNS-navn (for eksempel \"unraid.tailnet.ts.net\") fra andre enheter. Å aktivere «Legg til Peers i /etc/hosts» er et tryggere alternativ som lar deg bruke Tailscale-navn på serveren.",
         "caution": "Fortsett med forsiktighet og sørg for at du forstår konsekvensene av denne endringen før du går videre.",
         "more_info": "For mer informasjon:"
     },

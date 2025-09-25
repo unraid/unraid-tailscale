@@ -47,6 +47,7 @@
         "diagnostics": "Plugin diagnostiek",
         "reauthenticate": "Opnieuw verifiëren",
         "funnel": "Sta Tailscale Funnel toe",
+        "hosts": "Peers toevoegen aan /etc/hosts",
         "context": {
             "unraid_listen": "Configureert Unraid diensten (SSH, WebGUI, SMB, etc.) om te luisteren op Tailscale adressen.",
             "ip_forward": "Zet net.ipv4.ip_forward en net.ipv6.conf.all.forwarding naar 1 in sysctl. Deze wijziging vindt onmiddellijk plaats wanneer deze wordt ingeschakeld.",
@@ -59,7 +60,8 @@
             "diagnostics": "Download diagnostiek (dit kan enige tijd duren om te voltooien)",
             "save": "Tailscale zal opnieuw worden opgestart wanneer wijzigingen worden toegepast",
             "reauthenticate": "Forceer een Tailscale herauthenticatie. Tailscale wordt hierdoor losgekoppeld totdat de authenticatie voltooid is.",
-            "funnel": "Staat toe dat Tailscale Funnel via de WebGUI kan worden ingeschakeld. Indien uitgeschakeld, wordt Tailscale Funnel uitgeschakeld."
+            "funnel": "Staat toe dat Tailscale Funnel via de WebGUI kan worden ingeschakeld. Indien uitgeschakeld, wordt Tailscale Funnel uitgeschakeld.",
+            "hosts": ""
         }
     },
     "info": {
@@ -98,7 +100,7 @@
         "lock": "Het tailnet heeft lock ingeschakeld, maar deze node is niet ondertekend. Het zal niet met het tailnet kunnen communiceren.",
         "funnel": "Het inschakelen van Tailscale Funnel voor de Unraid WebGUI stelt uw server bloot aan het internet, wat het risico op ongeautoriseerde toegang en mogelijke aanvallen aanzienlijk vergroot. Schakel deze functie alleen in als u volledig begrijpt wat de gevolgen voor de beveiliging zijn. De aanbevolen/veilige methode voor externe toegang is om Tailscale te installeren op de apparaten waarmee u de WebGUI wilt benaderen, in plaats van Funnel in te schakelen.",
         "subnet": "Het accepteren van Tailscale-subnetten op uw Unraid-server kan de lokale netwerkconnectiviteit verstoren bij bepaalde netwerkconfiguraties. Het accepteren van routes is niet vereist voor uw Unraid-server om als subnetrouter of exit node te functioneren. Schakel deze optie alleen in als uw Unraid-server verbinding moet maken met externe subnetten die door andere apparaten worden geadverteerd.",
-        "dns": "Het inschakelen van Tailscale MagicDNS op uw server kan naamresolutie binnen Docker-containers verstoren, waardoor mogelijk verbindingsproblemen voor applicaties ontstaan. MagicDNS hoeft niet ingeschakeld te zijn op de server om uw Unraid-server te kunnen benaderen via MagicDNS-namen (bijv. 'unraid.tailnet.ts.net') vanaf andere apparaten.",
+        "dns": "Het inschakelen van Tailscale MagicDNS op uw server kan naamresolutie binnen Docker-containers verstoren, waardoor mogelijk verbindingsproblemen voor applicaties ontstaan. MagicDNS hoeft niet ingeschakeld te zijn op de server om uw Unraid-server te kunnen benaderen via MagicDNS-namen (bijv. 'unraid.tailnet.ts.net') vanaf andere apparaten. Het inschakelen van 'Peers toevoegen aan /etc/hosts' is een veiliger alternatief waarmee Tailscale-namen op de server kunnen worden gebruikt.",
         "caution": "Ga voorzichtig verder en zorg ervoor dat u de gevolgen van deze wijziging begrijpt voordat u doorgaat.",
         "more_info": "Voor meer informatie:"
     },

@@ -47,6 +47,7 @@
         "diagnostics": "Diagnostyka wtyczki",
         "reauthenticate": "Ponowna autoryzacja",
         "funnel": "Zezwól na Tailscale Funnel",
+        "hosts": "Dodaj peerów do /etc/hosts",
         "context": {
             "unraid_listen": "Konfiguruje usługi Unraid (SSH, WebGUI, SMB itd.), aby nasłuchiwały na adresach Tailscale.",
             "ip_forward": "Ustawia net.ipv4.ip_forward oraz net.ipv6.conf.all.forwarding na 1 w sysctl. Ta zmiana następuje natychmiast po włączeniu.",
@@ -59,7 +60,8 @@
             "diagnostics": "Pobierz diagnostykę (to może chwilę potrwać)",
             "save": "Tailscale zostanie zrestartowany po zastosowaniu zmian",
             "reauthenticate": "Wymusza ponowną autoryzację Tailscale. Spowoduje to rozłączenie Tailscale do czasu zakończenia uwierzytelniania.",
-            "funnel": "Pozwala na włączenie Tailscale Funnel przez WebGUI. Po wyłączeniu, Tailscale Funnel zostanie wyłączony."
+            "funnel": "Pozwala na włączenie Tailscale Funnel przez WebGUI. Po wyłączeniu, Tailscale Funnel zostanie wyłączony.",
+            "hosts": "Dodaje peerów Tailscale do /etc/hosts w celu rozwiązywania nazw. Jest to przydatne, jeśli chcesz używać nazw DNS Tailnet, bez potencjalnych komplikacji wynikających z włączenia DNS Tailscale na serwerze."
         }
     },
     "info": {
@@ -98,7 +100,7 @@
         "lock": "Sieć tailnet ma włączoną blokadę, ale ten węzeł nie został podpisany. Nie będzie mógł komunikować się z tailnetem.",
         "funnel": "Włączenie Tailscale Funnel dla WebGUI Unraid wystawia Twój serwer na internet, znacząco zwiększając ryzyko nieautoryzowanego dostępu oraz potencjalnych ataków. Funkcję tę należy włączać jedynie, jeśli w pełni rozumiesz jej wpływ na bezpieczeństwo. Zalecaną i bezpieczniejszą metodą zdalnego dostępu jest instalacja Tailscale na urządzeniach, z których planujesz korzystać z WebGUI, zamiast włączać Tailscale Funnel.",
         "subnet": "Akceptowanie podsieci Tailscale na Twoim serwerze Unraid może zakłócić łączność w sieci lokalnej w niektórych konfiguracjach. Akceptacja tras nie jest wymagana, aby Unraid działał jako router podsieci lub węzeł wyjściowy. Włącz tę opcję tylko wtedy, gdy Twój serwer Unraid potrzebuje połączyć się z podsieciami reklamowanymi przez inne urządzenia.",
-        "dns": "Włączenie MagicDNS Tailscale na serwerze może zakłócić rozwiązywanie nazw w kontenerach Docker, potencjalnie powodując problemy z łącznością aplikacji. Nie musisz włączać MagicDNS na serwerze, aby uzyskiwać dostęp do Unraid przy użyciu nazw MagicDNS (np. \"unraid.tailnet.ts.net\") z innych urządzeń.",
+        "dns": "Włączenie MagicDNS Tailscale na serwerze może zakłócić rozwiązywanie nazw w kontenerach Docker, co może powodować problemy z łącznością aplikacji. Nie musisz włączać MagicDNS na serwerze, aby uzyskiwać dostęp do serwera Unraid przy użyciu nazw MagicDNS (np. \"unraid.tailnet.ts.net\") z innych urządzeń. Włączenie opcji \"Dodaj peerów do /etc/hosts\" to bezpieczniejsza alternatywa, która pozwala na używanie nazw Tailscale na serwerze.",
         "caution": "Zachowaj ostrożność i upewnij się, że rozumiesz konsekwencje tej zmiany przed kontynuacją.",
         "more_info": "Więcej informacji:"
     },
