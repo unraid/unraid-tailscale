@@ -30,8 +30,9 @@ class Watcher
 
     public function run(): void
     {
-        $timer   = 15;
-        $need_ip = true;
+        $timer               = 15;
+        $need_ip             = true;
+        $allow_check_restart = false;
 
         $tsName = '';
 
@@ -41,6 +42,11 @@ class Watcher
         $utils = new Utils(PLUGIN_NAME);
 
         $utils->logmsg("Starting tailscale-watcher");
+
+        while ( ! file_exists('/var/local/emhttp/var.ini')) {
+            $utils->logmsg("Waiting for system to finish booting");
+            sleep(10);
+        }
 
         // @phpstan-ignore while.alwaysTrue
         while (true) {
@@ -76,7 +82,7 @@ class Watcher
                     }
                 }
 
-                $utils->run_task('Tailscale\System::checkWebgui', array($this->config, $tailscale_ipv4));
+                $allow_check_restart = $utils->run_task('Tailscale\System::checkWebgui', array($this->config, $tailscale_ipv4, $allow_check_restart));
                 $utils->run_task('Tailscale\System::checkServeConfig');
                 $utils->run_task('Tailscale\System::fixLocalSubnetRoutes');
 

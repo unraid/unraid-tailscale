@@ -88,7 +88,7 @@ class System extends \EDACerton\PluginUtils\System
         }
     }
 
-    public static function checkWebgui(Config $config, string $tailscale_ipv4): void
+    public static function checkWebgui(Config $config, string $tailscale_ipv4, bool $allowRestart): bool
     {
         // Make certain that the WebGUI is listening on the Tailscale interface
         if ($config->IncludeInterface) {
@@ -99,12 +99,19 @@ class System extends \EDACerton\PluginUtils\System
             if (is_resource($connection)) {
                 Utils::logwrap("WebGUI listening on {$tailscale_ipv4}:{$ident_config['PORT']}", false, true);
             } else {
+                if ( ! $allowRestart) {
+                    Utils::logwrap("WebGUI not listening on {$tailscale_ipv4}:{$ident_config['PORT']}, waiting for next check");
+                    return true;
+                }
+
                 Utils::logwrap("WebGUI not listening on {$tailscale_ipv4}:{$ident_config['PORT']}, terminating and restarting");
                 Utils::runwrap("/etc/rc.d/rc.nginx term");
                 sleep(5);
                 Utils::runwrap("/etc/rc.d/rc.nginx start");
             }
         }
+
+        return false;
     }
 
     public static function checkServeConfig(): void
