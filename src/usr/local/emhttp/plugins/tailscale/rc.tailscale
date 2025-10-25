@@ -11,7 +11,7 @@ fi
 
 start_tailscaled() {
   if ! /usr/bin/pgrep --ns $$ --euid root -f "^/usr/local/sbin/tailscaled" 1> /dev/null 2> /dev/null ; then
-    TAILSCALE_START_CMD="/usr/local/sbin/tailscaled -statedir /boot/config/plugins/tailscale/state -tun tailscale1 $TAILSCALE_CUSTOM_PARAMS"
+    TAILSCALE_START_CMD="/usr/local/sbin/tailscaled -statedir /boot/config/plugins/tailscale/state -tun tailscale1 -encrypt-state=false -hardware-attestation=false $TAILSCALE_CUSTOM_PARAMS"
     log "Starting tailscaled: $TAILSCALE_START_CMD"
     mkdir -p /boot/config/plugins/tailscale/state
     $TAILSCALE_START_CMD 2>&1 | grep -vF "monitor: [unexpected]" >> /var/log/tailscale.log &
