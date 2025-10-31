@@ -1,10 +1,10 @@
 {
-    "name": "tailscale",
-    "package_name": "unraid-tailscale-utils",
-    "author": "Derek Kaser",
-    "min": "7.0.0",
-    "support": "https://forums.unraid.net/topic/136889-plugin-tailscale/",
-    "launch": "Settings/Tailscale",
-    "tailscaleVersion": "tailscale_1.90.2_amd64",
-    "tailscaleSHA256": "e8d1ec2f0eba10c83ba9d170dc79432aca3ef7cc684d5249e9b91dad519582ad"
+  "name": "tailscale",
+  "package_name": "unraid-tailscale-utils",
+  "author": "Derek Kaser",
+  "min": "7.0.0",
+  "support": "https://forums.unraid.net/topic/136889-plugin-tailscale/",
+  "launch": "Settings/Tailscale",
+  "tailscaleVersion": "tailscale_1.90.5_amd64",
+  "tailscaleSHA256": "901d0310d888e471f0e17b1f2a64fd0d77c0d8848e5a63f0a2b29a9da66e8ac2"
 }
