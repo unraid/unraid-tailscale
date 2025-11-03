@@ -28,6 +28,7 @@
     "tailscale_disabled": "Tailscale är för närvarande inaktiverat. Det kan aktiveras via fliken Inställningar.",
     "tailscale_lock": "Tailscale-lås",
     "warning": "Varning",
+    "save": "Spara",
     "settings": {
         "basic": "Grundvy",
         "advanced": "Avancerad vy",
@@ -87,6 +88,7 @@
         "connected_via": "Ansluten via Tailscale",
         "funnel_port": "Funnel-port för WebGUI",
         "port_in_use": "Port används",
+        "peer_relay": "Peer-reläport",
         "lock": {
             "node_key": "Nodnyckel",
             "public_key": "Publik nyckel",
@@ -102,7 +104,8 @@
         "subnet": "Att acceptera Tailscale-subnät på din Unraid-server kan störa den lokala nätverksanslutningen i vissa nätverkskonfigurationer. Att acceptera rutter krävs inte för att din Unraid-server ska fungera som en subnätsrouter eller exitnod. Aktivera endast detta alternativ om din Unraid-server behöver ansluta till fjärrsubnät som annonseras av andra enheter.",
         "dns": "Att aktivera Tailscale MagicDNS på din server kan störa namnuppslagning i Docker-containrar och potentiellt orsaka anslutningsproblem för applikationer. MagicDNS behöver inte vara aktiverat på servern för att du ska kunna nå din Unraid-server med MagicDNS-namn (t.ex. \"unraid.tailnet.ts.net\") från andra enheter. Att aktivera \"Lägg till Peers i /etc/hosts\" är ett säkrare alternativ som gör det möjligt att använda Tailscale-namn på servern.",
         "caution": "Fortsätt med försiktighet och säkerställ att du förstår konsekvenserna av denna ändring innan du fortsätter.",
-        "more_info": "Mer information:"
+        "more_info": "Mer information:",
+        "peer_relay_no_acl": "Inte konfigurerad i Tailnet-policy (åtkomstkontroller)."
     },
     "lock": {
         "sign": "Signera noder",

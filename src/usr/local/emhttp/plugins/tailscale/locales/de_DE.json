@@ -28,6 +28,7 @@
     "tailscale_disabled": "Tailscale ist derzeit deaktiviert. Es kann über die Registerkarte Einstellungen aktiviert werden.",
     "tailscale_lock": "Tailscale Lock",
     "warning": "Warnung",
+    "save": "Speichern",
     "settings": {
         "basic": "Einfache Ansicht",
         "advanced": "Erweiterte Ansicht",
@@ -87,6 +88,7 @@
         "connected_via": "Verbunden über Tailscale",
         "funnel_port": "Funnel-Port für WebGUI",
         "port_in_use": "Verwendeter Port",
+        "peer_relay": "Peer-Relay-Port",
         "lock": {
             "node_key": "Node Schlüssel",
             "public_key": "Öffentlicher Schlüssel",
@@ -102,7 +104,8 @@
         "subnet": "Das Akzeptieren von Tailscale-Subnetzen auf Ihrem Unraid-Server kann in bestimmten Netzwerkkonfigurationen die lokale Netzwerkverbindung stören. Das Akzeptieren von Routen ist nicht erforderlich, damit Ihr Unraid-Server als Subnetz-Router oder Exit-Node fungiert. Aktivieren Sie diese Option nur, wenn Ihr Unraid-Server eine Verbindung zu von anderen Geräten angekündigten entfernten Subnetzen herstellen muss.",
         "dns": "Das Aktivieren von Tailscale MagicDNS auf Ihrem Server kann die Namensauflösung innerhalb von Docker-Containern stören und möglicherweise zu Verbindungsproblemen für Anwendungen führen. MagicDNS muss auf dem Server nicht aktiviert sein, damit Sie mit anderen Geräten über MagicDNS-Namen (z. B. \"unraid.tailnet.ts.net\") auf Ihren Unraid-Server zugreifen können. Das Aktivieren von \"Peers zu /etc/hosts hinzufügen\" ist eine sicherere Alternative, die die Verwendung von Tailscale-Namen auf dem Server ermöglicht.",
         "caution": "Gehen Sie mit Vorsicht vor und stellen Sie sicher, dass Sie die Auswirkungen dieser Änderung verstehen, bevor Sie fortfahren.",
-        "more_info": "Weitere Informationen:"
+        "more_info": "Weitere Informationen:",
+        "peer_relay_no_acl": "Nicht in der Tailnet-Richtlinie (Zugriffssteuerungen) konfiguriert."
     },
     "lock": {
         "sign": "Nodes signieren",

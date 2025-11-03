@@ -28,6 +28,7 @@
     "tailscale_disabled": "Tailscale is momenteel uitgeschakeld. Deze kan worden ingeschakeld via het tabblad Instellingen.",
     "tailscale_lock": "Tailscale vergrendeling",
     "warning": "Waarschuwing",
+    "save": "Opslaan",
     "settings": {
         "basic": "Eenvoudige weergave",
         "advanced": "Geavanceerde weergave",
@@ -61,7 +62,7 @@
             "save": "Tailscale zal opnieuw worden opgestart wanneer wijzigingen worden toegepast",
             "reauthenticate": "Forceer een Tailscale herauthenticatie. Tailscale wordt hierdoor losgekoppeld totdat de authenticatie voltooid is.",
             "funnel": "Staat toe dat Tailscale Funnel via de WebGUI kan worden ingeschakeld. Indien uitgeschakeld, wordt Tailscale Funnel uitgeschakeld.",
-            "hosts": ""
+            "hosts": "Voegt Tailscale-peers toe aan /etc/hosts voor naamresolutie. Dit is handig als u Tailnet-DNS-namen wilt gebruiken, zonder de mogelijke complicaties van het inschakelen van Tailscale DNS op de server."
         }
     },
     "info": {
@@ -87,6 +88,7 @@
         "connected_via": "Verbonden via Tailscale",
         "funnel_port": "Funnel-poort voor WebGUI",
         "port_in_use": "Poort in gebruik",
+        "peer_relay": "Peer Relay-poort",
         "lock": {
             "node_key": "Node sleutel",
             "public_key": "Publieke sleutel",
@@ -102,7 +104,8 @@
         "subnet": "Het accepteren van Tailscale-subnetten op uw Unraid-server kan de lokale netwerkconnectiviteit verstoren bij bepaalde netwerkconfiguraties. Het accepteren van routes is niet vereist voor uw Unraid-server om als subnetrouter of exit node te functioneren. Schakel deze optie alleen in als uw Unraid-server verbinding moet maken met externe subnetten die door andere apparaten worden geadverteerd.",
         "dns": "Het inschakelen van Tailscale MagicDNS op uw server kan naamresolutie binnen Docker-containers verstoren, waardoor mogelijk verbindingsproblemen voor applicaties ontstaan. MagicDNS hoeft niet ingeschakeld te zijn op de server om uw Unraid-server te kunnen benaderen via MagicDNS-namen (bijv. 'unraid.tailnet.ts.net') vanaf andere apparaten. Het inschakelen van 'Peers toevoegen aan /etc/hosts' is een veiliger alternatief waarmee Tailscale-namen op de server kunnen worden gebruikt.",
         "caution": "Ga voorzichtig verder en zorg ervoor dat u de gevolgen van deze wijziging begrijpt voordat u doorgaat.",
-        "more_info": "Voor meer informatie:"
+        "more_info": "Voor meer informatie:",
+        "peer_relay_no_acl": "Niet geconfigureerd in het Tailnet-beleid (toegangscontroles)."
     },
     "lock": {
         "sign": "Nodes ondertekenen",

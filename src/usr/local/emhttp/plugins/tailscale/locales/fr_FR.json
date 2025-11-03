@@ -28,6 +28,7 @@
     "tailscale_disabled": "Tailscale est actuellement désactivé. Il peut être activé via l'onglet Paramètres.",
     "tailscale_lock": "Tailscale Lock",
     "warning": "Avertissement",
+    "save": "Enregistrer",
     "settings": {
         "basic": "Affichage de base",
         "advanced": "Affichage avancé",
@@ -87,6 +88,7 @@
         "connected_via": "Connecté via Tailscale",
         "funnel_port": "Port Funnel pour le WebGUI",
         "port_in_use": "Port utilisé",
+        "peer_relay": "Port de relais pair-à-pair",
         "lock": {
             "node_key": "Clé du nœud",
             "public_key": "Clé publique",
@@ -102,7 +104,8 @@
         "subnet": "L’acceptation des sous-réseaux Tailscale sur votre serveur Unraid peut perturber la connectivité du réseau local dans certaines configurations réseau. L’acceptation des routes n’est pas nécessaire pour que votre serveur Unraid fonctionne comme routeur de sous-réseaux ou nœud de sortie. Activez cette option uniquement si votre serveur Unraid doit se connecter à des sous-réseaux distants annoncés par d’autres appareils.",
         "dns": "L’activation de MagicDNS de Tailscale sur votre serveur peut perturber la résolution de noms à l’intérieur des conteneurs Docker, ce qui peut entraîner des problèmes de connectivité pour les applications. Il n’est pas nécessaire d’activer MagicDNS sur le serveur pour accéder à votre serveur Unraid en utilisant les noms MagicDNS (par exemple, « unraid.tailnet.ts.net ») depuis d’autres appareils. Activer « Ajouter des pairs à /etc/hosts » est une alternative plus sûre qui permet d’utiliser les noms Tailscale sur le serveur.",
         "caution": "Procédez avec prudence et assurez-vous de bien comprendre les implications de ce changement avant de continuer.",
-        "more_info": "Pour plus d'informations :"
+        "more_info": "Pour plus d'informations :",
+        "peer_relay_no_acl": "Non configuré dans la politique Tailnet (contrôles d'accès)."
     },
     "lock": {
         "sign": "Nœuds de signature",

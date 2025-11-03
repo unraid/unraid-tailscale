@@ -28,6 +28,7 @@
     "tailscale_disabled": "Tailscale 当前已禁用。可以通过“设置选项卡”启用。",
     "tailscale_lock": "Tailscale 锁",
     "warning": "警告",
+    "save": "保存",
     "settings": {
         "basic": "基本视图",
         "advanced": "高级视图",
@@ -87,6 +88,7 @@
         "connected_via": "通过 Tailscale 连接",
         "funnel_port": "WebGUI 的 Funnel 端口",
         "port_in_use": "端口正在使用",
+        "peer_relay": "同行中继端口",
         "lock": {
             "node_key": "节点密钥",
             "public_key": "公开密钥",
@@ -102,7 +104,8 @@
         "subnet": "在您的 Unraid 服务器上接受 Tailscale 子网会在某些网络配置下破坏本地网络连接。作为子网路由器或出口节点，您的 Unraid 服务器并不需要接受路由。只有当您的 Unraid 服务器需要连接其他设备所发布的远程子网时，才应启用该选项。",
         "dns": "在服务器上启用 Tailscale MagicDNS 可能会干扰 Docker 容器中的名称解析，可能导致应用程序连通性问题。您无需在服务器上启用 MagicDNS，也能从其他设备使用 MagicDNS 名称（如 'unraid.tailnet.ts.net'）访问您的 Unraid 服务器。启用“将对等端添加到 /etc/hosts”是一种更安全的替代方案，可以让服务器上使用 Tailscale 名称。",
         "caution": "请谨慎操作，并确保在继续前已了解此更改的影响。",
-        "more_info": "详细信息："
+        "more_info": "详细信息：",
+        "peer_relay_no_acl": "未在 Tailnet 策略（访问控制）中配置。"
     },
     "lock": {
         "sign": "为节点签名",

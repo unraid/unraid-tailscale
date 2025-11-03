@@ -28,6 +28,7 @@
     "tailscale_disabled": "Tailscale está desactivada actualmente. Se puede activar a través de la pestaña de ajustes.",
     "tailscale_lock": "Bloqueo de Tailscale",
     "warning": "Advertencia",
+    "save": "Archiva",
     "settings": {
         "basic": "Vista básica",
         "advanced": "Vista avanzada",
@@ -87,6 +88,7 @@
         "connected_via": "Conectado a través de Tailscale",
         "funnel_port": "Puerto del Funnel para WebGUI",
         "port_in_use": "Puerto en uso",
+        "peer_relay": "Puerto de retransmisión entre pares",
         "lock": {
             "node_key": "Clave de nodo",
             "public_key": "Clave pública",
@@ -102,7 +104,8 @@
         "subnet": "Aceptar subredes de Tailscale en su servidor Unraid puede interrumpir la conectividad de red local en ciertas configuraciones de red. Aceptar rutas no es necesario para que su servidor Unraid funcione como enrutador de subred o nodo de salida. Solo habilite esta opción si su servidor Unraid necesita conectarse a subredes remotas anunciadas por otros dispositivos.",
         "dns": "Habilitar MagicDNS de Tailscale en su servidor puede interrumpir la resolución de nombres dentro de los contenedores Docker, lo que puede causar problemas de conectividad para las aplicaciones. No es necesario habilitar MagicDNS en el servidor para que usted acceda a su servidor Unraid usando nombres de MagicDNS (por ejemplo, 'unraid.tailnet.ts.net') desde otros dispositivos. Habilitar 'Agregar pares a /etc/hosts' es una alternativa más segura que permite utilizar los nombres de Tailscale en el servidor.",
         "caution": "Proceda con precaución y asegúrese de comprender las implicaciones de este cambio antes de continuar.",
-        "more_info": "Para más información:"
+        "more_info": "Para más información:",
+        "peer_relay_no_acl": "No está configurado en la política de Tailnet (controles de acceso)."
     },
     "lock": {
         "sign": "Firma nodos",
