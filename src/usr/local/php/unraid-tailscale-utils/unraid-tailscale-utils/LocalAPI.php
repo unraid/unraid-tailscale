@@ -101,6 +101,11 @@ class LocalAPI
         return (object) json_decode($this->tailscaleLocalAPI('v0/serve-config'));
     }
 
+    public function getPacketFilterRules(): \stdClass
+    {
+        return (object) json_decode($this->tailscaleLocalAPI('v0/debug-packet-filter-rules'));
+    }
+
     public function resetServeConfig(): void
     {
         $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, new \stdClass());

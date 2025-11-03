@@ -121,6 +121,12 @@ async function addTailscaleRoute() {
     var res = await $.post('/plugins/tailscale/include/data/Config.php',{action: 'add-route', route: $('#tailscaleRoute').val()});
     showTailscaleConfig();
 }
+async function setTailscaleRelayPort() {
+    $('div.spinner.fixed').show('fast');
+    tailscaleControlsDisabled(true);
+    var res = await $.post('/plugins/tailscale/include/data/Config.php',{action: 'set-relay-port', port: $('#tailscaleRelayPort').val()});
+    showTailscaleConfig();
+}
 function isValidCIDR(ip) {
     if (ip === undefined) {
         return false;

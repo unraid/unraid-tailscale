@@ -99,6 +99,9 @@ try {
                 }
                 $exitSelect .= "</select>";
 
+                $relayPort        = $tailscaleInfo->getRelayServerPort() ?: "";
+                $relayPortWarning = $relayPort !== "" && ! $tailscaleInfo->isApprovedPeerRelay() ? $tr->tr("warnings.peer_relay_no_acl") : "&nbsp;";
+
                 $configRows = <<<EOT
                     <tr><td>{$tr->tr("info.accept_routes")}</td><td>{$tailscaleConInfo->AcceptRoutes}</td><td style="text-align: right;">{$acceptRoutesButton}</td></tr>
                     <tr><td>{$tr->tr("info.accept_dns")}</td><td>{$tailscaleConInfo->AcceptDNS}</td><td style="text-align: right;">{$acceptDNSButton}</td></tr>
@@ -106,6 +109,14 @@ try {
                     <tr><td>{$tr->tr("info.advertise_exit_node")}</td><td>{$tailscaleConInfo->AdvertiseExitNode}</td><td style="text-align: right;">{$advertiseExitButton}</td></tr>
                     <tr><td>{$tr->tr("info.use_exit_node")}</td><td>&nbsp;</td><td style="text-align: right;">{$exitSelect}</td></tr>
                     <tr><td>{$tr->tr("info.exit_node_local")}</td><td>{$tailscaleConInfo->ExitNodeLocal}</td><td style="text-align: right;">{$exitLocalButton}</td></tr>
+                    <tr>
+                        <td>{$tr->tr("info.peer_relay")}</td>
+                        <td><strong>{$relayPortWarning}</strong></td>
+                        <td style="text-align: right;">
+                            <input id='tailscaleRelayPort' class="narrow" type='number' min='0' max='65535' value='{$relayPort}' placeholder='Disabled' oninput='$("#tailscaleRelaySave").prop("disabled", false)'>
+                            <input id='tailscaleRelaySave' disabled type='button'value='{$tr->tr("save")}' onclick='setTailscaleRelayPort()'>
+                        </td>
+                    </tr>
 
                     EOT;
 
@@ -332,6 +343,28 @@ try {
 
             $utils->logmsg("Object: " . json_encode($serveConfig->getConfig(), JSON_UNESCAPED_SLASHES));
             $localAPI->setServeConfig($serveConfig);
+            break;
+        case 'set-relay-port':
+            if ( ! isset($_POST['port'])) {
+                throw new \Exception("Missing port parameter");
+            }
+
+            $port = null;
+
+            if ($_POST['port'] === '') {
+                $port = null;
+            } elseif (ctype_digit($_POST['port'])) {
+                $port = intval($_POST['port']);
+                if (($port < 0) || ($port > 65535)) {
+                    throw new \Exception("Port out of range: {$_POST['port']}");
+                }
+            } else {
+                throw new \Exception("Invalid port: {$_POST['port']}");
+            }
+
+            $utils->logmsg("Setting relay server port to: {$port}");
+
+            $localAPI->patchPref("RelayServerPort", $port);
             break;
     }
 } catch (\Throwable $e) {

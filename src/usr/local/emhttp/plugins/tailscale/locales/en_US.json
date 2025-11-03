@@ -28,6 +28,7 @@
     "tailscale_disabled": "Tailscale is currently disabled. It can be enabled via the Settings tab.",
     "tailscale_lock": "Tailscale Lock",
     "warning": "Warning",
+    "save": "Save",
     "settings": {
         "basic": "Basic View",
         "advanced": "Advanced View",
@@ -87,6 +88,7 @@
         "connected_via": "Connected via Tailscale",
         "funnel_port": "Funnel Port for WebGUI",
         "port_in_use": "Port in Use",
+        "peer_relay": "Peer Relay Port",
         "lock": {
             "node_key": "Node Key",
             "public_key": "Public Key",
@@ -102,7 +104,8 @@
         "subnet": "Accepting Tailscale subnets on your Unraid server can disrupt local network connectivity in certain network configurations. Accepting routes is not required for your Unraid server to function as a subnet router or exit node. Only enable this option if your Unraid server needs to connect to remote subnets advertised by other devices.",
         "dns": "Enabling Tailscale MagicDNS on your server can disrupt name resolution inside Docker containers, potentially causing connectivity issues for applications. MagicDNS does not need to be enabled on the server for you to access your Unraid server using MagicDNS names (e.g., 'unraid.tailnet.ts.net') from other devices. Enabling 'Add Peers to /etc/hosts' is a safer alternative that allows Tailscale names to be used on the server.",
         "caution": "Proceed with caution and ensure you understand the implications of this change before continuing.",
-        "more_info": "For more information:"
+        "more_info": "For more information:",
+        "peer_relay_no_acl": "Not configured in Tailnet policy (access controls)."
     },
     "lock": {
         "sign": "Sign Nodes",

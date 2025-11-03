@@ -471,4 +471,31 @@ class Info
 
         return $this->status->Self->DNSName;
     }
+
+    public function isApprovedPeerRelay(): bool
+    {
+        $netmapRules = (array) $this->localAPI->getPacketFilterRules();
+
+        // Parse the packet filter rules to see if peer relay is approved
+        // TODO: Get a better way to do this from Tailscale
+        foreach ($netmapRules as $key => $rule) {
+            if (isset($rule->CapGrant) && is_array($rule->CapGrant)) {
+                foreach ($rule->CapGrant as $capGrant) {
+                    if (is_object($capGrant) && isset($capGrant->CapMap) && is_object($capGrant->CapMap) && isset($capGrant->CapMap->{'tailscale.com/cap/relay'})) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public function getRelayServerPort(): int|false
+    {
+        if (isset($this->prefs->RelayServerPort) && is_int($this->prefs->RelayServerPort)) {
+            return $this->prefs->RelayServerPort;
+        }
+        return false;
+    }
 }
