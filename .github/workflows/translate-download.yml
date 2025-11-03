@@ -1,0 +1,28 @@
+name: Upload for translation
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  synchronize-with-crowdin:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: crowdin action
+        uses: crowdin/github-action@v2
+        with:
+          upload_sources: false
+          download_translations: true
+          push_translations: true
+          commit_message: "chore: update translations from Crowdin"
+          create_pull_request: true
+          pull_request_title: "chore: update translations from Crowdin"
+        env:
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
