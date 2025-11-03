@@ -30,6 +30,19 @@ For older releases, see https://github.com/{{ env['GITHUB_REPOSITORY'] }}/releas
 ]]>
 </CHANGES>
 
+<FILE Run="/bin/bash" max="7.0.99">
+<INLINE>
+<![CDATA[
+echo "Installing the latest version of {{ name }} requires Unraid 7.1 or later."
+echo "Now installing the last compatible version..."
+
+plugin install https://raw.githubusercontent.com/{{ env['GITHUB_REPOSITORY'] }}/refs/tags/unraid-7.0/plugin/{{ name }}{{ env['PLUGIN_RELEASE'] }}.plg
+
+exit 1
+]]>
+</INLINE>
+</FILE>
+
 <FILE Name="/boot/config/plugins/{{ name }}/{{ tailscaleVersion }}.tgz">
 <URL>https://pkgs.tailscale.com/stable/{{ tailscaleVersion }}.tgz</URL>
 <SHA256>{{ tailscaleSHA256 }}</SHA256>
