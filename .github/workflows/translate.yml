@@ -3,7 +3,7 @@ name: Upload for translation
 on:
   push:
     branches:
-      - 'main'
+      - "trunk"
 
 jobs:
   synchronize-with-crowdin:
