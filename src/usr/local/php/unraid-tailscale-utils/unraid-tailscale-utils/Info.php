@@ -478,7 +478,7 @@ class Info
 
         // Parse the packet filter rules to see if peer relay is approved
         // TODO: Get a better way to do this from Tailscale
-        foreach ($netmapRules as $key => $rule) {
+        foreach ($netmapRules as $rule) {
             if (isset($rule->CapGrant) && is_array($rule->CapGrant)) {
                 foreach ($rule->CapGrant as $capGrant) {
                     if (is_object($capGrant) && isset($capGrant->CapMap) && is_object($capGrant->CapMap) && isset($capGrant->CapMap->{'tailscale.com/cap/relay'})) {
