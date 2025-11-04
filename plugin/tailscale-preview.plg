@@ -45,6 +45,7 @@
 - End buffer if exception occurs in page ([#50](https://github.com/unraid/unraid-tailscale/pull/50))
 
 
+
 For older releases, see https://github.com/unraid/unraid-tailscale/releases
 ]]>
 </CHANGES>
@@ -55,7 +56,7 @@ For older releases, see https://github.com/unraid/unraid-tailscale/releases
 echo "Installing the latest version of tailscale requires Unraid 7.1 or later."
 echo "Now installing the last compatible version..."
 
-plugin install https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/tags/unraid-7.0/plugin/tailscale-preview.plg
+plugin install https://raw.githubusercontent.com/unraid/unraid-tailscale/refs/tags/unraid-7.0/plugin/tailscale-preview.plg forced
 ]]>
 </INLINE>
 </FILE>
