@@ -81,6 +81,12 @@ async function setFeature(feature, enable) {
     var res = await $.post('/plugins/tailscale/include/data/Config.php',{action: 'set-feature', feature: feature, enable: enable});
     showTailscaleConfig();
 }
+async function setAutoUpdate(enable) {
+    $('div.spinner.fixed').show('fast');
+    tailscaleControlsDisabled(true);
+    var res = await $.post('/plugins/tailscale/include/data/Config.php',{action: 'set-auto-update', enable: enable});
+    showTailscaleConfig();
+}
 async function setAdvertiseExitNode(enable) {
     $('div.spinner.fixed').show('fast');
     tailscaleControlsDisabled(true);

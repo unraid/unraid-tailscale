@@ -70,6 +70,10 @@ try {
                     "<input type='button' value='{$tr->tr("disable")}' onclick='setFeature(\"ssh\", false)'>" :
                     "<input type='button' value='{$tr->tr("enable")}' onclick='setFeature(\"ssh\", true)'>";
 
+                $autoUpdateButton = $tailscaleInfo->autoUpdateEnabled() ?
+                    "<input type='button' value='{$tr->tr("disable")}' onclick='setAutoUpdate(false)'>" :
+                    "<input type='button' value='{$tr->tr("enable")}' onclick='setAutoUpdate(true)'>";
+
                 $advertiseExitButton = $tailscaleInfo->usesExitNode() ? "<input type='button' value='{$tr->tr("enable")}' disabled>" :
                     (
                         $tailscaleInfo->advertisesExitNode() ?
@@ -103,6 +107,7 @@ try {
                 $relayPortWarning = $relayPort !== "" && ! $tailscaleInfo->isApprovedPeerRelay() ? $tr->tr("warnings.peer_relay_no_acl") : "&nbsp;";
 
                 $configRows = <<<EOT
+                    <tr><td>{$tr->tr("info.auto_update")}</td><td>{$tailscaleConInfo->AutoUpdate}</td><td style="text-align: right;">{$autoUpdateButton}</td></tr>
                     <tr><td>{$tr->tr("info.accept_routes")}</td><td>{$tailscaleConInfo->AcceptRoutes}</td><td style="text-align: right;">{$acceptRoutesButton}</td></tr>
                     <tr><td>{$tr->tr("info.accept_dns")}</td><td>{$tailscaleConInfo->AcceptDNS}</td><td style="text-align: right;">{$acceptDNSButton}</td></tr>
                     <tr><td>{$tr->tr("info.run_ssh")}</td><td>{$tailscaleConInfo->RunSSH}</td><td style="text-align: right;">{$sshButton}</td></tr>
@@ -303,6 +308,16 @@ try {
             }
             $utils->logmsg("Expiring node key");
             $localAPI->expireKey();
+            break;
+        case 'set-auto-update':
+            if ( ! isset($_POST['enable'])) {
+                throw new \Exception("Missing enable parameter");
+            }
+
+            $enable = filter_var($_POST['enable'], FILTER_VALIDATE_BOOLEAN);
+            $utils->logmsg("Setting auto update to " . ($enable ? "true" : "false"));
+
+            $localAPI->setAutoUpdate($enable);
             break;
         case 'exit-node':
             if ( ! isset($_POST['node'])) {

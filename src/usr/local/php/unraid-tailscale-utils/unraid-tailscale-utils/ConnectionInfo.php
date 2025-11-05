@@ -32,4 +32,5 @@ class ConnectionInfo
     public string $ExitNodeLocal     = "";
     public string $AdvertiseExitNode = "";
     public string $UseExitNode       = "";
+    public string $AutoUpdate        = "";
 }

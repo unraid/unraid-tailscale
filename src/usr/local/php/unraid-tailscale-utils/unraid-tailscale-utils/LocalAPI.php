@@ -140,4 +140,13 @@ class LocalAPI
     {
         $this->tailscaleLocalAPI('v0/set-expiry-sooner?expiry=0', APIMethods::POST);
     }
+
+    public function setAutoUpdate(bool $enabled): void
+    {
+        $body                  = [];
+        $body["AutoUpdate"]    = ["Apply" => $enabled, "Check" => $enabled];
+        $body["AutoUpdateSet"] = ["ApplySet" => true, "CheckSet" => true];
+
+        $this->tailscaleLocalAPI("v0/prefs", APIMethods::PATCH, (object) $body);
+    }
 }

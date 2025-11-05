@@ -116,6 +116,7 @@ class Info
         $info->RunSSH           = isset($prefs->RunSSH) ? ($prefs->RunSSH ? $this->tr("yes") : $this->tr("no")) : $this->tr("unknown");
         $info->ExitNodeLocal    = isset($prefs->ExitNodeAllowLANAccess) ? ($prefs->ExitNodeAllowLANAccess ? $this->tr("yes") : $this->tr("no")) : $this->tr("unknown");
         $info->UseExitNode      = $this->usesExitNode() ? $this->tr("yes") : $this->tr("no");
+        $info->AutoUpdate       = $this->autoUpdateEnabled() ? $this->tr("yes") : $this->tr("no");
 
         if ($this->advertisesExitNode()) {
             if ($this->status->Self->ExitNodeOption) {
@@ -497,5 +498,10 @@ class Info
             return $this->prefs->RelayServerPort;
         }
         return false;
+    }
+
+    public function autoUpdateEnabled(): bool
+    {
+        return $this->prefs->AutoUpdate->Apply ?? false;
     }
 }
