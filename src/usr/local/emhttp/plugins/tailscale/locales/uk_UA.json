@@ -89,6 +89,7 @@
         "funnel_port": "Порт Funnel для WebGUI",
         "port_in_use": "Порт використовується",
         "peer_relay": "Порт ретрансляції пірів",
+        "auto_update": "Автоматичне оновлення",
         "lock": {
             "node_key": "Ключ вузла",
             "public_key": "Публічний ключ",

@@ -89,6 +89,7 @@
         "funnel_port": "Port Tailscale Funnel dla WebGUI",
         "port_in_use": "Port w użyciu",
         "peer_relay": "Port przekaźnika peer",
+        "auto_update": "Automatyczna aktualizacja",
         "lock": {
             "node_key": "Klucz węzła",
             "public_key": "Klucz publiczny",

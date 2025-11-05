@@ -89,6 +89,7 @@
         "funnel_port": "Funnel-Port für WebGUI",
         "port_in_use": "Verwendeter Port",
         "peer_relay": "Peer-Relay-Port",
+        "auto_update": "Automatisches Aktualisieren",
         "lock": {
             "node_key": "Node Schlüssel",
             "public_key": "Öffentlicher Schlüssel",

@@ -89,6 +89,7 @@
         "funnel_port": "Puerto del Funnel para WebGUI",
         "port_in_use": "Puerto en uso",
         "peer_relay": "Puerto de retransmisión entre pares",
+        "auto_update": "Actualización automática",
         "lock": {
             "node_key": "Clave de nodo",
             "public_key": "Clave pública",

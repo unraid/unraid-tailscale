@@ -88,7 +88,8 @@
         "connected_via": "通过 Tailscale 连接",
         "funnel_port": "WebGUI 的 Funnel 端口",
         "port_in_use": "端口正在使用",
-        "peer_relay": "同行中继端口",
+        "peer_relay": "对等中继端口",
+        "auto_update": "自动更新",
         "lock": {
             "node_key": "节点密钥",
             "public_key": "公开密钥",

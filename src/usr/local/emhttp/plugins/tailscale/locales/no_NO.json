@@ -89,6 +89,7 @@
         "funnel_port": "Funnel-port for WebGUI",
         "port_in_use": "Port i bruk",
         "peer_relay": "Peer-reléport",
+        "auto_update": "Automatisk oppdatering",
         "lock": {
             "node_key": "Node-nøkkel",
             "public_key": "Offentlig nøkkel",

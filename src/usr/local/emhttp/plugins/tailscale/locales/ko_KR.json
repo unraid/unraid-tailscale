@@ -89,6 +89,7 @@
         "funnel_port": "WebGUI용 Funnel 포트",
         "port_in_use": "사용 중인 포트",
         "peer_relay": "피어 릴레이 포트",
+        "auto_update": "자동 업데이트",
         "lock": {
             "node_key": "노드 키",
             "public_key": "공개 키",
