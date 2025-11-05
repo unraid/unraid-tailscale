@@ -30,20 +30,35 @@ For older releases, see https://github.com/{{ env['GITHUB_REPOSITORY'] }}/releas
 ]]>
 </CHANGES>
 
-<FILE Run="/bin/bash" Max="7.0.99">
+<FILE Run="/usr/bin/php">
 <INLINE>
 <![CDATA[
-echo "Installing the latest version of {{ name }} requires Unraid 7.1 or later."
-echo "Now installing the last compatible version..."
+<?php
+$oldPlugin = "";
+$unraidVersion = parse_ini_file("/etc/unraid-version");
 
-plugin install https://raw.githubusercontent.com/{{ env['GITHUB_REPOSITORY'] }}/refs/tags/unraid-7.0/plugin/{{ name }}{{ env['PLUGIN_RELEASE'] }}.plg
+// Skip this check pre-boot, this creates a minor risk that someone could update, then downgrade the OS,
+// but the alternative is that the plugin could fail to downgrade during boot (e.g., if network was not ready).
+if (!file_exists('/var/local/emhttp/var.ini') || !isset($unraidVersion['version'])) {
+    exit(0);
+}
+
+if (version_compare($unraidVersion['version'], '7.1', '<')) {
+    $oldPlugin = "https://raw.githubusercontent.com/{{ env['GITHUB_REPOSITORY'] }}/refs/tags/unraid-7.0/plugin/{{ name }}{{ env['PLUGIN_RELEASE'] }}.plg";
+}
+
+if ($oldPlugin !== "") {
+    echo "**************************************************\n";
+    echo "* Your current Unraid version is out of date and  \n";
+    echo "* is no longer supported by this plugin.          \n";
+    echo "*                                                 \n";
+    echo "* The last supported version of the plugin for    \n";
+    echo "* your Unraid version will now be installed.      \n";
+    echo "**************************************************\n\n";
+    system("/usr/local/sbin/plugin install $oldPlugin");
+    exit(1);
+}
 ]]>
-</INLINE>
-</FILE>
-
-<FILE Run="/bin/bash" Max="7.0.99">
-<INLINE>
-exit 1
 </INLINE>
 </FILE>
 
