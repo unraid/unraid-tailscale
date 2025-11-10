@@ -240,12 +240,6 @@ if ($tailscaleConfig->Enable) {
         var confirmButton = document.getElementById('tailscale_erase_confirm');
         confirmButton.style.display = "inline";
     }
-
-    async function expireTailscaleKeyNow() {
-        $('div.spinner.fixed').show('fast');
-        var res = await $.post('/plugins/tailscale/include/data/Config.php',{action: 'expire-key'});
-        location.reload();
-    }
 </script>
 <script>
     $(function() {
