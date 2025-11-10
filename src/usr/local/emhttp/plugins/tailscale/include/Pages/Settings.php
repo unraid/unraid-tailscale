@@ -215,7 +215,7 @@ if ($tailscaleConfig->Enable) {
 <dl>
     <dt><?= $tr->tr("settings.context.reauthenticate"); ?></dt>
     <dd>
-        <span><input type="button" value="<?= $tr->tr('settings.reauthenticate'); ?>" onclick="expireTailscaleKeyNow()" <?= $tailscaleDisconnect; ?>></span>
+        <span><input type="button" value="<?= $tr->tr('settings.reauthenticate'); ?>" onclick="tailscaleUp()" <?= $tailscaleDisconnect; ?>></span>
     </dd>
 </dl>
 
