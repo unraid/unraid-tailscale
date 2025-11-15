@@ -50,7 +50,9 @@
         "funnel": "Autoriser Tailscale Funnel",
         "hosts": "Ajouter des pairs à /etc/hosts.",
         "no_logs_no_support": "Aucun journal, aucune assistance",
+        "tpm": "Autoriser le TPM à chiffrer la clé de nœud",
         "context": {
+            "tpm": "Active l'utilisation d'un TPM (Trusted Platform Module) pour le stockage sécurisé de la clé de nœud Tailscale. Cela renforce la sécurité en empêchant l'extraction facile de la clé de nœud, garantissant que seul le matériel autorisé peut y accéder. L’activation de cette option nécessite un TPM 2.0. Elle n’a aucun effet si le système ne dispose pas d’un TPM compatible.",
             "unraid_listen": "Configure les services Unraid (SSH, WebGUI, SMB, etc.) pour écouter sur les adresses de Tailscale.",
             "ip_forward": "Définit net.ipv4.ip_forward et net.ipv6.conf.all.forwarding à 1 dans sysctl. Ce changement survient immédiatement après son activation.",
             "taildrop": "Spécifie le chemin pour les fichiers Taildrop entrants.",
@@ -108,7 +110,8 @@
         "dns": "L’activation de MagicDNS de Tailscale sur votre serveur peut perturber la résolution de noms à l’intérieur des conteneurs Docker, ce qui peut entraîner des problèmes de connectivité pour les applications. Il n’est pas nécessaire d’activer MagicDNS sur le serveur pour accéder à votre serveur Unraid en utilisant les noms MagicDNS (par exemple, « unraid.tailnet.ts.net ») depuis d’autres appareils. Activer « Ajouter des pairs à /etc/hosts » est une alternative plus sûre qui permet d’utiliser les noms Tailscale sur le serveur.",
         "caution": "Procédez avec prudence et assurez-vous de bien comprendre les implications de ce changement avant de continuer.",
         "more_info": "Pour plus d'informations :",
-        "peer_relay_no_acl": "Non configuré dans la politique Tailnet (contrôles d'accès)."
+        "peer_relay_no_acl": "Non configuré dans la politique Tailnet (contrôles d'accès).",
+        "tpm": "L’activation du TPM lie la clé de nœud Tailscale au matériel spécifique de cet appareil. Si le TPM est ensuite désactivé, la clé de nœud Tailscale deviendra invalide et l’appareil devra être réauthentifié auprès de Tailscale. Les TPM peuvent également se bloquer, ce qui peut perturber la connectivité Tailscale et nécessiter une réauthentification."
     },
     "lock": {
         "sign": "Nœuds de signature",

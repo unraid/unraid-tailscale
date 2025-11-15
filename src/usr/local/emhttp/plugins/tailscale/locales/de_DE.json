@@ -50,7 +50,9 @@
         "funnel": "Tailscale Funnel zulassen",
         "hosts": "Peers zu /etc/hosts hinzufügen",
         "no_logs_no_support": "Keine Protokolle, kein Support",
+        "tpm": "TPM verwenden, um den Knotenschlüssel zu verschlüsseln",
         "context": {
+            "tpm": "Aktiviert die Verwendung eines TPM (Trusted Platform Module) zur sicheren Speicherung des Tailscale-Knotenschlüssels. Dies erhöht die Sicherheit, indem verhindert wird, dass der Knotenschlüssel leicht extrahiert werden kann, und stellt sicher, dass nur autorisierte Hardware darauf zugreifen kann. Zum Aktivieren dieser Option ist TPM 2.0 erforderlich. Wenn das System kein kompatibles TPM hat, hat diese Option keine Auswirkung.",
             "unraid_listen": "Konfiguriert Unraid-Dienste (SSH, WebGUI, SMB usw.) so, dass sie auf Tailscale-Adressen verfügbar sind.",
             "ip_forward": "Setzt net.ipv4.ip_forward und net.ipv6.conf.all.forwarding in sysctl auf 1. Diese Änderung tritt sofort nach der Aktivierung auf.",
             "taildrop": "Geben Sie den Pfad für eingehende Taildrop-Dateien an.",
@@ -108,7 +110,8 @@
         "dns": "Das Aktivieren von Tailscale MagicDNS auf Ihrem Server kann die Namensauflösung innerhalb von Docker-Containern stören und möglicherweise zu Verbindungsproblemen für Anwendungen führen. MagicDNS muss auf dem Server nicht aktiviert sein, damit Sie mit anderen Geräten über MagicDNS-Namen (z. B. \"unraid.tailnet.ts.net\") auf Ihren Unraid-Server zugreifen können. Das Aktivieren von \"Peers zu /etc/hosts hinzufügen\" ist eine sicherere Alternative, die die Verwendung von Tailscale-Namen auf dem Server ermöglicht.",
         "caution": "Gehen Sie mit Vorsicht vor und stellen Sie sicher, dass Sie die Auswirkungen dieser Änderung verstehen, bevor Sie fortfahren.",
         "more_info": "Weitere Informationen:",
-        "peer_relay_no_acl": "Nicht in der Tailnet-Richtlinie (Zugriffssteuerungen) konfiguriert."
+        "peer_relay_no_acl": "Nicht in der Tailnet-Richtlinie (Zugriffssteuerungen) konfiguriert.",
+        "tpm": "Wenn TPM aktiviert ist, wird der Tailscale-Knotenschlüssel an die spezifische Hardware dieses Geräts gebunden. Wird TPM später deaktiviert, wird der Tailscale-Knotenschlüssel ungültig, und das Gerät muss erneut bei Tailscale authentifiziert werden. Es besteht auch die Möglichkeit, dass TPMs gesperrt werden, was die Tailscale-Verbindung stören und eine erneute Authentifizierung erforderlich machen kann."
     },
     "lock": {
         "sign": "Nodes signieren",

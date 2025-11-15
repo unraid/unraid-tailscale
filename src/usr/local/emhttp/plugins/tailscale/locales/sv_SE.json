@@ -50,7 +50,9 @@
         "funnel": "Tillåt Tailscale Funnel",
         "hosts": "Lägg till Peers i /etc/hosts.",
         "no_logs_no_support": "Inga loggar, inget stöd",
+        "tpm": "Tillåt TPM att kryptera nodnyckel",
         "context": {
+            "tpm": "Aktiverar användning av en TPM (Trusted Platform Module) för säker lagring av Tailscale-nodnyckeln. Detta förbättrar säkerheten genom att skydda nodnyckeln från att enkelt kunna extraheras, vilket säkerställer att endast auktoriserad hårdvara kan komma åt den. Aktivering av detta alternativ kräver TPM 2.0. Det har ingen effekt om systemet inte har en kompatibel TPM.",
             "unraid_listen": "Konfigurerar Unraid-tjänster (SSH, WebGUI, SMB, etc.) att lyssna på Tailscale-adresser.",
             "ip_forward": "Ställer in net.ipv4.ip_forward och net.ipv6.conf.all.forwarding till 1 i sysctl. Denna ändring sker omedelbart när den aktiveras.",
             "taildrop": "Ange sökvägen för inkommande Taildrop-filer.",
@@ -108,7 +110,8 @@
         "dns": "Att aktivera Tailscale MagicDNS på din server kan störa namnuppslagning i Docker-containrar och potentiellt orsaka anslutningsproblem för applikationer. MagicDNS behöver inte vara aktiverat på servern för att du ska kunna nå din Unraid-server med MagicDNS-namn (t.ex. \"unraid.tailnet.ts.net\") från andra enheter. Att aktivera \"Lägg till Peers i /etc/hosts\" är ett säkrare alternativ som gör det möjligt att använda Tailscale-namn på servern.",
         "caution": "Fortsätt med försiktighet och säkerställ att du förstår konsekvenserna av denna ändring innan du fortsätter.",
         "more_info": "Mer information:",
-        "peer_relay_no_acl": "Inte konfigurerad i Tailnet-policy (åtkomstkontroller)."
+        "peer_relay_no_acl": "Inte konfigurerad i Tailnet-policy (åtkomstkontroller).",
+        "tpm": "När TPM aktiveras låses Tailscale-nodnyckeln till den specifika hårdvaran på denna enhet. Om TPM senare inaktiveras kommer Tailscale-nodnyckeln att bli ogiltig och enheten måste återautentiseras mot Tailscale. Det är också möjligt att TPM kan låsas, vilket kan störa Tailscale-anslutningen och kräva återautentisering."
     },
     "lock": {
         "sign": "Signera noder",

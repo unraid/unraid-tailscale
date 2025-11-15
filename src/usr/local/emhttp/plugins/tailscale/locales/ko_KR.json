@@ -50,7 +50,9 @@
         "funnel": "Tailscale Funnel 허용",
         "hosts": "/etc/hosts에 피어 추가하기​​.",
         "no_logs_no_support": "로그 비활성화 시 지원 불가",
+        "tpm": "TPM을 사용하여 노드 키 암호화 허용",
         "context": {
+            "tpm": "TPM(신뢰 플랫폼 모듈)을 사용하여 Tailscale 노드 키를 안전하게 저장할 수 있습니다. 이 기능을 사용하면 노드 키가 쉽게 추출되지 않도록 보호되어, 권한이 있는 하드웨어에서만 접근할 수 있도록 보안이 향상됩니다. 이 옵션을 활성화하려면 TPM 2.0이 필요합니다. 시스템에 호환되는 TPM이 없으면 아무런 효과가 없습니다.",
             "unraid_listen": "Unraid 서비스(SSH, WebGUI, SMB 등)가 Tailscale 주소에서 수신 대기하도록 구성합니다.",
             "ip_forward": "sysctl에서 net.ipv4.ip_forward 및 net.ipv6.conf.all.forwarding을 1로 설정합니다. 이 설정은 활성화 시 즉시 적용됩니다.",
             "taildrop": "수신되는 Taildrop 파일의 경로를 지정하세요.",
@@ -108,7 +110,8 @@
         "dns": "서버에서 Tailscale MagicDNS를 활성화하면 Docker 컨테이너 내의 이름 해석이 방해받아 애플리케이션 연결 문제가 발생할 수 있습니다. MagicDNS는 다른 장치에서 'unraid.tailnet.ts.net' 같은 MagicDNS 이름으로 Unraid 서버에 접근하기 위해 서버에서 활성화할 필요가 없습니다. '피어를 /etc/hosts에 추가하기'를 활성화하면 서버에서 Tailscale 이름을 사용할 수 있어 더욱 안전한 대안이 됩니다.",
         "caution": "신중하게 진행하시고 계속하기 전에 이 변경의 영향을 충분히 이해했는지 확인하세요.",
         "more_info": "자세한 정보:",
-        "peer_relay_no_acl": "Tailnet 정책(액세스 제어)에서 구성되지 않았습니다."
+        "peer_relay_no_acl": "Tailnet 정책(액세스 제어)에서 구성되지 않았습니다.",
+        "tpm": "TPM을 활성화하면 Tailscale 노드 키가 이 장치의 특정 하드웨어에 고정됩니다. 이후 TPM이 비활성화되면 Tailscale 노드 키가 무효화되어 장치를 다시 Tailscale에 인증해야 합니다. 또한 TPM이 잠기면 Tailscale 연결이 중단되어 다시 인증해야 할 수 있습니다."
     },
     "lock": {
         "sign": "노드 서명",

@@ -50,7 +50,9 @@
         "funnel": "允许 Tailscale Funnel",
         "hosts": "将对等端添加到 /etc/hosts 文件中。",
         "no_logs_no_support": "无日志 无支持",
+        "tpm": "允许 TPM 加密节点密钥",
         "context": {
+            "tpm": "启用受信任平台模块（TPM）以安全存储 Tailscale 节点密钥。这提高了安全性，防止节点密钥被轻易提取，确保只有授权的硬件可以访问。启用此选项需要 TPM 2.0。如果系统没有兼容的 TPM，则此选项无效。",
             "unraid_listen": "将Unraid服务（如SSH、WebGUI、SMB等）配置为Tailscale监听地址",
             "ip_forward": "在 sysctl 中将 net.ipv4.ip_forward 和 net.ipv6.conf.all.forwarding 设置为 1。启用后，此更改会立即发生。",
             "taildrop": "指定传入 Taildrop 文件的路径。",
@@ -108,7 +110,8 @@
         "dns": "在服务器上启用 Tailscale MagicDNS 可能会干扰 Docker 容器中的名称解析，可能导致应用程序连通性问题。您无需在服务器上启用 MagicDNS，也能从其他设备使用 MagicDNS 名称（如 'unraid.tailnet.ts.net'）访问您的 Unraid 服务器。启用“将对等端添加到 /etc/hosts”是一种更安全的替代方案，可以让服务器上使用 Tailscale 名称。",
         "caution": "请谨慎操作，并确保在继续前已了解此更改的影响。",
         "more_info": "详细信息：",
-        "peer_relay_no_acl": "未在 Tailnet 策略（访问控制）中配置。"
+        "peer_relay_no_acl": "未在 Tailnet 策略（访问控制）中配置。",
+        "tpm": "启用 TPM 会将 Tailscale 节点密钥锁定到此设备的特定硬件。如果之后禁用 TPM，Tailscale 节点密钥将失效，设备需要重新通过 Tailscale 进行身份验证。TPM 也可能会发生锁定，从而中断 Tailscale 连接，并要求重新进行身份验证。"
     },
     "lock": {
         "sign": "为节点签名",

@@ -50,7 +50,9 @@
         "funnel": "Sta Tailscale Funnel toe",
         "hosts": "Peers toevoegen aan /etc/hosts",
         "no_logs_no_support": "Geen logboeken, geen ondersteuning",
+        "tpm": "Sta TPM toe om de nodesleutel te versleutelen",
         "context": {
+            "tpm": "Staat het gebruik van een TPM (Trusted Platform Module) toe voor veilige opslag van de Tailscale-nodesleutel. Dit verhoogt de beveiliging door de nodesleutel te beschermen tegen eenvoudige extractie, zodat alleen geautoriseerde hardware er toegang toe heeft. Voor het inschakelen van deze optie is TPM 2.0 vereist. Het heeft geen effect als het systeem geen compatibele TPM heeft.",
             "unraid_listen": "Configureert Unraid diensten (SSH, WebGUI, SMB, etc.) om te luisteren op Tailscale adressen.",
             "ip_forward": "Zet net.ipv4.ip_forward en net.ipv6.conf.all.forwarding naar 1 in sysctl. Deze wijziging vindt onmiddellijk plaats wanneer deze wordt ingeschakeld.",
             "taildrop": "Specificeer het pad voor inkomende Taildrop bestanden.",
@@ -108,7 +110,8 @@
         "dns": "Het inschakelen van Tailscale MagicDNS op uw server kan naamresolutie binnen Docker-containers verstoren, waardoor mogelijk verbindingsproblemen voor applicaties ontstaan. MagicDNS hoeft niet ingeschakeld te zijn op de server om uw Unraid-server te kunnen benaderen via MagicDNS-namen (bijv. 'unraid.tailnet.ts.net') vanaf andere apparaten. Het inschakelen van 'Peers toevoegen aan /etc/hosts' is een veiliger alternatief waarmee Tailscale-namen op de server kunnen worden gebruikt.",
         "caution": "Ga voorzichtig verder en zorg ervoor dat u de gevolgen van deze wijziging begrijpt voordat u doorgaat.",
         "more_info": "Voor meer informatie:",
-        "peer_relay_no_acl": "Niet geconfigureerd in het Tailnet-beleid (toegangscontroles)."
+        "peer_relay_no_acl": "Niet geconfigureerd in het Tailnet-beleid (toegangscontroles).",
+        "tpm": "Het inschakelen van de TPM koppelt de Tailscale-nodesleutel aan de specifieke hardware van dit apparaat. Als de TPM later wordt uitgeschakeld, wordt de Tailscale-nodesleutel ongeldig en moet het apparaat opnieuw worden geverifieerd bij Tailscale. TPM's kunnen ook vergrendelen, wat de Tailscale-verbinding kan verstoren en herauthenticatie kan vereisen."
     },
     "lock": {
         "sign": "Nodes ondertekenen",

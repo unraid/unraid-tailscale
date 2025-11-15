@@ -50,7 +50,9 @@
         "funnel": "Zezwól na Tailscale Funnel",
         "hosts": "Dodaj peerów do /etc/hosts",
         "no_logs_no_support": "Brak dzienników, brak wsparcia",
+        "tpm": "Zezwól TPM na szyfrowanie klucza węzła",
         "context": {
+            "tpm": "Umożliwia użycie TPM (Trusted Platform Module) do bezpiecznego przechowywania klucza węzła Tailscale. Zwiększa to bezpieczeństwo, chroniąc klucz węzła przed łatwym wydobyciem i zapewniając, że tylko autoryzowany sprzęt może mieć do niego dostęp. Włączenie tej opcji wymaga TPM 2.0. Jeśli system nie posiada kompatybilnego TPM, opcja ta nie ma wpływu.",
             "unraid_listen": "Konfiguruje usługi Unraid (SSH, WebGUI, SMB itd.), aby nasłuchiwały na adresach Tailscale.",
             "ip_forward": "Ustawia net.ipv4.ip_forward oraz net.ipv6.conf.all.forwarding na 1 w sysctl. Ta zmiana następuje natychmiast po włączeniu.",
             "taildrop": "Określ ścieżkę dla przychodzących plików Taildrop.",
@@ -108,7 +110,8 @@
         "dns": "Włączenie MagicDNS Tailscale na serwerze może zakłócić rozwiązywanie nazw w kontenerach Docker, co może powodować problemy z łącznością aplikacji. Nie musisz włączać MagicDNS na serwerze, aby uzyskiwać dostęp do serwera Unraid przy użyciu nazw MagicDNS (np. \"unraid.tailnet.ts.net\") z innych urządzeń. Włączenie opcji \"Dodaj peerów do /etc/hosts\" to bezpieczniejsza alternatywa, która pozwala na używanie nazw Tailscale na serwerze.",
         "caution": "Zachowaj ostrożność i upewnij się, że rozumiesz konsekwencje tej zmiany przed kontynuacją.",
         "more_info": "Więcej informacji:",
-        "peer_relay_no_acl": "Niezkonfigurowane w polityce Tailnet (kontrola dostępu)."
+        "peer_relay_no_acl": "Niezkonfigurowane w polityce Tailnet (kontrola dostępu).",
+        "tpm": "Włączenie TPM przypisuje klucz węzła Tailscale do konkretnego sprzętu tego urządzenia. Jeśli TPM zostanie później wyłączony, klucz węzła Tailscale stanie się nieprawidłowy i urządzenie będzie wymagać ponownej autoryzacji w Tailscale. Istnieje również możliwość zablokowania TPM, co może zakłócić łączność Tailscale i wymagać ponownej autoryzacji."
     },
     "lock": {
         "sign": "Podpisz węzły",

@@ -50,7 +50,9 @@
         "funnel": "Permitir Tailscale Funnel",
         "hosts": "Agregar pares a /etc/hosts.",
         "no_logs_no_support": "Sin registros, sin asistencia",
+        "tpm": "Permitir que el TPM cifre la clave de nodo",
         "context": {
+            "tpm": "Activa el uso de un TPM (Módulo de Plataforma Segura) para el almacenamiento seguro de la clave de nodo de Tailscale. Esto mejora la seguridad al proteger la clave de nodo contra extracciones no autorizadas, asegurando que solo el hardware autorizado pueda acceder a ella. Activar esta opción requiere TPM 2.0. No tiene efecto si el sistema no cuenta con un TPM compatible.",
             "unraid_listen": "Configura los servicios de Unraid (SSH, WebGUI, SMB, etc.) para escuchar las direcciones de Tailscale.",
             "ip_forward": "Establece net.ipv4.ip_forward y net.ipv6.conf.all.forwarding a 1 en sysctl. Este cambio ocurre inmediatamente cuando se activa.",
             "taildrop": "Especifique la ruta para los archivos entrantes de Taildrop.",
@@ -108,7 +110,8 @@
         "dns": "Habilitar MagicDNS de Tailscale en su servidor puede interrumpir la resolución de nombres dentro de los contenedores Docker, lo que puede causar problemas de conectividad para las aplicaciones. No es necesario habilitar MagicDNS en el servidor para que usted acceda a su servidor Unraid usando nombres de MagicDNS (por ejemplo, 'unraid.tailnet.ts.net') desde otros dispositivos. Habilitar 'Agregar pares a /etc/hosts' es una alternativa más segura que permite utilizar los nombres de Tailscale en el servidor.",
         "caution": "Proceda con precaución y asegúrese de comprender las implicaciones de este cambio antes de continuar.",
         "more_info": "Para más información:",
-        "peer_relay_no_acl": "No está configurado en la política de Tailnet (controles de acceso)."
+        "peer_relay_no_acl": "No está configurado en la política de Tailnet (controles de acceso).",
+        "tpm": "Activar el TPM vincula la clave de nodo de Tailscale al hardware específico de este dispositivo. Si posteriormente se desactiva el TPM, la clave de nodo de Tailscale dejará de ser válida y será necesario volver a autenticar el dispositivo con Tailscale. También es posible que los TPM se bloqueen, lo que puede interrumpir la conectividad de Tailscale y requerir una nueva autenticación."
     },
     "lock": {
         "sign": "Firma nodos",

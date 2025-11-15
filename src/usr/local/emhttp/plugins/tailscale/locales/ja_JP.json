@@ -50,7 +50,9 @@
         "funnel": "Tailscale Funnel を許可",
         "hosts": "/etc/hosts にピアを追加する (Add Peers)",
         "no_logs_no_support": "ログを無効にすると、サポートは受けられません",
+        "tpm": "TPM を使用してノードキーを暗号化する",
         "context": {
+            "tpm": "TPM（Trusted Platform Module）を使用して Tailscale ノードキーを安全に保存できるようにします。これにより、ノードキーが容易に抽出されるのを防ぎ、認証されたハードウェアのみがアクセス可能になるため、セキュリティが強化されます。このオプションを有効にするには、TPM 2.0 が必要です。システムに互換性のある TPM が存在しない場合、この設定は影響しません。",
             "unraid_listen": "Unraidサービス（SSH、WebGUI、SMBなど）がTailscaleアドレスでリッスンするように設定します。",
             "ip_forward": "net.ipv4.ip_forwardおよびnet.ipv6.conf.all.forwardingをsysctlで1に設定します。この変更は有効化時にすぐに適用されます。",
             "taildrop": "Taildropから受信するファイルのパスを指定します。",
@@ -108,7 +110,8 @@
         "dns": "サーバー上で Tailscale MagicDNS を有効にすると、Docker コンテナ内で名前解決が妨げられ、アプリケーションの接続に問題が発生する可能性があります。他の端末から MagicDNS 名（例: \"unraid.tailnet.ts.net\"）を使って Unraid サーバーへアクセスする場合、サーバー上で MagicDNS を有効にする必要はありません。「/etc/hosts にピアを追加する (Add Peers)」を有効にする方が安全な選択肢であり、サーバー上で Tailscale 名を使用できます。",
         "caution": "十分に注意して進め、この変更の影響を理解したうえで続行してください。",
         "more_info": "詳細はこちら:",
-        "peer_relay_no_acl": "Tailnetポリシー（アクセス制御）で設定されていません。"
+        "peer_relay_no_acl": "Tailnetポリシー（アクセス制御）で設定されていません。",
+        "tpm": "TPM を有効にすると、Tailscale ノードキーがこのデバイスの特定のハードウェアに固定されます。後で TPM を無効にすると、Tailscale ノードキーは無効になり、再度 Tailscale に対して認証する必要があります。また、TPM がロックアウトされることがあり、これにより Tailscale の接続が中断され、再認証が必要になる可能性があります。"
     },
     "lock": {
         "sign": "ノードに署名",
