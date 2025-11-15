@@ -378,4 +378,26 @@ class System extends \EDACerton\PluginUtils\System
 
         file_put_contents('/usr/local/emhttp/plugins/tailscale/custom-params.sh', 'TAILSCALE_CUSTOM_PARAMS="' . $custom_params . '"');
     }
+
+    public static function createTaildropLink(Config $config): void
+    {
+        if ( ! empty($config->TaildropDir) && is_dir($config->TaildropDir) && is_writable($config->TaildropDir)) {
+            $linkPath = '/var/lib/tailscale/Taildrop';
+
+            // Create parent directory if it does not exist
+            $parentDir = dirname($linkPath);
+            if ( ! is_dir($parentDir)) {
+                mkdir($parentDir, 0755, true);
+            }
+
+            if (is_link($linkPath) || file_exists($linkPath)) {
+                unlink($linkPath);
+            }
+
+            symlink($config->TaildropDir, $linkPath);
+            Utils::logwrap("Created Taildrop link from {$linkPath} to {$config->TaildropDir}");
+        } else {
+            Utils::logwrap("Taildrop directory is not set, does not exist, or is not writable, skipping link creation.");
+        }
+    }
 }

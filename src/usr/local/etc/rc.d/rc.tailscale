@@ -1,16 +1,23 @@
 #!/bin/sh
 # /etc/rc.d/rc.tailscaled - start/stop the tailscaled daemon
 
-. /usr/local/emhttp/plugins/tailscale/log.sh
-
-if [ -f /usr/local/emhttp/plugins/tailscale/custom-params.sh ]; then
-    . /usr/local/emhttp/plugins/tailscale/custom-params.sh
-else
-    TAILSCALE_CUSTOM_PARAMS=""
-fi
+. /usr/local/php/unraid-tailscale-utils/log.sh
 
 start_tailscaled() {
   if ! /usr/bin/pgrep --ns $$ --euid root -f "^/usr/local/sbin/tailscaled" 1> /dev/null 2> /dev/null ; then
+
+    /usr/local/php/unraid-tailscale-utils/pre-startup.php
+    if [ $? -ne 0 ]; then
+        log "Tailscale is disabled in settings, not starting tailscaled."
+        return
+    fi
+
+    if [ -f /usr/local/emhttp/plugins/tailscale/custom-params.sh ]; then
+        . /usr/local/emhttp/plugins/tailscale/custom-params.sh
+    else
+        TAILSCALE_CUSTOM_PARAMS=""
+    fi
+
     TAILSCALE_START_CMD="/usr/local/sbin/tailscaled -statedir /boot/config/plugins/tailscale/state -tun tailscale1 $TAILSCALE_CUSTOM_PARAMS"
     log "Starting tailscaled: $TAILSCALE_START_CMD"
     mkdir -p /boot/config/plugins/tailscale/state

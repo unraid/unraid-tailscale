@@ -34,10 +34,10 @@ $utils->run_task('Tailscale\System::createTailscaledParamsFile', array($tailscal
 $utils->run_task('Tailscale\System::applyGRO');
 $utils->run_task('Tailscale\System::setExtraInterface', array($tailscaleConfig));
 $utils->run_task('Tailscale\System::enableIPForwarding', array($tailscaleConfig));
+$utils->run_task('Tailscale\System::createTaildropLink', array($tailscaleConfig));
 
 if ($tailscaleConfig->Enable) {
-    $utils->run_command('/etc/rc.d/rc.tailscale restart > /dev/null &');
+    exit(0);
 } else {
-    $utils->run_command('/etc/rc.d/rc.tailscale stop');
-    $utils->run_command(System::RESTART_COMMAND);
+    exit(1);
 }

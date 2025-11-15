@@ -82,6 +82,11 @@ if [ -d "{{ pluginDirectory }}" ]; then
     rm -rf {{ pluginDirectory }}
 fi
 
+# Remove /etc/rc.d/rc.tailscale symlink if it exists from older versions
+if [ -L "/etc/rc.d/rc.tailscale" ]; then
+    rm -f /etc/rc.d/rc.tailscale
+fi
+
 upgradepkg --install-new /boot/config/plugins/{{ name }}/{{ package_name }}-{{ env['PLUGIN_VERSION'] }}-noarch-1.txz
 
 mkdir -p {{ pluginDirectory }}/bin
