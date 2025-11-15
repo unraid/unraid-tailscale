@@ -49,6 +49,7 @@
         "reauthenticate": "重新认证",
         "funnel": "允许 Tailscale Funnel",
         "hosts": "将对等端添加到 /etc/hosts 文件中。",
+        "no_logs_no_support": "无日志 无支持",
         "context": {
             "unraid_listen": "将Unraid服务（如SSH、WebGUI、SMB等）配置为Tailscale监听地址",
             "ip_forward": "在 sysctl 中将 net.ipv4.ip_forward 和 net.ipv6.conf.all.forwarding 设置为 1。启用后，此更改会立即发生。",
@@ -60,9 +61,10 @@
             "restart": "重新启动 Tailscale 守护程序并重新应用设置。",
             "diagnostics": "下载诊断记录（这可能需要一些时间才能完成）",
             "save": "应用更改时，Tailscale 将重新启动",
-            "reauthenticate": "强制进行 Tailscale 重新认证。这将在认证完成之前断开 Tailscale 的连接。",
+            "reauthenticate": "强制进行 Tailscale 重新认证。",
             "funnel": "允许通过 WebGUI 启用 Tailscale Funnel。如果禁用，Tailscale Funnel 将被禁用。",
-            "hosts": "将 Tailscale 对等端添加到 /etc/hosts 用于名称解析。如果您希望在不启用服务器上的 Tailscale DNS 的情况下使用 Tailnet DNS 名称，这将非常有用。"
+            "hosts": "将 Tailscale 对等端添加到 /etc/hosts 用于名称解析。如果您希望在不启用服务器上的 Tailscale DNS 的情况下使用 Tailnet DNS 名称，这将非常有用。",
+            "no_logs_no_support": "将禁用 Tailscale 的遥测功能，并使您无法获得需要此类遥测用于调试的 Tailscale 支持。"
         }
     },
     "info": {

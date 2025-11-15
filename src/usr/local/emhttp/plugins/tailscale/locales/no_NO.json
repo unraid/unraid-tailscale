@@ -49,6 +49,7 @@
         "reauthenticate": "Reautentiser",
         "funnel": "Tillat Tailscale Funnel",
         "hosts": "Legg til Peers i /etc/hosts",
+        "no_logs_no_support": "Ingen logger, ingen støtte",
         "context": {
             "unraid_listen": "Konfigurerer Unraid-tjenester (SSH, WebGUI, SMB, osv.) til å lytte på Tailscale-adresser.",
             "ip_forward": "Setter net.ipv4.ip_forward og net.ipv6.conf.all.forwarding til 1 i sysctl. Denne endringen skjer umiddelbart når den aktiveres.",
@@ -60,9 +61,10 @@
             "restart": "Starter Tailscale-daemonen på nytt og bruker innstillingene på nytt.",
             "diagnostics": "Last ned diagnostikk (dette kan ta litt tid å fullføre)",
             "save": "Tailscale vil bli startet på nytt når endringer brukes",
-            "reauthenticate": "Tving Tailscale-reauthentisering. Dette vil koble fra Tailscale til autentisering er fullført.",
+            "reauthenticate": "Tving en Tailscale-reauthentisering.",
             "funnel": "Tillater at Tailscale Funnel kan aktiveres via WebGUI. Hvis deaktivert, vil Tailscale Funnel være deaktivert.",
-            "hosts": "Legger til Tailscale-peers i /etc/hosts for navneoppløsning. Dette er nyttig hvis du vil kunne bruke Tailnet DNS-navn uten de potensielle komplikasjonene ved å aktivere Tailscale DNS på serveren."
+            "hosts": "Legger til Tailscale-peers i /etc/hosts for navneoppløsning. Dette er nyttig hvis du vil kunne bruke Tailnet DNS-navn uten de potensielle komplikasjonene ved å aktivere Tailscale DNS på serveren.",
+            "no_logs_no_support": "Deaktiverer Tailscale sin telemetri og gjør at du ikke kan få støtte fra Tailscale som krever slik telemetri for feilsøking."
         }
     },
     "info": {

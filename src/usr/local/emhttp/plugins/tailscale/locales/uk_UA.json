@@ -49,6 +49,7 @@
         "reauthenticate": "Перевірити автентифікацію ще раз",
         "funnel": "Дозволити Tailscale Funnel",
         "hosts": "Додати вузли до /etc/hosts Tailscale",
+        "no_logs_no_support": "Без журналів — без підтримки",
         "context": {
             "unraid_listen": "Налаштовує служби Unraid (SSH, WebGUI, SMB тощо) для прослуховування на адресах Tailscale.",
             "ip_forward": "Встановлює net.ipv4.ip_forward та net.ipv6.conf.all.forwarding у 1 в sysctl. Зміни застосовуються негайно після увімкнення.",
@@ -60,9 +61,10 @@
             "restart": "Перезапустіть демон Tailscale і повторно застосуйте налаштування.",
             "diagnostics": "Завантажити діагностичну інформацію (це може зайняти певний час)",
             "save": "Tailscale буде перезапущено під час застосування змін",
-            "reauthenticate": "Примусити повторну автентифікацію Tailscale. Це призведе до відключення Tailscale до завершення автентифікації.",
+            "reauthenticate": "Примусово виконати повторну автентифікацію Tailscale.",
             "funnel": "Дозволяє увімкнути Tailscale Funnel через WebGUI. Якщо вимкнено, Tailscale Funnel буде вимкнено.",
-            "hosts": "Додає вузли Tailscale до /etc/hosts для вирішення імен. Це корисно, якщо ви хочете використовувати DNS-імена Tailnet, без можливих ускладнень від увімкнення DNS Tailscale на сервері."
+            "hosts": "Додає вузли Tailscale до /etc/hosts для вирішення імен. Це корисно, якщо ви хочете використовувати DNS-імена Tailnet, без можливих ускладнень від увімкнення DNS Tailscale на сервері.",
+            "no_logs_no_support": "Вимикає телеметрію Tailscale і скасовує вашу участь у отриманні підтримки від Tailscale, яка потребує такої телеметрії для налагодження."
         }
     },
     "info": {

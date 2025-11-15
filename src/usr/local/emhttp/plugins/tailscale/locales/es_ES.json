@@ -49,6 +49,7 @@
         "reauthenticate": "Reautentificar",
         "funnel": "Permitir Tailscale Funnel",
         "hosts": "Agregar pares a /etc/hosts.",
+        "no_logs_no_support": "Sin registros, sin asistencia",
         "context": {
             "unraid_listen": "Configura los servicios de Unraid (SSH, WebGUI, SMB, etc.) para escuchar las direcciones de Tailscale.",
             "ip_forward": "Establece net.ipv4.ip_forward y net.ipv6.conf.all.forwarding a 1 en sysctl. Este cambio ocurre inmediatamente cuando se activa.",
@@ -60,9 +61,10 @@
             "restart": "Reinicie el daemon Tailscale y vuelva a aplicar la configuración.",
             "diagnostics": "Descargar diagnóstico (esto puede tardar algún tiempo en completarse)",
             "save": "Tailscale se reiniciará cuando se apliquen los cambios",
-            "reauthenticate": "Forzar una reautenticación de Tailscale. Esto desconectará Tailscale hasta que se complete la autenticación.",
+            "reauthenticate": "Forzar una nueva autenticación de Tailscale.",
             "funnel": "Permite que el funnel de Tailscale se habilite través del WebGUI. Si está deshabilitado, el funnel de Tailscale se deshabilitará.",
-            "hosts": "Agrega pares de Tailscale a /etc/hosts para la resolución de nombres. Esto es útil si deseas usar nombres DNS de Tailnet, sin las posibles complicaciones de habilitar Tailscale DNS en el servidor."
+            "hosts": "Agrega pares de Tailscale a /etc/hosts para la resolución de nombres. Esto es útil si deseas usar nombres DNS de Tailnet, sin las posibles complicaciones de habilitar Tailscale DNS en el servidor.",
+            "no_logs_no_support": "Desactiva la telemetría de Tailscale y te excluye de recibir asistencia de Tailscale que requiera dicha telemetría para la depuración."
         }
     },
     "info": {

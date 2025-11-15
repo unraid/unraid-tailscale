@@ -49,6 +49,7 @@
         "reauthenticate": "Ponowna autoryzacja",
         "funnel": "Zezwól na Tailscale Funnel",
         "hosts": "Dodaj peerów do /etc/hosts",
+        "no_logs_no_support": "Brak dzienników, brak wsparcia",
         "context": {
             "unraid_listen": "Konfiguruje usługi Unraid (SSH, WebGUI, SMB itd.), aby nasłuchiwały na adresach Tailscale.",
             "ip_forward": "Ustawia net.ipv4.ip_forward oraz net.ipv6.conf.all.forwarding na 1 w sysctl. Ta zmiana następuje natychmiast po włączeniu.",
@@ -60,9 +61,10 @@
             "restart": "Restartuje demona Tailscale i ponownie stosuje ustawienia.",
             "diagnostics": "Pobierz diagnostykę (to może chwilę potrwać)",
             "save": "Tailscale zostanie zrestartowany po zastosowaniu zmian",
-            "reauthenticate": "Wymusza ponowną autoryzację Tailscale. Spowoduje to rozłączenie Tailscale do czasu zakończenia uwierzytelniania.",
+            "reauthenticate": "Wymuś ponowną autoryzację Tailscale.",
             "funnel": "Pozwala na włączenie Tailscale Funnel przez WebGUI. Po wyłączeniu, Tailscale Funnel zostanie wyłączony.",
-            "hosts": "Dodaje peerów Tailscale do /etc/hosts w celu rozwiązywania nazw. Jest to przydatne, jeśli chcesz używać nazw DNS Tailnet, bez potencjalnych komplikacji wynikających z włączenia DNS Tailscale na serwerze."
+            "hosts": "Dodaje peerów Tailscale do /etc/hosts w celu rozwiązywania nazw. Jest to przydatne, jeśli chcesz używać nazw DNS Tailnet, bez potencjalnych komplikacji wynikających z włączenia DNS Tailscale na serwerze.",
+            "no_logs_no_support": "Wyłącza telemetrię Tailscale i rezygnujesz tym samym z otrzymania wsparcia od Tailscale, które wymagałoby tej telemetrii do debugowania."
         }
     },
     "info": {

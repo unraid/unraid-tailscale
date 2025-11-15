@@ -49,6 +49,7 @@
         "reauthenticate": "再認証",
         "funnel": "Tailscale Funnel を許可",
         "hosts": "/etc/hosts にピアを追加する (Add Peers)",
+        "no_logs_no_support": "ログを無効にすると、サポートは受けられません",
         "context": {
             "unraid_listen": "Unraidサービス（SSH、WebGUI、SMBなど）がTailscaleアドレスでリッスンするように設定します。",
             "ip_forward": "net.ipv4.ip_forwardおよびnet.ipv6.conf.all.forwardingをsysctlで1に設定します。この変更は有効化時にすぐに適用されます。",
@@ -60,9 +61,10 @@
             "restart": "Tailscaleデーモンを再起動し、設定を再適用します。",
             "diagnostics": "診断情報をダウンロードします（完了までに時間がかかる場合があります）",
             "save": "設定を適用するとTailscaleが再起動します",
-            "reauthenticate": "Tailscaleの再認証を強制します。認証が完了するまでTailscaleは切断されます。",
+            "reauthenticate": "Tailscale の再認証を強制します。",
             "funnel": "WebGUI から Tailscale Funnel を有効化できます。無効にすると、Tailscale Funnel は無効になります。",
-            "hosts": "Tailscale のピアを名前解決のために /etc/hosts に追加します。これは、サーバーで Tailscale DNS を有効にすると発生する可能性のある複雑さを避けつつ、Tailnet の DNS 名を使用したい場合に便利です。"
+            "hosts": "Tailscale のピアを名前解決のために /etc/hosts に追加します。これは、サーバーで Tailscale DNS を有効にすると発生する可能性のある複雑さを避けつつ、Tailnet の DNS 名を使用したい場合に便利です。",
+            "no_logs_no_support": "Tailscale のテレメトリを無効にし、問題のデバッグにテレメトリが必要となる Tailscale からのサポートを受けることを拒否します。"
         }
     },
     "info": {

@@ -49,6 +49,7 @@
         "reauthenticate": "Opnieuw verifiëren",
         "funnel": "Sta Tailscale Funnel toe",
         "hosts": "Peers toevoegen aan /etc/hosts",
+        "no_logs_no_support": "Geen logboeken, geen ondersteuning",
         "context": {
             "unraid_listen": "Configureert Unraid diensten (SSH, WebGUI, SMB, etc.) om te luisteren op Tailscale adressen.",
             "ip_forward": "Zet net.ipv4.ip_forward en net.ipv6.conf.all.forwarding naar 1 in sysctl. Deze wijziging vindt onmiddellijk plaats wanneer deze wordt ingeschakeld.",
@@ -60,9 +61,10 @@
             "restart": "Herstart de Tailscale daemon en pas de instellingen opnieuw toe.",
             "diagnostics": "Download diagnostiek (dit kan enige tijd duren om te voltooien)",
             "save": "Tailscale zal opnieuw worden opgestart wanneer wijzigingen worden toegepast",
-            "reauthenticate": "Forceer een Tailscale herauthenticatie. Tailscale wordt hierdoor losgekoppeld totdat de authenticatie voltooid is.",
+            "reauthenticate": "Forceer een Tailscale-herauthenticatie.",
             "funnel": "Staat toe dat Tailscale Funnel via de WebGUI kan worden ingeschakeld. Indien uitgeschakeld, wordt Tailscale Funnel uitgeschakeld.",
-            "hosts": "Voegt Tailscale-peers toe aan /etc/hosts voor naamresolutie. Dit is handig als u Tailnet-DNS-namen wilt gebruiken, zonder de mogelijke complicaties van het inschakelen van Tailscale DNS op de server."
+            "hosts": "Voegt Tailscale-peers toe aan /etc/hosts voor naamresolutie. Dit is handig als u Tailnet-DNS-namen wilt gebruiken, zonder de mogelijke complicaties van het inschakelen van Tailscale DNS op de server.",
+            "no_logs_no_support": "Schakelt de telemetrie van Tailscale uit en zorgt ervoor dat je geen ondersteuning van Tailscale ontvangt waarvoor die telemetrie nodig zou zijn voor foutopsporing."
         }
     },
     "info": {

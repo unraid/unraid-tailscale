@@ -49,6 +49,7 @@
         "reauthenticate": "다시 인증",
         "funnel": "Tailscale Funnel 허용",
         "hosts": "/etc/hosts에 피어 추가하기​​.",
+        "no_logs_no_support": "로그 비활성화 시 지원 불가",
         "context": {
             "unraid_listen": "Unraid 서비스(SSH, WebGUI, SMB 등)가 Tailscale 주소에서 수신 대기하도록 구성합니다.",
             "ip_forward": "sysctl에서 net.ipv4.ip_forward 및 net.ipv6.conf.all.forwarding을 1로 설정합니다. 이 설정은 활성화 시 즉시 적용됩니다.",
@@ -60,9 +61,10 @@
             "restart": "Tailscale 데몬을 다시 시작하고 설정을 재적용합니다.",
             "diagnostics": "진단을 다운로드합니다(완료까지 시간이 걸릴 수 있습니다).",
             "save": "변경 사항이 적용되면 Tailscale이 다시 시작됩니다.",
-            "reauthenticate": "Tailscale 재인증을 강제합니다. 인증이 완료될 때까지 Tailscale 연결이 끊깁니다.",
+            "reauthenticate": "Tailscale 재인증을 강제합니다.",
             "funnel": "WebGUI를 통해 Tailscale funnel을 활성화할 수 있습니다. 비활성화하면 Tailscale funnel이 비활성화됩니다.",
-            "hosts": "Tailscale 피어를 이름 해석을 위해 /etc/hosts에 추가합니다. 이는 서버에서 Tailscale DNS를 활성화하여 발생할 수 있는 잠재적인 복잡함 없이 Tailnet DNS 이름을 사용하고 싶을 때 유용합니다."
+            "hosts": "Tailscale 피어를 이름 해석을 위해 /etc/hosts에 추가합니다. 이는 서버에서 Tailscale DNS를 활성화하여 발생할 수 있는 잠재적인 복잡함 없이 Tailnet DNS 이름을 사용하고 싶을 때 유용합니다.",
+            "no_logs_no_support": "Tailscale의 원격 측정이 비활성화되어 디버깅에 해당 원격 측정이 필요한 Tailscale의 지원을 받을 수 없습니다."
         }
     },
     "info": {
