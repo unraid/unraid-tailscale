@@ -372,6 +372,10 @@ class System extends \EDACerton\PluginUtils\System
             $custom_params .= "-no-logs-no-support ";
         }
 
+        if ( ! $config->UseTPM) {
+            $custom_params .= "-encrypt-state=false -hardware-attestation=false ";
+        }
+
         file_put_contents('/usr/local/emhttp/plugins/tailscale/custom-params.sh', 'TAILSCALE_CUSTOM_PARAMS="' . $custom_params . '"');
     }
 }

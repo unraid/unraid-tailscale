@@ -101,6 +101,19 @@ if ($tailscaleConfig->Enable) {
         </dd>
     </dl>
     <blockquote class='inline_help'><?= $tr->tr("settings.context.ip_forward"); ?></blockquote>
+
+    <dl>
+    <dt><?= $tr->tr("settings.tpm"); ?></dt>
+    <dd>
+        <select name='USE_TPM' id='USE_TPM' onchange='showSettingWarning("tpm","#USE_TPM");' size='1' class='narrow'>
+            <?= Utils::make_option( ! $tailscaleConfig->UseTPM, '0', $tr->tr("no"));?>
+            <?= Utils::make_option($tailscaleConfig->UseTPM, '1', $tr->tr("yes"));?>
+        </select>
+    </dd>
+    </dl>
+    <blockquote class='inline_help'>
+        <?= $tr->tr("settings.context.tpm"); ?>
+    </blockquote>
 </div>
 
 <dl>
@@ -287,13 +300,15 @@ function showSettingWarning(message, element) {
     const messages = {
         'funnel': "<?= $tr->tr("warnings.funnel"); ?>",
         'subnet': "<?= $tr->tr("warnings.subnet"); ?>",
-        'dns': "<?= $tr->tr("warnings.dns"); ?>"
+        'dns': "<?= $tr->tr("warnings.dns"); ?>",
+        'tpm': "<?= $tr->tr("warnings.tpm"); ?>"
     };
 
     const links = {
         'funnel': "https://docs.unraid.net/unraid-os/manual/security/tailscale/",
         'subnet': "",
-        'dns': ""
+        'dns': "",
+        'tpm': "https://tailscale.com/kb/1596/secure-node-state-storage"
     };
 
     const moreLink = links[message] || "";

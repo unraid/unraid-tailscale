@@ -31,6 +31,7 @@ class Config
     public bool $AllowFunnel;
     public bool $AddPeersToHosts;
     public bool $NoLogsNoSupport;
+    public bool $UseTPM;
 
     public int $WgPort;
     public string $TaildropDir;
@@ -56,6 +57,7 @@ class Config
         $this->AllowFunnel      = boolval($saved_config["ALLOW_FUNNEL"] ?? "0");
         $this->AddPeersToHosts  = boolval($saved_config["ADD_PEERS_TO_HOSTS"] ?? "0");
         $this->NoLogsNoSupport  = boolval($saved_config["NO_LOGS_NO_SUPPORT"] ?? "0");
+        $this->UseTPM           = boolval($saved_config["USE_TPM"] ?? "0");
 
         $this->WgPort = intval($saved_config["WG_PORT"] ?? "0");
 
