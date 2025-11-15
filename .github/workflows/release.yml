@@ -52,12 +52,12 @@ jobs:
           color: ${{ github.event.release.prerelease && '#ffff00' || '#00ff00' }}
           title: New Update Available
           description: |
-            ## :loudspeaker: Tailscale Plugin Update : ${{ github.event.release.name }}
+            ## Tailscale Plugin Update : ${{ github.event.release.name }}
 
             ${{ github.event.release.body }}
           fields: |
             [
-              {"name": ":tv: Channel", "value": ${{ toJson(github.event.release.prerelease && 'Preview :test_tube:' || 'Release') }}, "inline": true},
-              {"name": ":label: Tag", "value": ${{ toJson(github.event.release.tag_name) }}, "inline": true},
-              {"name": ":link: Github Release", "value": ${{ toJson(format('[Link]({0})', github.event.release.html_url)) }}, "inline": true}
+              {"name": "Channel", "value": ${{ toJson(github.event.release.prerelease && 'Preview :test_tube:' || 'Release') }}, "inline": true},
+              {"name": "Tag", "value": ${{ toJson(github.event.release.tag_name) }}, "inline": true},
+              {"name": "Github Release", "value": ${{ toJson(format('[Link]({0})', github.event.release.html_url)) }}, "inline": true}
             ]
