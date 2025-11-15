@@ -56,7 +56,7 @@ if ($tailscaleConfig->Enable) {
 <input type="hidden" name="#cleanup" value="">
 <input type="hidden" name="#command" value="/usr/local/emhttp/plugins/tailscale/restart.sh">
 
-<h3><?= $tr->tr("settings.system_settings"); ?></h3>
+<table class="unraid"><thead><tr><td><?= $tr->tr("settings.system_settings"); ?></td></tr></thead></table>
 
 <div class="advanced">
     <dl>
@@ -127,7 +127,7 @@ if ($tailscaleConfig->Enable) {
 </blockquote>
 
 <div class="advanced">
-    <h3><?= $tr->tr("settings.services"); ?></h3>
+    <table class="unraid"><thead><tr><td><?= $tr->tr("settings.services"); ?></td></tr></thead></table>
 
     <dl>
         <dt><?= $tr->tr("settings.wireguard"); ?></dt>
@@ -138,7 +138,7 @@ if ($tailscaleConfig->Enable) {
     <blockquote class='inline_help'><?= $tr->tr("settings.context.wireguard"); ?></blockquote>
 </div>
 
-<h3><?= $tr->tr("settings.outbound_network"); ?></h3>
+<table class="unraid"><thead><tr><td><?= $tr->tr("settings.outbound_network"); ?></td></tr></thead></table>
 
 <dl>
     <dt><?= $tr->tr("settings.subnets"); ?></dt>
@@ -183,7 +183,7 @@ if ($tailscaleConfig->Enable) {
 
 <?php } ?>
 
-<h3><?= $tr->tr("settings.save"); ?></h3>
+<table class="unraid"><thead><tr><td><?= $tr->tr("settings.save"); ?></td></tr></thead></table>
 
 <dl>
     <dt><strong><?= $tr->tr("settings.context.save"); ?></strong></dt>
@@ -193,7 +193,7 @@ if ($tailscaleConfig->Enable) {
 </dl>
 </form>
 
-<h3><?= $tr->tr("settings.restart"); ?></h3>
+<table class="unraid"><thead><tr><td><?= $tr->tr("settings.restart"); ?></td></tr></thead></table>
 
 <form method="POST" action="/update.php" target="progressFrame">
 <input type="hidden" name="#command" value="/usr/local/emhttp/plugins/tailscale/restart.sh">
@@ -206,7 +206,7 @@ if ($tailscaleConfig->Enable) {
 </form>
 
 <?php if (file_exists('/usr/local/emhttp/plugins/plugin-diagnostics/download.php')) { ?>
-<h3><?= $tr->tr("settings.diagnostics"); ?></h3>
+<table class="unraid"><thead><tr><td><?= $tr->tr("settings.diagnostics"); ?></td></tr></thead></table>
 
 <form method="GET" action="/plugins/plugin-diagnostics/download.php" target="_blank">
 <input type="hidden" name="plugin" value="tailscale">
@@ -221,7 +221,7 @@ if ($tailscaleConfig->Enable) {
 <?php } ?>
 
 <div class="advanced">
-<h3><?= $tr->tr("settings.reauthenticate"); ?></h3>
+<table class="unraid"><thead><tr><td><?= $tr->tr("settings.reauthenticate"); ?></td></tr></thead></table>
 
 <dl>
     <dt><?= $tr->tr("settings.context.reauthenticate"); ?></dt>
@@ -230,7 +230,7 @@ if ($tailscaleConfig->Enable) {
     </dd>
 </dl>
 
-<h3><?= $tr->tr("settings.erase"); ?></h3>
+<table class="unraid"><thead><tr><td><?= $tr->tr("settings.erase"); ?></td></tr></thead></table>
 
 <form method="POST" action="/update.php" target="progressFrame">
 <input type="hidden" name="#command" value="/usr/local/emhttp/plugins/tailscale/erase.sh">
