@@ -368,6 +368,10 @@ class System extends \EDACerton\PluginUtils\System
             $custom_params .= "-port {$config->WgPort} ";
         }
 
+        if ($config->NoLogsNoSupport) {
+            $custom_params .= "--no-logs-no-support ";
+        }
+
         file_put_contents('/usr/local/emhttp/plugins/tailscale/custom-params.sh', 'TAILSCALE_CUSTOM_PARAMS="' . $custom_params . '"');
     }
 }

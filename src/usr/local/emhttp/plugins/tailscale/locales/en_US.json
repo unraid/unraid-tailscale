@@ -49,6 +49,7 @@
         "reauthenticate": "Reauthenticate",
         "funnel": "Allow Tailscale Funnel",
         "hosts": "Add Peers to /etc/hosts",
+        "no_logs_no_support": "No Logs No Support",
         "context": {
             "unraid_listen": "Configures Unraid services (SSH, WebGUI, SMB, etc.) to listen on Tailscale addresses.",
             "ip_forward": "Sets net.ipv4.ip_forward and net.ipv6.conf.all.forwarding to 1 in sysctl. This change occurs immediately when being enabled.",
@@ -62,7 +63,8 @@
             "save": "Tailscale will be restarted when changes are applied",
             "reauthenticate": "Force a Tailscale reauthentication.",
             "funnel": "Allows Tailscale funnel to be enabled via the WebGUI. If disabled, Tailscale funnel will be disabled.",
-            "hosts": "Adds Tailscale peers to /etc/hosts for name resolution. This is useful if you want to use Tailnet DNS names, without the potential complications of enabling Tailscale DNS on the server."
+            "hosts": "Adds Tailscale peers to /etc/hosts for name resolution. This is useful if you want to use Tailnet DNS names, without the potential complications of enabling Tailscale DNS on the server.",
+            "no_logs_no_support": "Disables Tailscale's telemetry and opts you out of getting support from Tailscale that would require such telemetry for debugging."
         }
     },
     "info": {

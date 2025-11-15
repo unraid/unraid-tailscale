@@ -70,6 +70,17 @@ if ($tailscaleConfig->Enable) {
     </dl>
 
     <dl>
+        <dt><?= $tr->tr("settings.no_logs_no_support"); ?></dt>
+        <dd>
+            <select name='NO_LOGS_NO_SUPPORT' size='1' class='narrow'>
+                <?= Utils::make_option($tailscaleConfig->NoLogsNoSupport, '1', $tr->tr("yes"));?>
+                <?= Utils::make_option( ! $tailscaleConfig->NoLogsNoSupport, '0', $tr->tr("no"));?>
+            </select>
+        </dd>
+    </dl>
+    <blockquote class='inline_help'><?= $tr->tr("settings.context.no_logs_no_support"); ?></blockquote>
+
+    <dl>
         <dt><?= $tr->tr("settings.unraid_listen"); ?></dt>
         <dd>
             <select name='INCLUDE_INTERFACE' size='1' class='narrow'>
