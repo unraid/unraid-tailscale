@@ -1,0 +1,75 @@
+name: Tailscale updater
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-tailscale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine versions
+        id: compare
+        run: |
+          latest_tarball="$(curl -fsSL https://pkgs.tailscale.com/stable/?mode=json | jq -r '.TarballsVersion')"
+          current_full="$(jq -r '.tailscaleVersion' plugin.json)"
+          current_tarball="${current_full#tailscale_}"
+          current_tarball="${current_tarball%_amd64}"
+          echo "latest=${latest_tarball}" >> "$GITHUB_OUTPUT"
+          echo "current=${current_tarball}" >> "$GITHUB_OUTPUT"
+          if [ "$latest_tarball" != "$current_tarball" ]; then
+            echo "update=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "update=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stop when up to date
+        if: steps.compare.outputs.update != 'true'
+        run: echo "Tailscale is already up to date."
+
+      - name: Update plugin metadata
+        if: steps.compare.outputs.update == 'true'
+        id: plugin
+        run: |
+          new_full="tailscale_${{ steps.compare.outputs.latest }}_amd64"
+          sha_url="https://pkgs.tailscale.com/stable/tailscale_${{ steps.compare.outputs.latest }}_amd64.tgz.sha256"
+          new_sha="$(curl -fsSL "$sha_url" | cut -d' ' -f1)"
+          tmp="$(mktemp)"
+          jq --arg version "$new_full" --arg sha "$new_sha" \
+            '.tailscaleVersion=$version | .tailscaleSHA256=$sha' \
+            plugin.json > "$tmp"
+          mv "$tmp" plugin.json
+          echo "full_version=$new_full" >> "$GITHUB_OUTPUT"
+          echo "sha=$new_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push branch
+        if: steps.compare.outputs.update == 'true'
+        run: |
+          git checkout -B chore/tailscale-update
+          git add plugin.json
+          git commit -m "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" || exit 0
+          git push --force origin chore/tailscale-update
+
+      - name: Create or update PR
+        if: steps.compare.outputs.update == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" \
+            --body "Automated update via workflow." \
+            --head chore/tailscale-update \
+            --base main \
+            --label chore \
+            || gh pr edit chore/tailscale-update \
+              --title "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" \
+              --body "Automated update via workflow."
