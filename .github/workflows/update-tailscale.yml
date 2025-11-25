@@ -13,9 +13,9 @@ jobs:
   update-tailscale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
-          fetch-depth: 0
+          ref: trunk
 
       - name: Determine versions
         id: compare
@@ -25,7 +25,7 @@ jobs:
             echo "Error: Failed to fetch latest Tailscale version" >&2
             exit 1
           fi
-          current_full="$(jq -r '.tailscaleVersion' plugin.json)"
+          current_full="$(jq -r '.tailscaleVersion' plugin/plugin.json)"
           current_tarball="${current_full#tailscale_}"
           current_tarball="${current_tarball%_amd64}"
           echo "latest=${latest_tarball}" >> "$GITHUB_OUTPUT"
@@ -50,8 +50,8 @@ jobs:
           tmp="$(mktemp)"
           jq --arg version "$new_full" --arg sha "$new_sha" \
             '.tailscaleVersion=$version | .tailscaleSHA256=$sha' \
-            plugin.json > "$tmp"
-          mv "$tmp" plugin.json
+            plugin/plugin.json > "$tmp"
+          mv "$tmp" plugin/plugin.json
           echo "full_version=$new_full" >> "$GITHUB_OUTPUT"
           echo "sha=$new_sha" >> "$GITHUB_OUTPUT"
 
@@ -61,7 +61,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -B chore/tailscale-update
-          git add plugin.json
+          git add plugin/plugin.json
           git commit -m "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" || [ $? -eq 1 ] && exit 0
           git push --force origin chore/tailscale-update
 
