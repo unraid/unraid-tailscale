@@ -62,11 +62,16 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -B chore/tailscale-update
           git add plugin/plugin.json
-          git commit -m "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" || [ $? -eq 1 ] && exit 0
-          git push --force origin chore/tailscale-update
+          if git commit -m "chore: update Tailscale to ${{ steps.compare.outputs.latest }}"; then
+            git push --force origin chore/tailscale-update
+            echo "commit_made=true" >> $GITHUB_ENV
+          else
+            echo "No changes to commit."
+            echo "commit_made=false" >> $GITHUB_ENV
+          fi
 
       - name: Create or update PR
-        if: steps.compare.outputs.update == 'true'
+        if: steps.compare.outputs.update == 'true' && env.commit_made == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
