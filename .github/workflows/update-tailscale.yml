@@ -21,6 +21,10 @@ jobs:
         id: compare
         run: |
           latest_tarball="$(curl -fsSL https://pkgs.tailscale.com/stable/?mode=json | jq -r '.TarballsVersion')"
+          if [ -z "$latest_tarball" ]; then
+            echo "Error: Failed to fetch latest Tailscale version" >&2
+            exit 1
+          fi
           current_full="$(jq -r '.tailscaleVersion' plugin.json)"
           current_tarball="${current_full#tailscale_}"
           current_tarball="${current_tarball%_amd64}"
@@ -54,9 +58,11 @@ jobs:
       - name: Commit and push branch
         if: steps.compare.outputs.update == 'true'
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -B chore/tailscale-update
           git add plugin.json
-          git commit -m "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" || exit 0
+          git commit -m "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" || [ $? -eq 1 ] && exit 0
           git push --force origin chore/tailscale-update
 
       - name: Create or update PR
@@ -68,7 +74,7 @@ jobs:
             --title "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" \
             --body "Automated update via workflow." \
             --head chore/tailscale-update \
-            --base main \
+            --base trunk \
             --label chore \
             || gh pr edit chore/tailscale-update \
               --title "chore: update Tailscale to ${{ steps.compare.outputs.latest }}" \
