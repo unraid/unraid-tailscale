@@ -4,7 +4,7 @@
 <PLUGIN 
   name="tailscale"
   author="Derek Kaser"
-  version="2025.11.24.0337"
+  version="2025.11.25.2219"
   launch="Settings/Tailscale"
   pluginURL="https://raw.githubusercontent.com/unraid/unraid-tailscale/preview/plugin/tailscale-preview.plg"
   support="https://forums.unraid.net/topic/136889-plugin-tailscale/"
@@ -15,6 +15,12 @@
 
 <CHANGES>
 <![CDATA[
+
+### 2025.11.25.2219
+
+### 🧰 Maintenance
+
+- Update Tailscale to 1.90.9 ([#80](https://github.com/unraid/unraid-tailscale/pull/80))
 
 ### 2025.11.24.0337
 
@@ -31,19 +37,6 @@
 ### 🧰 Maintenance
 
 - Update Tailscale to 1.90.8 ([#75](https://github.com/unraid/unraid-tailscale/pull/75))
-
-### 2025.11.15.1618
-
-### 🚀 Features
-
-- Add option to allow TPM encryption ([#71](https://github.com/unraid/unraid-tailscale/pull/71))
-- Add option for no-logs-no-support ([#68](https://github.com/unraid/unraid-tailscale/pull/68))
-- Seamless reauthentication ([#66](https://github.com/unraid/unraid-tailscale/pull/66))
-
-### 🐛 Bug Fixes
-
-- Move all startup logic into rc.d for consistency with other apps ([#72](https://github.com/unraid/unraid-tailscale/pull/72))
-- Prettier groups on the settings tab ([#69](https://github.com/unraid/unraid-tailscale/pull/69))
 
 
 For older releases, see https://github.com/unraid/unraid-tailscale/releases
@@ -82,14 +75,14 @@ if ($oldPlugin !== "") {
 </INLINE>
 </FILE>
 
-<FILE Name="/boot/config/plugins/tailscale/tailscale_1.90.8_amd64.tgz">
-<URL>https://pkgs.tailscale.com/stable/tailscale_1.90.8_amd64.tgz</URL>
-<SHA256>954f7cbc41cc0ff55ff10612458c3266356464b94c3da95fb497723c5f131b5f</SHA256>
+<FILE Name="/boot/config/plugins/tailscale/tailscale_1.90.9_amd64.tgz">
+<URL>https://pkgs.tailscale.com/stable/tailscale_1.90.9_amd64.tgz</URL>
+<SHA256>c61bad47c11647b579c15906dabdd20b58252e826306b6415a04fca78d14bedb</SHA256>
 </FILE>
 
-<FILE Name="/boot/config/plugins/tailscale/unraid-tailscale-utils-2025.11.24.0337-noarch-1.txz">
-<URL>https://github.com/unraid/unraid-tailscale/releases/download/2025.11.24.0337/unraid-tailscale-utils-2025.11.24.0337-noarch-1.txz</URL>
-<SHA256>85417572e216cca84145eaf27103ed2ed83f3248649fc820df3285f16478b598</SHA256>
+<FILE Name="/boot/config/plugins/tailscale/unraid-tailscale-utils-2025.11.25.2219-noarch-1.txz">
+<URL>https://github.com/unraid/unraid-tailscale/releases/download/2025.11.25.2219/unraid-tailscale-utils-2025.11.25.2219-noarch-1.txz</URL>
+<SHA256>0679cbed77ba0e13ab999b227a6f026255a1ad1188f15880e0fa881bd5aded62</SHA256>
 </FILE>
 
 <!--
@@ -107,10 +100,10 @@ if [ -L "/etc/rc.d/rc.tailscale" ]; then
     rm -f /etc/rc.d/rc.tailscale
 fi
 
-upgradepkg --install-new /boot/config/plugins/tailscale/unraid-tailscale-utils-2025.11.24.0337-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/tailscale/unraid-tailscale-utils-2025.11.25.2219-noarch-1.txz
 
 mkdir -p /usr/local/emhttp/plugins/tailscale/bin
-tar xzf /boot/config/plugins/tailscale/tailscale_1.90.8_amd64.tgz --strip-components 1 -C /usr/local/emhttp/plugins/tailscale/bin
+tar xzf /boot/config/plugins/tailscale/tailscale_1.90.9_amd64.tgz --strip-components 1 -C /usr/local/emhttp/plugins/tailscale/bin
 
 echo "state" > /boot/config/plugins/tailscale/.gitignore
 
@@ -135,8 +128,8 @@ sed -i "s/Tailscale\*\*/Tailscale (Preview)**/" /usr/local/emhttp/plugins/tailsc
 tailscale completion bash > /etc/bash_completion.d/tailscale
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/tailscale/unraid-tailscale-utils-*.txz 2>/dev/null | grep -v '2025.11.24.0337')
-rm -f $(ls /boot/config/plugins/tailscale/*.tgz 2>/dev/null | grep -v 'tailscale_1.90.8_amd64')
+rm -f $(ls /boot/config/plugins/tailscale/unraid-tailscale-utils-*.txz 2>/dev/null | grep -v '2025.11.25.2219')
+rm -f $(ls /boot/config/plugins/tailscale/*.tgz 2>/dev/null | grep -v 'tailscale_1.90.9_amd64')
 
 # check to see if the state file has been backed up to Unraid Connect
 if [ -d "/boot/.git" ]; then
@@ -159,7 +152,7 @@ fi
 echo ""
 echo "----------------------------------------------------"
 echo " tailscale has been installed."
-echo " Version: 2025.11.24.0337"
+echo " Version: 2025.11.25.2219"
 echo "----------------------------------------------------"
 echo ""
 ]]>
