@@ -103,7 +103,7 @@
     },
     "warnings": {
         "key_expiration": "La clé Tailscale expirera dans %s jours sur %s.",
-        "netbios": "NetBIOS est activé dans les <a href='/Settings/SMB'>paramètres SMB</a> - cela peut empêcher l'accès aux partages via Tailscale.",
+        "netbios": "NetBIOS est activé dans les paramètres SMB - cela peut empêcher l'accès aux partages via Tailscale.",
         "lock": "Le verrouillage du tailnet est activé, mais ce nœud n’a pas été signé. Il ne pourra pas communiquer avec le tailnet.",
         "funnel": "L’activation de Tailscale Funnel pour le WebGUI Unraid expose votre serveur à Internet, augmentant considérablement le risque d’accès non autorisé et d’attaques potentielles. Cette fonctionnalité ne doit être activée que si vous comprenez parfaitement l’impact sur la sécurité. L’approche recommandée/sécurisée pour l’accès à distance consiste à installer Tailscale sur les appareils que vous prévoyez d’utiliser pour accéder au WebGUI, au lieu d’activer Funnel.",
         "subnet": "L’acceptation des sous-réseaux Tailscale sur votre serveur Unraid peut perturber la connectivité du réseau local dans certaines configurations réseau. L’acceptation des routes n’est pas nécessaire pour que votre serveur Unraid fonctionne comme routeur de sous-réseaux ou nœud de sortie. Activez cette option uniquement si votre serveur Unraid doit se connecter à des sous-réseaux distants annoncés par d’autres appareils.",
