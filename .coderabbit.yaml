@@ -13,3 +13,6 @@ reviews:
   tools:
     phpstan:
       enabled: false
+issue_enrichment:
+  auto_enrich:
+    enabled: false
