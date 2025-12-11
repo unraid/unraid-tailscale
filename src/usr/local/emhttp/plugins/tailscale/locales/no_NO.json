@@ -103,7 +103,7 @@
     },
     "warnings": {
         "key_expiration": "Tailscale-nøkkelen utløper om %s dager, den %s.",
-        "netbios": "NetBIOS er aktivert i <a href='/Settings/SMB'>SMB-innstillinger</a> - dette kan forhindre tilgang til delinger via Tailscale.",
+        "netbios": "NetBIOS er aktivert i SMB-innstillinger - dette kan forhindre tilgang til delinger via Tailscale.",
         "lock": "Tailnettet har lås aktivert, men denne noden er ikke signert. Den vil ikke kunne kommunisere med tailnettet.",
         "funnel": "Hvis du aktiverer Tailscale Funnel for Unraid WebGUI, eksponeres serveren din mot internett, noe som øker risikoen for uautorisert tilgang og potensielle angrep betydelig. Denne funksjonen bør kun aktiveres hvis du fullt ut forstår sikkerhetskonsekvensene. Den anbefalte/sikre metoden for ekstern tilgang er å installere Tailscale på enhetene du bruker til å få tilgang til WebGUI i stedet for å aktivere Funnel.",
         "subnet": "Å godta Tailscale-subnett på Unraid-serveren din kan forstyrre lokal nettverkstilkobling i visse nettverkskonfigurasjoner. Å godta ruter er ikke nødvendig for at Unraid-serveren din skal fungere som en subnettruter eller exit node. Aktiver kun dette alternativet hvis Unraid-serveren din må koble til eksterne subnett annonsert av andre enheter.",

@@ -103,7 +103,7 @@
     },
     "warnings": {
         "key_expiration": "Klucz Tailscale wygaśnie za %s dni, dnia %s.",
-        "netbios": "NetBIOS jest włączony w <a href='/Settings/SMB'>ustawieniach SMB</a> - może to uniemożliwić dostęp do udziałów przez Tailscale.",
+        "netbios": "NetBIOS jest włączony w ustawieniach SMB - może to uniemożliwić dostęp do udziałów przez Tailscale.",
         "lock": "Sieć tailnet ma włączoną blokadę, ale ten węzeł nie został podpisany. Nie będzie mógł komunikować się z tailnetem.",
         "funnel": "Włączenie Tailscale Funnel dla WebGUI Unraid wystawia Twój serwer na internet, znacząco zwiększając ryzyko nieautoryzowanego dostępu oraz potencjalnych ataków. Funkcję tę należy włączać jedynie, jeśli w pełni rozumiesz jej wpływ na bezpieczeństwo. Zalecaną i bezpieczniejszą metodą zdalnego dostępu jest instalacja Tailscale na urządzeniach, z których planujesz korzystać z WebGUI, zamiast włączać Tailscale Funnel.",
         "subnet": "Akceptowanie podsieci Tailscale na Twoim serwerze Unraid może zakłócić łączność w sieci lokalnej w niektórych konfiguracjach. Akceptacja tras nie jest wymagana, aby Unraid działał jako router podsieci lub węzeł wyjściowy. Włącz tę opcję tylko wtedy, gdy Twój serwer Unraid potrzebuje połączyć się z podsieciami reklamowanymi przez inne urządzenia.",

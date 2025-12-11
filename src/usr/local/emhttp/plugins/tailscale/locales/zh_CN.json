@@ -103,7 +103,7 @@
     },
     "warnings": {
         "key_expiration": "Tailscale 密钥将在 %s 天内在 %s 过期。",
-        "netbios": "NetBIOS 在 <a href='/Settings/SMB'>SMB 设置</a>中已启用 - 这可以阻止通过 Tailscale 访问共享。",
+        "netbios": "NetBIOS 在 SMB 设置中启用 - 这可以阻止通过 Tailscale 访问共享内容。",
         "lock": "尾网（tailnet）已启用锁定，但该节点尚未签名。 它将无法与尾网通信。",
         "funnel": "为 Unraid WebGUI 启用 Tailscale Funnel 会使您的服务器暴露在 Internet 上，极大增加未经授权访问和潜在攻击的风险。只有在您充分理解安全影响的情况下才应启用此功能。建议和安全的远程访问方式是，在您计划用于访问 WebGUI 的设备上安装 Tailscale，而不是启用 Funnel。",
         "subnet": "在您的 Unraid 服务器上接受 Tailscale 子网会在某些网络配置下破坏本地网络连接。作为子网路由器或出口节点，您的 Unraid 服务器并不需要接受路由。只有当您的 Unraid 服务器需要连接其他设备所发布的远程子网时，才应启用该选项。",
