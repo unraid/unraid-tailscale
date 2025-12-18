@@ -19,6 +19,8 @@
 
 namespace Tailscale;
 
+use PhpIP\IPBlock;
+
 class Utils extends \EDACerton\PluginUtils\Utils
 {
     public function setPHPDebug(): void
@@ -86,33 +88,14 @@ class Utils extends \EDACerton\PluginUtils\Utils
 
     public static function validateCidr(string $cidr): bool
     {
-        $parts = explode('/', $cidr);
-        if (count($parts) != 2) {
+        try {
+            $block = IPBlock::create($cidr);
+
+            // Check that the IP address is the network address (host bits are zero)
+            return $block->getNetworkAddress()->humanReadable() . '/' . $block->getPrefixLength() === $cidr;
+        } catch (\Exception $e) {
             return false;
         }
-
-        $ip      = $parts[0];
-        $netmask = $parts[1];
-
-        if ( ! preg_match("/^\d+$/", $netmask)) {
-            return false;
-        }
-
-        $netmask = intval($parts[1]);
-
-        if ($netmask < 0) {
-            return false;
-        }
-
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-            return $netmask <= 32;
-        }
-
-        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-            return $netmask <= 128;
-        }
-
-        return false;
     }
 
     /**

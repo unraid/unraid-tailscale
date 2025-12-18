@@ -45,6 +45,8 @@ $tailscaleInfo = $tailscaleInfo ?? new Info($tr);
 <script src="/plugins/tailscale/lib/select2/select2.min.js"></script>
 <link href="/plugins/tailscale/lib/select2/select2.min.css" rel="stylesheet" />
 
+<script src="/plugins/tailscale/lib/ipaddr.min.js"></script>
+
 <style>
 .select2-container{
     margin: 10px 12px 10px 0;
@@ -133,50 +135,61 @@ async function setTailscaleRelayPort() {
     var res = await $.post('/plugins/tailscale/include/data/Config.php',{action: 'set-relay-port', port: $('#tailscaleRelayPort').val()});
     showTailscaleConfig();
 }
+
+const CIDRResult = Object.freeze({
+    VALID: 'valid',
+    INVALID: 'invalid',
+    EMPTY: 'empty',
+    HOSTBITS_SET: 'hostbits_set'
+});
+
 function isValidCIDR(ip) {
-    if (ip === undefined) {
-        return false;
+    if (ip === undefined || ip.trim() === '') {
+        return CIDRResult.EMPTY;
     }
 
-    var parts = ip.split('/');
-    if (parts.length != 2) {
-        return false;
-    }
-
-    var mask = parseInt(parts[1]);
-    if (isNaN(mask) || mask < 0) {
-        return false;
-    }
-
-    const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}$/;
-    const ipv6Pattern = /^(?:(?:[a-fA-F\d]{1,4}:){7}(?:[a-fA-F\d]{1,4}|:)|(?:[a-fA-F\d]{1,4}:){6}(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|:[a-fA-F\d]{1,4}|:)|(?:[a-fA-F\d]{1,4}:){5}(?::(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,2}|:)|(?:[a-fA-F\d]{1,4}:){4}(?:(?::[a-fA-F\d]{1,4}){0,1}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,3}|:)|(?:[a-fA-F\d]{1,4}:){3}(?:(?::[a-fA-F\d]{1,4}){0,2}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,4}|:)|(?:[a-fA-F\d]{1,4}:){2}(?:(?::[a-fA-F\d]{1,4}){0,3}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,5}|:)|(?:[a-fA-F\d]{1,4}:){1}(?:(?::[a-fA-F\d]{1,4}){0,4}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,6}|:)|(?::(?:(?::[a-fA-F\d]{1,4}){0,5}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-fA-F\d]{1,4}){1,7}|:)))(?:%[0-9a-zA-Z]{1,})?$/gm;
-
-    if(ipv4Pattern.test(parts[0])) {
-        // IPv4
-        if(mask > 32) {
-            return false;
+    try {
+        // Parse and validate CIDR notation
+        const [addr, prefix] = ipaddr.parseCIDR(ip);
+        
+        // Get the network address with host bits cleared
+        let networkAddr;
+        if (addr.kind() === 'ipv4') {
+            networkAddr = ipaddr.IPv4.networkAddressFromCIDR(ip);
+        } else {
+            networkAddr = ipaddr.IPv6.networkAddressFromCIDR(ip);
         }
-    } else if (ipv6Pattern.test(parts[0])) {
-        // IPv6
-        if(mask > 128) {
-            return false;
+        
+        // Check if the original address matches the network address
+        if (addr.toString() !== networkAddr.toString()) {
+            return CIDRResult.HOSTBITS_SET;
         }
-    } else {
-        return false;
-    }
 
-    return true;
+        return CIDRResult.VALID;
+    } catch (e) {
+        return CIDRResult.INVALID;
+    }
 }
 
 function validateTailscaleRoute() {
-    if (! $('#tailscaleRoute').length) {
-        return;
-    }
-
-    if (isValidCIDR($('#tailscaleRoute').val())) {
-        $('#addTailscaleRoute').prop('disabled', false);
-    } else {
-        $('#addTailscaleRoute').prop('disabled', true);
+    switch(isValidCIDR($('#tailscaleRoute').val())) {
+        case CIDRResult.VALID:
+            $('#tailscaleRouteValidation').text('');
+            $('#addTailscaleRoute').prop('disabled', false);
+            break;
+        case CIDRResult.HOSTBITS_SET:
+            $('#tailscaleRouteValidation').text('Invalid CIDR: Host bits may not be set').css('color', 'red');
+            $('#addTailscaleRoute').prop('disabled', true);
+            break;
+        case CIDRResult.EMPTY:
+            $('#tailscaleRouteValidation').text('');
+            $('#addTailscaleRoute').prop('disabled', true);
+            break;
+        case CIDRResult.INVALID:
+        default:
+            $('#tailscaleRouteValidation').text('Invalid CIDR').css('color', 'red');
+            $('#addTailscaleRoute').prop('disabled', true);
+            break;
     }
 }
 
