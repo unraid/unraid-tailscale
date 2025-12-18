@@ -26,6 +26,7 @@ jobs:
       - uses: php-actions/composer@v6
         with:
           working_dir: "src/usr/local/php/unraid-tailscale-utils"
+          php_extensions: gmp
       - run: "vendor/bin/phpstan"
 
   commitlint:
