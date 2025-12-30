@@ -27,10 +27,7 @@ if ( ! defined(__NAMESPACE__ . '\PLUGIN_ROOT') || ! defined(__NAMESPACE__ . '\PL
 
 $tr = $tr ?? new Translator(PLUGIN_ROOT);
 
-$tailscaleConfig = $tailscaleConfig ?? new Config();
-
-if ( ! $tailscaleConfig->Enable) {
-    echo($tr->tr("tailscale_disabled"));
+if ( ! Utils::pageChecks($tr)) {
     return;
 }
 ?>

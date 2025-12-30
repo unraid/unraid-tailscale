@@ -102,6 +102,27 @@ class LocalAPI
         return (object) $decoded;
     }
 
+    public function isReady(): bool
+    {
+        // Check if tailscaleSocket exists
+        if ( ! file_exists($this::tailscaleSocket)) {
+            return false;
+        }
+
+        // Check backend state from status endpoint
+        try {
+            $acceptedStates = ['Running', 'NeedsLogin', 'NeedsMachineAuth', 'Stopped'];
+            $status         = $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/status'));
+            if (isset($status->BackendState) && in_array($status->BackendState, $acceptedStates, true)) {
+                return true;
+            }
+        } catch (\RuntimeException $e) {
+            // No need to log here, as this is just a readiness check
+        }
+
+        return false;
+    }
+
     public function getStatus(): \stdClass
     {
         try {

@@ -20,6 +20,7 @@
 namespace Tailscale;
 
 use PhpIP\IPBlock;
+use EDACerton\PluginUtils\Translator;
 
 class Utils extends \EDACerton\PluginUtils\Utils
 {
@@ -163,5 +164,40 @@ class Utils extends \EDACerton\PluginUtils\Utils
         }
 
         return array_unique($ports);
+    }
+
+    public static function pageChecks(Translator $tr): bool
+    {
+        static $config   = null;
+        static $localAPI = null;
+
+        if ($config === null) {
+            $config = new Config();
+        }
+        if ($localAPI === null) {
+            $localAPI = new LocalAPI();
+        }
+
+        if ( ! $config->Enable) {
+            echo($tr->tr("tailscale_disabled"));
+            return false;
+        }
+
+        if ( ! $localAPI->isReady()) {
+            echo($tr->tr("warnings.not_ready"));
+            echo(<<<EOT
+                <script>
+                    $(function() {
+                        setTimeout(function() {
+                            window.location = window.location.href;
+                        }, 5000);
+                    });
+                </script>
+                EOT
+            );
+            return false;
+        }
+
+        return true;
     }
 }
