@@ -76,21 +76,38 @@ class LocalAPI
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $out = curl_exec($ch);
+        $out       = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
         if ($out === false) {
             throw new \RuntimeException("Tailscale Local API request failed for URL: {$url}");
         }
 
+        if ($http_code < 200 || $http_code >= 300) {
+            throw new \RuntimeException("Tailscale Local API returned HTTP {$http_code} for URL: {$url}");
+        }
+
         return strval($out);
+    }
+
+    private function decodeJSONResponse(string $response): \stdClass
+    {
+        $decoded = json_decode($response);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new \RuntimeException("Failed to decode JSON response: " . json_last_error_msg());
+        }
+
+        return (object) $decoded;
     }
 
     public function getStatus(): \stdClass
     {
         try {
-            return (object) json_decode($this->tailscaleLocalAPI('v0/status'));
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/status'));
         } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get status: " . $e->getMessage());
             return new \stdClass();
         }
     }
@@ -98,8 +115,9 @@ class LocalAPI
     public function getPrefs(): \stdClass
     {
         try {
-            return (object) json_decode($this->tailscaleLocalAPI('v0/prefs'));
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/prefs'));
         } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get prefs: " . $e->getMessage());
             return new \stdClass();
         }
     }
@@ -107,8 +125,9 @@ class LocalAPI
     public function getTkaStatus(): \stdClass
     {
         try {
-            return (object) json_decode($this->tailscaleLocalAPI('v0/tka/status'));
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/tka/status'));
         } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get TKA status: " . $e->getMessage());
             return new \stdClass();
         }
     }
@@ -116,8 +135,9 @@ class LocalAPI
     public function getServeConfig(): \stdClass
     {
         try {
-            return (object) json_decode($this->tailscaleLocalAPI('v0/serve-config'));
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/serve-config'));
         } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get serve config: " . $e->getMessage());
             return new \stdClass();
         }
     }
@@ -125,8 +145,9 @@ class LocalAPI
     public function getPacketFilterRules(): \stdClass
     {
         try {
-            return (object) json_decode($this->tailscaleLocalAPI('v0/debug-packet-filter-rules'));
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/debug-packet-filter-rules'));
         } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get packet filter rules: " . $e->getMessage());
             return new \stdClass();
         }
     }
@@ -136,7 +157,7 @@ class LocalAPI
         try {
             $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, new \stdClass());
         } catch (\RuntimeException $e) {
-            // Ignore
+            $this->utils->logmsg("Failed to reset serve config: " . $e->getMessage());
         }
     }
 
@@ -145,7 +166,7 @@ class LocalAPI
         try {
             $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, $serveConfig->getConfig());
         } catch (\RuntimeException $e) {
-            // Ignore
+            $this->utils->logmsg("Failed to set serve config: " . $e->getMessage());
         }
     }
 
@@ -154,7 +175,7 @@ class LocalAPI
         try {
             $this->tailscaleLocalAPI('v0/login-interactive', APIMethods::POST);
         } catch (\RuntimeException $e) {
-            // Ignore
+            $this->utils->logmsg("Failed to post login interactive: " . $e->getMessage());
         }
     }
 
@@ -167,7 +188,7 @@ class LocalAPI
         try {
             $this->tailscaleLocalAPI('v0/prefs', APIMethods::PATCH, (object) $body);
         } catch (\RuntimeException $e) {
-            // Ignore
+            $this->utils->logmsg("Failed to patch pref {$key}: " . $e->getMessage());
         }
     }
 
@@ -178,7 +199,7 @@ class LocalAPI
         try {
             $this->tailscaleLocalAPI("v0/tka/sign", APIMethods::POST, (object) $body);
         } catch (\RuntimeException $e) {
-            // Ignore
+            $this->utils->logmsg("Failed to sign TKA key: " . $e->getMessage());
         }
     }
 
@@ -187,7 +208,7 @@ class LocalAPI
         try {
             $this->tailscaleLocalAPI('v0/set-expiry-sooner?expiry=0', APIMethods::POST);
         } catch (\RuntimeException $e) {
-            // Ignore
+            $this->utils->logmsg("Failed to expire key: " . $e->getMessage());
         }
     }
 
@@ -200,7 +221,7 @@ class LocalAPI
         try {
             $this->tailscaleLocalAPI("v0/prefs", APIMethods::PATCH, (object) $body);
         } catch (\RuntimeException $e) {
-            // Ignore
+            $this->utils->logmsg("Failed to set AutoUpdate: " . $e->getMessage());
         }
     }
 }
