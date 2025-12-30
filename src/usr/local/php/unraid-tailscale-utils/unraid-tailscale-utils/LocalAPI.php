@@ -76,49 +76,86 @@ class LocalAPI
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $out = curl_exec($ch) ?: false;
+        $out = curl_exec($ch);
         curl_close($ch);
+
+        if ($out === false) {
+            throw new \RuntimeException("Tailscale Local API request failed for URL: {$url}");
+        }
+
         return strval($out);
     }
 
     public function getStatus(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/status'));
+        try {
+            return (object) json_decode($this->tailscaleLocalAPI('v0/status'));
+        } catch (\RuntimeException $e) {
+            return new \stdClass();
+        }
     }
 
     public function getPrefs(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/prefs'));
+        try {
+            return (object) json_decode($this->tailscaleLocalAPI('v0/prefs'));
+        } catch (\RuntimeException $e) {
+            return new \stdClass();
+        }
     }
 
     public function getTkaStatus(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/tka/status'));
+        try {
+            return (object) json_decode($this->tailscaleLocalAPI('v0/tka/status'));
+        } catch (\RuntimeException $e) {
+            return new \stdClass();
+        }
     }
 
     public function getServeConfig(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/serve-config'));
+        try {
+            return (object) json_decode($this->tailscaleLocalAPI('v0/serve-config'));
+        } catch (\RuntimeException $e) {
+            return new \stdClass();
+        }
     }
 
     public function getPacketFilterRules(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/debug-packet-filter-rules'));
+        try {
+            return (object) json_decode($this->tailscaleLocalAPI('v0/debug-packet-filter-rules'));
+        } catch (\RuntimeException $e) {
+            return new \stdClass();
+        }
     }
 
     public function resetServeConfig(): void
     {
-        $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, new \stdClass());
+        try {
+            $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, new \stdClass());
+        } catch (\RuntimeException $e) {
+            // Ignore
+        }
     }
 
     public function setServeConfig(ServeConfig $serveConfig): void
     {
-        $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, $serveConfig->getConfig());
+        try {
+            $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, $serveConfig->getConfig());
+        } catch (\RuntimeException $e) {
+            // Ignore
+        }
     }
 
     public function postLoginInteractive(): void
     {
-        $this->tailscaleLocalAPI('v0/login-interactive', APIMethods::POST);
+        try {
+            $this->tailscaleLocalAPI('v0/login-interactive', APIMethods::POST);
+        } catch (\RuntimeException $e) {
+            // Ignore
+        }
     }
 
     public function patchPref(string $key, mixed $value): void
@@ -127,18 +164,31 @@ class LocalAPI
         $body[$key]        = $value;
         $body["{$key}Set"] = true;
 
-        $this->tailscaleLocalAPI('v0/prefs', APIMethods::PATCH, (object) $body);
+        try {
+            $this->tailscaleLocalAPI('v0/prefs', APIMethods::PATCH, (object) $body);
+        } catch (\RuntimeException $e) {
+            // Ignore
+        }
     }
 
     public function postTkaSign(string $key): void
     {
         $body = ["NodeKey" => $key];
-        $this->tailscaleLocalAPI("v0/tka/sign", APIMethods::POST, (object) $body);
+
+        try {
+            $this->tailscaleLocalAPI("v0/tka/sign", APIMethods::POST, (object) $body);
+        } catch (\RuntimeException $e) {
+            // Ignore
+        }
     }
 
     public function expireKey(): void
     {
-        $this->tailscaleLocalAPI('v0/set-expiry-sooner?expiry=0', APIMethods::POST);
+        try {
+            $this->tailscaleLocalAPI('v0/set-expiry-sooner?expiry=0', APIMethods::POST);
+        } catch (\RuntimeException $e) {
+            // Ignore
+        }
     }
 
     public function setAutoUpdate(bool $enabled): void
@@ -147,6 +197,10 @@ class LocalAPI
         $body["AutoUpdate"]    = ["Apply" => $enabled, "Check" => $enabled];
         $body["AutoUpdateSet"] = ["ApplySet" => true, "CheckSet" => true];
 
-        $this->tailscaleLocalAPI("v0/prefs", APIMethods::PATCH, (object) $body);
+        try {
+            $this->tailscaleLocalAPI("v0/prefs", APIMethods::PATCH, (object) $body);
+        } catch (\RuntimeException $e) {
+            // Ignore
+        }
     }
 }
