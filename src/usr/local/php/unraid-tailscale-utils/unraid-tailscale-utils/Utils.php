@@ -168,13 +168,33 @@ class Utils extends \EDACerton\PluginUtils\Utils
 
     public static function pageChecks(Translator $tr): bool
     {
-        if ( ! (new Config())->Enable) {
+        static $config   = null;
+        static $localAPI = null;
+
+        if ($config === null) {
+            $config = new Config();
+        }
+        if ($localAPI === null) {
+            $localAPI = new LocalAPI();
+        }
+
+        if ( ! $config->Enable) {
             echo($tr->tr("tailscale_disabled"));
             return false;
         }
 
-        if ( ! (new LocalAPI())->isReady()) {
+        if ( ! $localAPI->isReady()) {
             echo($tr->tr("warnings.not_ready"));
+            echo(<<<EOT
+                <script>
+                    $(function() {
+                        setTimeout(function() {
+                            window.location = window.location.href;
+                        }, 5000);
+                    });
+                </script>
+                EOT
+            );
             return false;
         }
 
