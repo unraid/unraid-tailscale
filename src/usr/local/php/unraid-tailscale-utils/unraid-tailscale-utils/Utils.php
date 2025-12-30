@@ -20,6 +20,7 @@
 namespace Tailscale;
 
 use PhpIP\IPBlock;
+use EDACerton\PluginUtils\Translator;
 
 class Utils extends \EDACerton\PluginUtils\Utils
 {
@@ -163,5 +164,20 @@ class Utils extends \EDACerton\PluginUtils\Utils
         }
 
         return array_unique($ports);
+    }
+
+    public static function pageChecks(Translator $tr): bool
+    {
+        if ( ! (new Config())->Enable) {
+            echo($tr->tr("tailscale_disabled"));
+            return false;
+        }
+
+        if ( ! (new LocalAPI())->isReady()) {
+            echo($tr->tr("warnings.not_ready"));
+            return false;
+        }
+
+        return true;
     }
 }

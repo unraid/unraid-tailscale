@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale is not yet ready. Please wait a moment and refresh the page.",
         "key_expiration": "The Tailscale key will expire in %s days on %s.",
         "netbios": "NetBIOS is enabled in SMB settings - this can prevent shares from being accessed via Tailscale.",
         "lock": "The tailnet has lock enabled, but this node has not been signed. It will not be able to communicate with the tailnet.",

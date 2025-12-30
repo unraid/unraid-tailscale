@@ -32,13 +32,18 @@ $tailscaleConfig = $tailscaleConfig ?? new Config();
 $tailscale_dashboard = "<tr><td>" . $tr->tr("tailscale_disabled") . "</td></tr>";
 
 if ($tailscaleConfig->Enable) {
-    $tailscaleInfo     = $tailscaleInfo ?? new Info($tr);
-    $tailscaleDashInfo = $tailscaleInfo->getDashboardInfo();
+    $localAPI = $localAPI ?? new LocalAPI();
+    if ( ! $localAPI->isReady()) {
+        $tailscale_dashboard = "<tr><td>" . $tr->tr("warnings.not_ready") . "</td></tr>";
+    } else {
+        $tailscaleInfo     = $tailscaleInfo ?? new Info($tr);
+        $tailscaleDashInfo = $tailscaleInfo->getDashboardInfo();
 
-    $tailscale_dashboard = Utils::printDash($tr->tr("info.online"), $tailscaleDashInfo->Online);
-    $tailscale_dashboard .= Utils::printDash($tr->tr("info.hostname"), $tailscaleDashInfo->HostName);
-    $tailscale_dashboard .= Utils::printDash($tr->tr("info.dns"), $tailscaleDashInfo->DNSName);
-    $tailscale_dashboard .= Utils::printDash($tr->tr("info.ip"), implode("<br><span class='w26'>&nbsp;</span>", $tailscaleDashInfo->TailscaleIPs));
+        $tailscale_dashboard = Utils::printDash($tr->tr("info.online"), $tailscaleDashInfo->Online);
+        $tailscale_dashboard .= Utils::printDash($tr->tr("info.hostname"), $tailscaleDashInfo->HostName);
+        $tailscale_dashboard .= Utils::printDash($tr->tr("info.dns"), $tailscaleDashInfo->DNSName);
+        $tailscale_dashboard .= Utils::printDash($tr->tr("info.ip"), implode("<br><span class='w26'>&nbsp;</span>", $tailscaleDashInfo->TailscaleIPs));
+    }
 }
 
 echo <<<EOT
