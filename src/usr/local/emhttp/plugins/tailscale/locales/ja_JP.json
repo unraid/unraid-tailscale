@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale はまだ準備ができていません。",
         "key_expiration": "Tailscaleキーは%s日後（%s）に期限切れとなります。",
         "netbios": "SMB設定でNetBIOSが有効になっています - これによりTailscale経由で共有へアクセスできなくなる場合があります。",
         "lock": "tailnetでロックが有効ですが、このノードは署名されていません。tailnetと通信できません。",

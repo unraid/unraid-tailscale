@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale aún no está listo.",
         "key_expiration": "La clave de Tailscale expirará en %s días el %s.",
         "netbios": "NetBIOS está habilitado en la configuración de SMB, lo que puede impedir que se acceda a los recursos compartidos a través de Tailscale.",
         "lock": "La tailnet tiene habilitado el bloqueo, pero este nodo no se ha firmado. No podrá comunicarse con la tailnet.",

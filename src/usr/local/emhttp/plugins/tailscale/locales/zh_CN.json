@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale 尚未准备就绪。",
         "key_expiration": "Tailscale 密钥将在 %s 天内在 %s 过期。",
         "netbios": "NetBIOS 在 SMB 设置中启用 - 这可以阻止通过 Tailscale 访问共享内容。",
         "lock": "尾网（tailnet）已启用锁定，但该节点尚未签名。 它将无法与尾网通信。",
