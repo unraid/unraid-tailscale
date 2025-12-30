@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale är ännu inte redo.",
         "key_expiration": "Tailscale-nyckeln kommer att utgå om %s dagar den %s.",
         "netbios": "NetBIOS är aktiverat i SMB-inställningar - detta kan förhindra åtkomst till delade mappar via Tailscale.",
         "lock": "Tailnet har lås aktiverat, men denna nod är inte signerad. Den kommer inte kunna kommunicera med tailnet.",

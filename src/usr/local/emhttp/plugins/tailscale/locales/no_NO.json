@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale er ikke klar ennå.",
         "key_expiration": "Tailscale-nøkkelen utløper om %s dager, den %s.",
         "netbios": "NetBIOS er aktivert i SMB-innstillinger - dette kan forhindre tilgang til delinger via Tailscale.",
         "lock": "Tailnettet har lås aktivert, men denne noden er ikke signert. Den vil ikke kunne kommunisere med tailnettet.",

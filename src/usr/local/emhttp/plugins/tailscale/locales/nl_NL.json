@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale is nog niet klaar.",
         "key_expiration": "De Tailscale key vervalt in %s dagen op %s.",
         "netbios": "NetBIOS is ingeschakeld in SMB instellingen - dit kan voorkomen dat gedeelde mappen benaderd kunnen worden via Tailscale.",
         "lock": "Het tailnet heeft lock ingeschakeld, maar deze node is niet ondertekend. Het zal niet met het tailnet kunnen communiceren.",

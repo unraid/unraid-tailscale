@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale nie jest jeszcze gotowe.",
         "key_expiration": "Klucz Tailscale wygaśnie za %s dni, dnia %s.",
         "netbios": "NetBIOS jest włączony w ustawieniach SMB - może to uniemożliwić dostęp do udziałów przez Tailscale.",
         "lock": "Sieć tailnet ma włączoną blokadę, ale ten węzeł nie został podpisany. Nie będzie mógł komunikować się z tailnetem.",

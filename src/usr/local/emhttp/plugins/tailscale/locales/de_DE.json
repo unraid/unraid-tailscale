@@ -102,6 +102,7 @@
         }
     },
     "warnings": {
+        "not_ready": "Tailscale ist noch nicht bereit.",
         "key_expiration": "Der Tailscale Schlüssel wird in %s Tagen um %s ablaufen.",
         "netbios": "NetBIOS ist in den SMB-Einstellungen aktiviert - dies kann verhindern, dass über Tailscale auf Freigaben zugegriffen werden kann.",
         "lock": "Für das Tailnet ist die Sperre aktiviert, aber dieser Node wurde nicht signiert. Es wird nicht in der Lage sein, mit dem Tailnet zu kommunizieren.",
