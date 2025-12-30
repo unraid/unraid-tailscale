@@ -76,49 +76,107 @@ class LocalAPI
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        $out = curl_exec($ch) ?: false;
+        $out       = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+
+        if ($out === false) {
+            throw new \RuntimeException("Tailscale Local API request failed for URL: {$url}");
+        }
+
+        if ($http_code < 200 || $http_code >= 300) {
+            throw new \RuntimeException("Tailscale Local API returned HTTP {$http_code} for URL: {$url}");
+        }
+
         return strval($out);
+    }
+
+    private function decodeJSONResponse(string $response): \stdClass
+    {
+        $decoded = json_decode($response);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new \RuntimeException("Failed to decode JSON response: " . json_last_error_msg());
+        }
+
+        return (object) $decoded;
     }
 
     public function getStatus(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/status'));
+        try {
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/status'));
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get status: " . $e->getMessage());
+            return new \stdClass();
+        }
     }
 
     public function getPrefs(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/prefs'));
+        try {
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/prefs'));
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get prefs: " . $e->getMessage());
+            return new \stdClass();
+        }
     }
 
     public function getTkaStatus(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/tka/status'));
+        try {
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/tka/status'));
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get TKA status: " . $e->getMessage());
+            return new \stdClass();
+        }
     }
 
     public function getServeConfig(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/serve-config'));
+        try {
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/serve-config'));
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get serve config: " . $e->getMessage());
+            return new \stdClass();
+        }
     }
 
     public function getPacketFilterRules(): \stdClass
     {
-        return (object) json_decode($this->tailscaleLocalAPI('v0/debug-packet-filter-rules'));
+        try {
+            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/debug-packet-filter-rules'));
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to get packet filter rules: " . $e->getMessage());
+            return new \stdClass();
+        }
     }
 
     public function resetServeConfig(): void
     {
-        $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, new \stdClass());
+        try {
+            $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, new \stdClass());
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to reset serve config: " . $e->getMessage());
+        }
     }
 
     public function setServeConfig(ServeConfig $serveConfig): void
     {
-        $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, $serveConfig->getConfig());
+        try {
+            $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, $serveConfig->getConfig());
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to set serve config: " . $e->getMessage());
+        }
     }
 
     public function postLoginInteractive(): void
     {
-        $this->tailscaleLocalAPI('v0/login-interactive', APIMethods::POST);
+        try {
+            $this->tailscaleLocalAPI('v0/login-interactive', APIMethods::POST);
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to post login interactive: " . $e->getMessage());
+        }
     }
 
     public function patchPref(string $key, mixed $value): void
@@ -127,18 +185,31 @@ class LocalAPI
         $body[$key]        = $value;
         $body["{$key}Set"] = true;
 
-        $this->tailscaleLocalAPI('v0/prefs', APIMethods::PATCH, (object) $body);
+        try {
+            $this->tailscaleLocalAPI('v0/prefs', APIMethods::PATCH, (object) $body);
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to patch pref {$key}: " . $e->getMessage());
+        }
     }
 
     public function postTkaSign(string $key): void
     {
         $body = ["NodeKey" => $key];
-        $this->tailscaleLocalAPI("v0/tka/sign", APIMethods::POST, (object) $body);
+
+        try {
+            $this->tailscaleLocalAPI("v0/tka/sign", APIMethods::POST, (object) $body);
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to sign TKA key: " . $e->getMessage());
+        }
     }
 
     public function expireKey(): void
     {
-        $this->tailscaleLocalAPI('v0/set-expiry-sooner?expiry=0', APIMethods::POST);
+        try {
+            $this->tailscaleLocalAPI('v0/set-expiry-sooner?expiry=0', APIMethods::POST);
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to expire key: " . $e->getMessage());
+        }
     }
 
     public function setAutoUpdate(bool $enabled): void
@@ -147,6 +218,10 @@ class LocalAPI
         $body["AutoUpdate"]    = ["Apply" => $enabled, "Check" => $enabled];
         $body["AutoUpdateSet"] = ["ApplySet" => true, "CheckSet" => true];
 
-        $this->tailscaleLocalAPI("v0/prefs", APIMethods::PATCH, (object) $body);
+        try {
+            $this->tailscaleLocalAPI("v0/prefs", APIMethods::PATCH, (object) $body);
+        } catch (\RuntimeException $e) {
+            $this->utils->logmsg("Failed to set AutoUpdate: " . $e->getMessage());
+        }
     }
 }
