@@ -111,7 +111,7 @@ class LocalAPI
 
         // Check backend state from status endpoint
         try {
-            $acceptedStates = ['Running', 'NeedsLogin', 'NeedsMachineAuth'];
+            $acceptedStates = ['Running', 'NeedsLogin', 'NeedsMachineAuth', 'Stopped'];
             $status         = $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/status'));
             if (isset($status->BackendState) && in_array($status->BackendState, $acceptedStates, true)) {
                 return true;
