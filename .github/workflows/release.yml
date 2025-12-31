@@ -21,6 +21,7 @@ jobs:
           build_prereleases: true
           ssh_key: ${{ secrets.DEPLOY_KEY }}
           composer_dir: src/usr/local/php/unraid-tailscale-utils/
+          php_extensions: gmp
 
       # Print out the commit SHA
       - name: Print commit SHA
