@@ -4,7 +4,7 @@
 <PLUGIN 
   name="tailscale"
   author="Derek Kaser"
-  version="2025.12.31.0011"
+  version="2026.01.08.0308"
   launch="Settings/Tailscale"
   pluginURL="https://raw.githubusercontent.com/unraid/unraid-tailscale/preview/plugin/tailscale-preview.plg"
   support="https://forums.unraid.net/topic/136889-plugin-tailscale/"
@@ -15,6 +15,12 @@
 
 <CHANGES>
 <![CDATA[
+
+### 2026.01.08.0308
+
+### 🧰 Maintenance
+
+- Update Tailscale to 1.92.5 ([#94](https://github.com/unraid/unraid-tailscale/pull/94))
 
 ### 2025.12.31.0011
 
@@ -28,17 +34,6 @@
 ### 🧰 Maintenance
 
 - Update Tailscale to 1.92.3 ([#87](https://github.com/unraid/unraid-tailscale/pull/87)) 
-
-### 2025.12.11.0321
-
-### 🐛 Bug Fixes
-
-- Remove embedded link from SMB warning ([#84](https://github.com/unraid/unraid-tailscale/pull/84))
-
-### 🧰 Maintenance
-
-- Update Tailscale to 1.92.1 ([#85](https://github.com/unraid/unraid-tailscale/pull/85))
- 
 
 
 For older releases, see https://github.com/unraid/unraid-tailscale/releases
@@ -77,14 +72,14 @@ if ($oldPlugin !== "") {
 </INLINE>
 </FILE>
 
-<FILE Name="/boot/config/plugins/tailscale/tailscale_1.92.3_amd64.tgz">
-<URL>https://pkgs.tailscale.com/stable/tailscale_1.92.3_amd64.tgz</URL>
-<SHA256>5f51b7e3819286cb3f18e7999c51e37a967610011e88b6c25ff65c49ab0908dc</SHA256>
+<FILE Name="/boot/config/plugins/tailscale/tailscale_1.92.5_amd64.tgz">
+<URL>https://pkgs.tailscale.com/stable/tailscale_1.92.5_amd64.tgz</URL>
+<SHA256>340936481d6bb7d15ee20c7f881f7b4edef01606a7273cde65164f9e8c5b3c89</SHA256>
 </FILE>
 
-<FILE Name="/boot/config/plugins/tailscale/unraid-tailscale-utils-2025.12.31.0011-noarch-1.txz">
-<URL>https://github.com/unraid/unraid-tailscale/releases/download/2025.12.31.0011/unraid-tailscale-utils-2025.12.31.0011-noarch-1.txz</URL>
-<SHA256>09bd9a6644d0e0e594da25adf7dcf47777946b35cc874053b4225324fd45a201</SHA256>
+<FILE Name="/boot/config/plugins/tailscale/unraid-tailscale-utils-2026.01.08.0308-noarch-1.txz">
+<URL>https://github.com/unraid/unraid-tailscale/releases/download/2026.01.08.0308/unraid-tailscale-utils-2026.01.08.0308-noarch-1.txz</URL>
+<SHA256>85361dcf56aa2b6485ddd6483699a64eeea9b9bf5428e31aa99de746d6886e76</SHA256>
 </FILE>
 
 <!--
@@ -102,10 +97,10 @@ if [ -L "/etc/rc.d/rc.tailscale" ]; then
     rm -f /etc/rc.d/rc.tailscale
 fi
 
-upgradepkg --install-new /boot/config/plugins/tailscale/unraid-tailscale-utils-2025.12.31.0011-noarch-1.txz
+upgradepkg --install-new /boot/config/plugins/tailscale/unraid-tailscale-utils-2026.01.08.0308-noarch-1.txz
 
 mkdir -p /usr/local/emhttp/plugins/tailscale/bin
-tar xzf /boot/config/plugins/tailscale/tailscale_1.92.3_amd64.tgz --strip-components 1 -C /usr/local/emhttp/plugins/tailscale/bin
+tar xzf /boot/config/plugins/tailscale/tailscale_1.92.5_amd64.tgz --strip-components 1 -C /usr/local/emhttp/plugins/tailscale/bin
 
 echo "state" > /boot/config/plugins/tailscale/.gitignore
 
@@ -130,8 +125,8 @@ sed -i "s/Tailscale\*\*/Tailscale (Preview)**/" /usr/local/emhttp/plugins/tailsc
 tailscale completion bash > /etc/bash_completion.d/tailscale
 
 # cleanup old versions
-rm -f $(ls /boot/config/plugins/tailscale/unraid-tailscale-utils-*.txz 2>/dev/null | grep -v '2025.12.31.0011')
-rm -f $(ls /boot/config/plugins/tailscale/*.tgz 2>/dev/null | grep -v 'tailscale_1.92.3_amd64')
+rm -f $(ls /boot/config/plugins/tailscale/unraid-tailscale-utils-*.txz 2>/dev/null | grep -v '2026.01.08.0308')
+rm -f $(ls /boot/config/plugins/tailscale/*.tgz 2>/dev/null | grep -v 'tailscale_1.92.5_amd64')
 
 # check to see if the state file has been backed up to Unraid Connect
 if [ -d "/boot/.git" ]; then
@@ -154,7 +149,7 @@ fi
 echo ""
 echo "----------------------------------------------------"
 echo " tailscale has been installed."
-echo " Version: 2025.12.31.0011"
+echo " Version: 2026.01.08.0308"
 echo "----------------------------------------------------"
 echo ""
 ]]>
