@@ -29,6 +29,7 @@
     ],
     "require": {
         "edacerton/plugin-utils": "^1.0",
-        "rlanvin/php-ip": "^3.0"
+        "rlanvin/php-ip": "^3.0",
+        "php": ">=8.3"
     }
 }
