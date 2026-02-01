@@ -21,7 +21,7 @@
 ### 🧰 Maintenance
 
 - Update Tailscale to 1.94.1 ([#97](https://github.com/unraid/unraid-tailscale/pull/97))
-- Update composer, add php version ([#96](https://github.com/unraid/unraid-tailscale/pull/96))
+- Update composer, add php version ([#96](https://github.com/unraid/unraid-tailscale/pull/96)) 
 
 ### 2026.01.08.0308
 
