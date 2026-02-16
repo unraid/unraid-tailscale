@@ -153,13 +153,13 @@ class LocalAPI
         }
     }
 
-    public function getServeConfig(): \stdClass
+    public function getServeConfig(): ServeConfig
     {
         try {
-            return $this->decodeJSONResponse($this->tailscaleLocalAPI('v0/serve-config'));
+            return new ServeConfig($this->decodeJSONResponse($this->tailscaleLocalAPI('v0/serve-config')));
         } catch (\RuntimeException $e) {
             $this->utils->logmsg("Failed to get serve config: " . $e->getMessage());
-            return new \stdClass();
+            return new ServeConfig();
         }
     }
 
@@ -170,15 +170,6 @@ class LocalAPI
         } catch (\RuntimeException $e) {
             $this->utils->logmsg("Failed to get packet filter rules: " . $e->getMessage());
             return new \stdClass();
-        }
-    }
-
-    public function resetServeConfig(): void
-    {
-        try {
-            $this->tailscaleLocalAPI("v0/serve-config", APIMethods::POST, new \stdClass());
-        } catch (\RuntimeException $e) {
-            $this->utils->logmsg("Failed to reset serve config: " . $e->getMessage());
         }
     }
 

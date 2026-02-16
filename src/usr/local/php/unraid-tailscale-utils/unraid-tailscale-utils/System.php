@@ -19,6 +19,8 @@
 
 namespace Tailscale;
 
+use EDACerton\PluginUtils\Translator;
+
 enum NotificationType: string
 {
     case NORMAL  = 'normal';
@@ -114,7 +116,7 @@ class System extends \EDACerton\PluginUtils\System
         return false;
     }
 
-    public static function checkServeConfig(): void
+    public static function checkServeConfig(Config $config): void
     {
         $ident_config = parse_ini_file("/boot/config/ident.cfg") ?: array();
 
@@ -126,7 +128,7 @@ class System extends \EDACerton\PluginUtils\System
         $localAPI    = new LocalAPI();
         $serveConfig = $localAPI->getServeConfig();
 
-        $tcpConfig = $serveConfig->TCP ?? array();
+        $tcpConfig = $serveConfig->getConfig()->TCP ?? array();
 
         foreach ($tcpConfig as $key => $val) {
             $configPort = intval($key);
@@ -136,10 +138,13 @@ class System extends \EDACerton\PluginUtils\System
                 self::sendNotification(
                     "Tailscale Serve Port Conflict",
                     "Tailscale Serve Port Conflict",
-                    "Port {$configPort} conflicts with WebGUI port. The Tailscale serve config has been reset to remove the conflict.",
+                    "Port {$configPort} conflicts with WebGUI port. The Tailscale serve config is being updated to remove the conflict.",
                     NotificationType::ALERT
                 );
-                $localAPI->resetServeConfig();
+
+                $serveConfig->removeServeByPort($key);
+                $localAPI->setServeConfig($serveConfig);
+
                 Utils::runwrap(self::RESTART_COMMAND);
 
                 return;
@@ -152,10 +157,23 @@ class System extends \EDACerton\PluginUtils\System
         // This should only be done if the Unraid version is 7.2 or later, as earlier versions do not display the config setting.
         $vars = parse_ini_file('/usr/local/emhttp/state/var.ini');
         if (version_compare($vars['version'] ?? "", '7.2', '>=')) {
-            $config = new Config();
-            if (isset($serveConfig->AllowFunnel) && $config->AllowFunnel === false) {
+            if ($serveConfig->hasFunnel() && $config->AllowFunnel === false) {
                 Utils::logwrap("Tailscale funnel is enabled, but config does not allow it, resetting serve config");
-                $localAPI->resetServeConfig();
+
+                // Get the hostname and funnel port, then remove the funnel from the serve config
+                // We need an Info object to get the hostname
+                $info = new Info(null);
+
+                $hostname          = trim($info->getDNSName(), ".");
+                $currentFunnelPort = $serveConfig->getFunnelPort($hostname);
+
+                if ($currentFunnelPort != '') {
+                    $serveConfig->removeFunnel($hostname, $currentFunnelPort);
+                }
+
+                // Remove any remaining funnels, but leave the serve part
+                $serveConfig->resetFunnel();
+                $localAPI->setServeConfig($serveConfig);
             }
         }
     }
@@ -400,6 +418,47 @@ class System extends \EDACerton\PluginUtils\System
             }
         } else {
             Utils::logwrap("Taildrop directory is not set, does not exist, or is not writable, skipping link creation.");
+        }
+    }
+
+    public static function checkFunnelPort(Config $config): void
+    {
+        if ( ! $config->AllowFunnel) {
+            return;
+        }
+
+        // Check if the current port from ident.cfg matches the saved port in the ServeConfig
+        $localAPI      = new LocalAPI();
+        $serveConfig   = $localAPI->getServeConfig();
+        $tailscaleInfo = new Info(null);
+        $hostname      = trim($tailscaleInfo->getDNSName(), ".");
+
+        // Get the current port from ident.cfg
+        $identCfg = parse_ini_file("/boot/config/ident.cfg", false, INI_SCANNER_RAW) ?: array();
+        if ( ! isset($identCfg['PORT'])) {
+            return; // Can't determine expected target without ident.cfg PORT
+        }
+        $currentPort = $identCfg['PORT'];
+
+        $savedPort = $serveConfig->getWebguiPort();
+        if ($savedPort === null) {
+            return;
+        }
+
+        if ($currentPort !== $savedPort) {
+            Utils::logwrap("WebGUI port has changed from {$savedPort} to {$currentPort}, updating funnel configuration");
+
+            $funnelPort = $serveConfig->getFunnelPort($hostname, $savedPort);
+            if ($funnelPort === null) {
+                Utils::logwrap("Could not retrieve funnel port, skipping update");
+                return;
+            }
+
+            $serveConfig->updateWebProxy("{$hostname}:{$funnelPort}", "http://localhost:{$currentPort}");
+            $localAPI->setServeConfig($serveConfig);
+
+            // Update the saved port to the current port
+            $serveConfig->saveWebguiPort($currentPort);
         }
     }
 }
