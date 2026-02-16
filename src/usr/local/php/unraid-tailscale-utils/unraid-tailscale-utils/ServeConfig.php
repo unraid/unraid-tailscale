@@ -84,7 +84,7 @@ class ServeConfig
         return $this->config;
     }
 
-    public function removeServeByPort(int $port): void
+    public function removeServeByPort(string $port): void
     {
         // Remove TCP configuration for the port if it exists
         if (isset($this->config->TCP->{$port})) {

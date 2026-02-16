@@ -142,7 +142,7 @@ class System extends \EDACerton\PluginUtils\System
                     NotificationType::ALERT
                 );
 
-                $serveConfig->removeServeByPort($configPort);
+                $serveConfig->removeServeByPort($key);
                 $localAPI->setServeConfig($serveConfig);
 
                 Utils::runwrap(self::RESTART_COMMAND);
@@ -453,7 +453,7 @@ class System extends \EDACerton\PluginUtils\System
                 Utils::logwrap("Could not retrieve funnel port, skipping update");
                 return;
             }
-            
+
             $serveConfig->updateWebProxy("{$hostname}:{$funnelPort}", "http://localhost:{$currentPort}");
             $localAPI->setServeConfig($serveConfig);
 
