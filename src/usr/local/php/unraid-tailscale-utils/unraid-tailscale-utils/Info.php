@@ -64,7 +64,7 @@ class Info
     private function tr(string $message): string
     {
         if ($this->tr === null) {
-            throw new \RuntimeException("Translator not available.");
+            return $message;
         }
 
         return $this->tr->tr($message);
