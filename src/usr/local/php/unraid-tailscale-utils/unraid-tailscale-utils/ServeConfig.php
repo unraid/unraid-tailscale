@@ -93,7 +93,7 @@ class ServeConfig
 
         // Remove Web configurations matching this port
         if (isset($this->config->Web)) {
-            foreach ($this->config->Web as $fqdn => $webConfig) {
+            foreach ($this->config->Web as $fqdn => $_) {
                 if (str_ends_with($fqdn, ":{$port}")) {
                     unset($this->config->Web->{$fqdn});
 
@@ -197,7 +197,7 @@ class ServeConfig
         $fqdn = trim($hostname, ".");
 
         // Look for a funnel entry that matches our FQDN and has a corresponding Web entry
-        foreach ($serveConfig->AllowFunnel as $hostAndPort => $enabled) {
+        foreach ($serveConfig->AllowFunnel as $hostAndPort => $_) {
             // Check if this entry starts with our FQDN followed by a colon and port
             if (str_starts_with($hostAndPort, $fqdn . ":")) {
                 // Verify this is an "old serve" funnel by checking for a Web entry
