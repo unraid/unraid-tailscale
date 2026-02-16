@@ -83,8 +83,9 @@ class Watcher
                 }
 
                 $allow_check_restart = $utils->run_task('Tailscale\System::checkWebgui', array($this->config, $tailscale_ipv4, $allow_check_restart));
-                $utils->run_task('Tailscale\System::checkServeConfig');
+                $utils->run_task('Tailscale\System::checkServeConfig', array($this->config));
                 $utils->run_task('Tailscale\System::fixLocalSubnetRoutes');
+                $utils->run_task('Tailscale\System::checkFunnelPort', array($this->config));
 
                 // Watch for changes to the DNS name (e.g., if someone changes the tailnet name or the Tailscale name of the server via the admin console)
                 // If a change happens, refresh the Tailscale WebGUI certificate

@@ -38,6 +38,9 @@ try {
         return;
     }
 
+    // Avoid problems if the user changes the WebGUI port after enabling funnel
+    System::checkFunnelPort($tailscaleConfig);
+
     $localAPI      = new LocalAPI();
     $tailscaleInfo = $tailscaleInfo ?? new Info($tr);
 
@@ -139,7 +142,9 @@ try {
                     $funnelSelect .= "<option value=''>{$tr->tr("none")}</option>";
 
                     foreach ($funnelPorts as $port) {
-                        $currentPort = $tailscaleInfo->getFunnelPort();
+                        $serveConfig = $localAPI->getServeConfig();
+                        $currentPort = $serveConfig->getFunnelPort($tailscaleInfo->getDNSName());
+
                         $selected    = $currentPort == $port ? "selected" : "";
                         $disablePort = ( ! in_array($port, $assignedPorts) || $port == $currentPort);
 
@@ -338,26 +343,38 @@ try {
                 throw new \Exception("Missing port parameter");
             }
 
-            // If port is empty, reset the serve config, this disables funnel
-            if ($_POST['port'] == '') {
-                $utils->logmsg("Resetting funnel port");
-                $localAPI->resetServeConfig();
-                break;
-            }
-
             $identCfg = parse_ini_file("/boot/config/ident.cfg", false, INI_SCANNER_RAW) ?: array();
             if ( ! isset($identCfg['PORT'])) {
                 throw new \Exception("Ident configuration does not contain PORT");
             }
 
-            $serveConfig = new ServeConfig(
-                trim($tailscaleInfo->getDNSName(), "."),
-                $_POST['port'],
-                "http://localhost:" . $identCfg['PORT']
-            );
+            $hostname = trim($tailscaleInfo->getDNSName(), ".");
+
+            $serveConfig       = $localAPI->getServeConfig();
+            $currentFunnelPort = $serveConfig->getFunnelPort($hostname);
+
+            if ($currentFunnelPort == $_POST['port']) {
+                break;
+            } elseif ($currentFunnelPort != '') {
+                $serveConfig->removeFunnel($hostname, $currentFunnelPort);
+            }
+
+            $savePort = "";
+
+            if ($_POST['port'] != '') {
+                $serveConfig->configureFunnel(
+                    $hostname,
+                    $_POST['port'],
+                    "http://localhost:" . $identCfg['PORT']
+                );
+                $savePort = $identCfg['PORT'];
+            }
 
             $utils->logmsg("Object: " . json_encode($serveConfig->getConfig(), JSON_UNESCAPED_SLASHES));
             $localAPI->setServeConfig($serveConfig);
+
+            $serveConfig->saveWebguiPort($savePort);
+
             break;
         case 'set-relay-port':
             if ( ! isset($_POST['port'])) {

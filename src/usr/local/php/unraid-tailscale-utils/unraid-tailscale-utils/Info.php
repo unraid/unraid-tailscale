@@ -30,22 +30,23 @@ class Info
     private \stdClass $status;
     private \stdClass $prefs;
     private \stdClass $lock;
-    private \stdClass $serve;
 
-    public function __construct(Translator $tr)
+    public function __construct(?Translator $tr)
     {
         $share_config = parse_ini_file("/boot/config/share.cfg") ?: array();
         $ident_config = parse_ini_file("/boot/config/ident.cfg") ?: array();
 
         $this->localAPI = new LocalAPI();
 
-        $this->tr         = $tr;
+        if ($tr !== null) {
+            $this->tr = $tr;
+        }
+
         $this->smbEnabled = $share_config['shareSMBEnabled'] ?? "";
         $this->useNetbios = $ident_config['USE_NETBIOS']     ?? "";
         $this->status     = $this->localAPI->getStatus();
         $this->prefs      = $this->localAPI->getPrefs();
         $this->lock       = $this->localAPI->getTkaStatus();
-        $this->serve      = $this->localAPI->getServeConfig();
     }
 
     public function getStatus(): \stdClass
@@ -446,22 +447,6 @@ class Info
             }
         }
         return $allowedPorts;
-    }
-
-    public function getFunnelPort(): ?int
-    {
-        if (isset($this->serve->AllowFunnel) && $this->serve->AllowFunnel) {
-            $funnelKeys = array_keys((array)$this->serve->AllowFunnel);
-            if (count($funnelKeys) > 0) {
-                $funnelKey = $funnelKeys[0];
-                $parts     = explode(":", strval($funnelKey));
-                if (count($parts) == 2 && is_numeric($parts[1])) {
-                    return intval($parts[1]);
-                }
-            }
-        }
-
-        return null; // Funnel not enabled
     }
 
     public function getDNSName(): string
