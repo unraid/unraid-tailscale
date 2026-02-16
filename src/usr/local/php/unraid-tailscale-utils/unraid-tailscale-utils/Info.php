@@ -25,7 +25,7 @@ class Info
 {
     private string $useNetbios;
     private string $smbEnabled;
-    private Translator $tr;
+    private ?Translator $tr;
     private LocalAPI $localAPI;
     private \stdClass $status;
     private \stdClass $prefs;
@@ -38,10 +38,7 @@ class Info
 
         $this->localAPI = new LocalAPI();
 
-        if ($tr !== null) {
-            $this->tr = $tr;
-        }
-
+        $this->tr         = $tr;
         $this->smbEnabled = $share_config['shareSMBEnabled'] ?? "";
         $this->useNetbios = $ident_config['USE_NETBIOS']     ?? "";
         $this->status     = $this->localAPI->getStatus();
@@ -66,6 +63,10 @@ class Info
 
     private function tr(string $message): string
     {
+        if ($this->tr === null) {
+            throw new \RuntimeException("Translator not available.");
+        }
+
         return $this->tr->tr($message);
     }
 
