@@ -427,7 +427,6 @@ class System extends \EDACerton\PluginUtils\System
             return;
         }
 
-        Utils::logwrap("Checking funnel port configuration");
         // Check if the current port from ident.cfg matches the saved port in the ServeConfig
         $localAPI      = new LocalAPI();
         $serveConfig   = $localAPI->getServeConfig();
@@ -440,13 +439,11 @@ class System extends \EDACerton\PluginUtils\System
             return; // Can't determine expected target without ident.cfg PORT
         }
         $currentPort = $identCfg['PORT'];
-        Utils::logwrap("Current WebGUI port is {$currentPort}");
 
         $savedPort = $serveConfig->getWebguiPort();
         if ($savedPort === null) {
             return;
         }
-        Utils::logwrap("Saved WebGUI port is {$savedPort}");
 
         if ($currentPort !== $savedPort) {
             Utils::logwrap("WebGUI port has changed from {$savedPort} to {$currentPort}, updating funnel configuration");
@@ -456,8 +453,7 @@ class System extends \EDACerton\PluginUtils\System
                 Utils::logwrap("Could not retrieve funnel port, skipping update");
                 return;
             }
-            Utils::logwrap("Funnel port for {$hostname} is {$funnelPort}");
-
+            
             $serveConfig->updateWebProxy("{$hostname}:{$funnelPort}", "http://localhost:{$currentPort}");
             $localAPI->setServeConfig($serveConfig);
 
