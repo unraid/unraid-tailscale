@@ -141,10 +141,10 @@ try {
                     $funnelSelect = "<select id='funnelPortSelect' onchange='setFunnelPort()' style='width: 100%'>";
                     $funnelSelect .= "<option value=''>{$tr->tr("none")}</option>";
 
-                    foreach ($funnelPorts as $port) {
-                        $serveConfig = $localAPI->getServeConfig();
-                        $currentPort = $serveConfig->getFunnelPort($tailscaleInfo->getDNSName());
+                    $serveConfig = $localAPI->getServeConfig();
+                    $currentPort = $serveConfig->getFunnelPort($tailscaleInfo->getDNSName());
 
+                    foreach ($funnelPorts as $port) {
                         $selected    = $currentPort == $port ? "selected" : "";
                         $disablePort = ( ! in_array($port, $assignedPorts) || $port == $currentPort);
 
