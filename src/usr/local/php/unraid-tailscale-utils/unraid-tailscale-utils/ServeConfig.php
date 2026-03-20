@@ -25,7 +25,7 @@ class ServeConfig
 
     private const CONFIG_FILE = '/boot/config/plugins/tailscale/funnel.json';
 
-    public function __construct(\stdClass $config = null)
+    public function __construct(?\stdClass $config = null)
     {
         $this->config = $config ?? new \stdClass();
     }
