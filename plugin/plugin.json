@@ -5,6 +5,6 @@
   "min": "7.0.0",
   "support": "https://forums.unraid.net/topic/136889-plugin-tailscale/",
   "launch": "Settings/Tailscale",
-  "tailscaleVersion": "tailscale_1.94.2_amd64",
-  "tailscaleSHA256": "c6f99a5d774c7783b56902188d69e9756fc3dddfb08ac6be4cb2585f3fecdc32"
+  "tailscaleVersion": "tailscale_1.96.2_amd64",
+  "tailscaleSHA256": "caa2af3dec57db3c68e47ed927dcdf6d95376f0d82f8dd0bb91ff4228b7f7401"
 }
