@@ -130,10 +130,9 @@ class System extends \EDACerton\PluginUtils\System
 
         // Check if tailscaled is responsive via the local API. If it is not responsive, we will restart it.
         $localAPI = new LocalAPI();
-        try {
-            $status = $localAPI->getStatus();
-        } catch (\RuntimeException $e) {
-            Utils::logwrap("tailscaled is running but not responsive: " . $e->getMessage());
+        $status   = $localAPI->getStatus();
+        if (empty((array) $status)) {
+            Utils::logwrap("tailscaled is running but not responsive.");
             return false;
         }
         return true;
