@@ -116,6 +116,42 @@ class System extends \EDACerton\PluginUtils\System
         return false;
     }
 
+    public static function isTailscaleRunning(): bool
+    {
+        // Objective: check if tailscaled is running, and if not, start it. If it is running, check if it is responsive, and if not, restart it.
+        // tailscaled might be running in containers too, which we don't care about, so when we check for the process, we will check for the one that is running in the host namespace.
+
+        // This will return the PID of the tailscaled process if it is running, or an empty string if it is not.
+        $tailscaled_pid = Utils::runwrap('/usr/bin/pgrep --ns $$ --euid root -f "^/usr/local/sbin/tailscaled"', false, false);
+        if (empty($tailscaled_pid)) {
+            Utils::logwrap("tailscaled is not running.");
+            return false;
+        }
+
+        // Check if tailscaled is responsive via the local API. If it is not responsive, we will restart it.
+        $localAPI = new LocalAPI();
+        $status   = $localAPI->getStatus();
+        if (empty((array) $status)) {
+            Utils::logwrap("tailscaled is running but not responsive.");
+            return false;
+        }
+        return true;
+    }
+
+    public static function checkTailscale(): void
+    {
+        if ( ! self::isTailscaleRunning()) {
+            // Pause and check again to avoid false positives (e.g., during startup/heavy load)
+            sleep(30);
+
+            // This causes a false positive with phpstan because it doesn't know that the process could have started in the meantime
+            // @phpstan-ignore booleanNot.alwaysTrue
+            if ( ! self::isTailscaleRunning()) {
+                Utils::runwrap("/etc/rc.d/rc.tailscale restart");
+            }
+        }
+    }
+
     public static function checkServeConfig(Config $config): void
     {
         $ident_config = parse_ini_file("/boot/config/ident.cfg") ?: array();

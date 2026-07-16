@@ -65,6 +65,8 @@ class Watcher
                 }
             }
 
+            $utils->run_task('Tailscale\System::checkTailscale');
+
             if (isset($tailscale_ipv4)) {
                 if ($need_ip) {
                     $utils->logmsg("Tailscale IP detected, applying configuration");
