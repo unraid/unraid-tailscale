@@ -430,7 +430,10 @@ class System extends \EDACerton\PluginUtils\System
             $custom_params .= "-encrypt-state=false -hardware-attestation=false ";
         }
 
-        file_put_contents('/usr/local/emhttp/plugins/tailscale/custom-params.sh', 'TAILSCALE_CUSTOM_PARAMS="' . $custom_params . '"');
+        $startup_settings = 'TAILSCALE_CUSTOM_PARAMS="' . $custom_params . '"' . "\n";
+        $startup_settings .= 'export TS_SSH_DISABLE_FORWARDING=' . ($config->DisableSSHForwarding ? 'true' : 'false') . "\n";
+
+        file_put_contents('/usr/local/emhttp/plugins/tailscale/custom-params.sh', $startup_settings);
     }
 
     public static function createTaildropLink(Config $config): void

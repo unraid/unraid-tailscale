@@ -38,6 +38,7 @@
         "ip_forward": "Enable IP Forwarding",
         "taildrop": "Taildrop Location",
         "services": "Tailscale Services",
+        "disable_ssh_forwarding": "Disable Tailscale SSH Forwarding",
         "wireguard": "Wireguard Port",
         "outbound_network": "Advanced Network Options",
         "subnets": "Allow Tailscale Subnets",
@@ -52,6 +53,7 @@
         "no_logs_no_support": "No Logs No Support",
         "tpm": "Allow TPM to Encrypt Node Key",
         "context": {
+            "disable_ssh_forwarding": "Disables forwarding through Tailscale SSH, including TCP ports and Unix sockets. SSH shells and SFTP remain available. This does not affect Unraid's built-in SSH server.",
             "tpm": "Enables the use of a TPM (Trusted Platform Module) for secure storage of the Tailscale node key. This enhances security by protecting the node key from being easily extracted, ensuring that only authorized hardware can access it. Enabling this option requires TPM 2.0. It has no effect if the system does not have a compatible TPM.",
             "unraid_listen": "Configures Unraid services (SSH, WebGUI, SMB, etc.) to listen on Tailscale addresses.",
             "ip_forward": "Sets net.ipv4.ip_forward and net.ipv6.conf.all.forwarding to 1 in sysctl. This change occurs immediately when being enabled.",

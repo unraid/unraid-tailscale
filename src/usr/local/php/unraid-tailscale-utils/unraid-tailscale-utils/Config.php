@@ -26,6 +26,7 @@ class Config
     public bool $IPForward;
     public bool $Enable;
     public bool $SSH;
+    public bool $DisableSSHForwarding;
     public bool $AllowDNS;
     public bool $AllowRoutes;
     public bool $AllowFunnel;
@@ -47,17 +48,18 @@ class Config
             $saved_config = array();
         }
 
-        $this->IncludeInterface = boolval($saved_config["INCLUDE_INTERFACE"] ?? "1");
-        $this->Usage            = boolval($saved_config["USAGE"] ?? "1");
-        $this->IPForward        = boolval($saved_config["SYSCTL_IP_FORWARD"] ?? "1");
-        $this->Enable           = boolval($saved_config["ENABLE_TAILSCALE"] ?? "1");
-        $this->SSH              = boolval($saved_config["SSH"] ?? "0");
-        $this->AllowDNS         = boolval($saved_config["ACCEPT_DNS"] ?? "0");
-        $this->AllowRoutes      = boolval($saved_config["ACCEPT_ROUTES"] ?? "0");
-        $this->AllowFunnel      = boolval($saved_config["ALLOW_FUNNEL"] ?? "0");
-        $this->AddPeersToHosts  = boolval($saved_config["ADD_PEERS_TO_HOSTS"] ?? "0");
-        $this->NoLogsNoSupport  = boolval($saved_config["NO_LOGS_NO_SUPPORT"] ?? "0");
-        $this->UseTPM           = boolval($saved_config["USE_TPM"] ?? "0");
+        $this->IncludeInterface     = boolval($saved_config["INCLUDE_INTERFACE"] ?? "1");
+        $this->Usage                = boolval($saved_config["USAGE"] ?? "1");
+        $this->IPForward            = boolval($saved_config["SYSCTL_IP_FORWARD"] ?? "1");
+        $this->Enable               = boolval($saved_config["ENABLE_TAILSCALE"] ?? "1");
+        $this->SSH                  = boolval($saved_config["SSH"] ?? "0");
+        $this->DisableSSHForwarding = boolval($saved_config["DISABLE_SSH_FORWARDING"] ?? "0");
+        $this->AllowDNS             = boolval($saved_config["ACCEPT_DNS"] ?? "0");
+        $this->AllowRoutes          = boolval($saved_config["ACCEPT_ROUTES"] ?? "0");
+        $this->AllowFunnel          = boolval($saved_config["ALLOW_FUNNEL"] ?? "0");
+        $this->AddPeersToHosts      = boolval($saved_config["ADD_PEERS_TO_HOSTS"] ?? "0");
+        $this->NoLogsNoSupport      = boolval($saved_config["NO_LOGS_NO_SUPPORT"] ?? "0");
+        $this->UseTPM               = boolval($saved_config["USE_TPM"] ?? "0");
 
         $this->WgPort = intval($saved_config["WG_PORT"] ?? "0");
 

@@ -143,6 +143,17 @@ if ($tailscaleConfig->Enable) {
     <table class="unraid tablesorter"><thead><tr><td><?= $tr->tr("settings.services"); ?></td></tr></thead></table>
 
     <dl>
+        <dt><?= $tr->tr("settings.disable_ssh_forwarding"); ?></dt>
+        <dd>
+            <select name='DISABLE_SSH_FORWARDING' size='1' class='narrow'>
+                <?= Utils::make_option($tailscaleConfig->DisableSSHForwarding, '1', $tr->tr("yes"));?>
+                <?= Utils::make_option( ! $tailscaleConfig->DisableSSHForwarding, '0', $tr->tr("no"));?>
+            </select>
+        </dd>
+    </dl>
+    <blockquote class='inline_help'><?= $tr->tr("settings.context.disable_ssh_forwarding"); ?></blockquote>
+
+    <dl>
         <dt><?= $tr->tr("settings.wireguard"); ?></dt>
         <dd>
             <input type="number" name="WG_PORT" class="narrow" min="0" max="65535" value="<?= $tailscaleConfig->WgPort; ?>" placeholder="0">
