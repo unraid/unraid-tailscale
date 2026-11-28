@@ -426,7 +426,11 @@ class System extends \EDACerton\PluginUtils\System
             $custom_params .= "-no-logs-no-support ";
         }
 
-        if ( ! $config->UseTPM) {
+        // Since Tailscale 1.92.5 state encryption is opt-in on Linux, and tailscaled will not start if it is asked to encrypt without a TPM
+        $tpmPresent = file_exists('/dev/tpmrm0') || file_exists('/dev/tpm0');
+        if ($config->UseTPM && $tpmPresent) {
+            $custom_params .= "-encrypt-state=true ";
+        } else {
             $custom_params .= "-encrypt-state=false -hardware-attestation=false ";
         }
 
